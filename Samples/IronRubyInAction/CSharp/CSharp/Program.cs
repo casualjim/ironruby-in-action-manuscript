@@ -21,6 +21,12 @@ namespace CSharp
                     case "typeinference":
                         TypeInference.Demonstrate();
                         break;
+                    case "emit":
+                        HelloWorldEmit.Demonstrate();
+                        break;
+                    case "lcg":
+                        HelloWorldLCG.Demonstrate();
+                        break;
                 }
             }
         }

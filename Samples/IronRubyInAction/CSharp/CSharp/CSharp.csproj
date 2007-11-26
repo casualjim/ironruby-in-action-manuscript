@@ -46,10 +46,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HelloWorld.cs" />
+    <Compile Include="HelloWorldEmit.cs" />
+    <Compile Include="HelloWorldLCG.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticTyping.cs" />
     <Compile Include="TypeInference.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HelloWorld.il" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
