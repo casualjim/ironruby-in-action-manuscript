@@ -45,9 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Book.cs" />
     <Compile Include="HelloWorld.cs" />
     <Compile Include="HelloWorldEmit.cs" />
     <Compile Include="HelloWorldLCG.cs" />
+    <Compile Include="IPrintable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticTyping.cs" />

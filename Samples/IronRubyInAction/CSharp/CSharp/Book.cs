@@ -1,12 +1,12 @@
 namespace CSharp
 {
-    public class HelloWorld : IPrintable
+    public class Book : IPrintable
     {
         private readonly string message;
 
-        public HelloWorld()
+        public Book(string message)
         {
-            message = "Hello world !!!";
+            this.message = message;
         }
 
         public string Message
