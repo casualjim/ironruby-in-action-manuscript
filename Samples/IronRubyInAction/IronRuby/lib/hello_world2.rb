@@ -31,7 +31,8 @@ printables.each do |printable|
 end
 
 printables.each do |printable|
-	#when you don't really care about what's going to happen next
+	#when you don't really care about what's going to happen next. 
+	#If there is a print method it will execute otherwise it will fail
 	puts printable.print
 end
 
@@ -42,9 +43,5 @@ printables.each do |printable|
 	puts printable.print 
 end
 
-
-
-
 hw = printables[0]
-
 puts "hw does #{'not ' unless hw.is_a? Printable}implement Printable"
