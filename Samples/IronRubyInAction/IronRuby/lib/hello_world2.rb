@@ -1,4 +1,6 @@
 module Printable
+	attr_reader :message
+	
 	def print
 		@message
 	end
@@ -19,6 +21,10 @@ class Book
 	
 	def initialize(message)
 		@message = message
+	end
+	
+	def print
+		"Book: #{@message}"
 	end
 end
 
