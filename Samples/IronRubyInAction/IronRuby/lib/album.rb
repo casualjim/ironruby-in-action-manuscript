@@ -1,4 +1,5 @@
 class Album
+	attr_reader :artist
 	
 	def initialize(name, artist, songs)
 		@name = name
