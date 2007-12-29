@@ -1,5 +1,5 @@
 class Album
-	attr_reader :artist
+	attr_reader :name, :artist, :songs
 	
 	def initialize(name, artist, songs)
 		@name = name
@@ -13,10 +13,10 @@ class Album
 	
 end
 
-album = Album.new("Ruby Greatest Hits", "Various", ["Summer of 95", "Every character you type", "RubyEyed Girl"])
-
-puts "Album: "
-puts album.print
+#album = Album.new("Ruby Greatest Hits", "Various", ["Summer of 95", "Every character you type", "RubyEyed Girl"])
+#
+#puts "Album: "
+#puts album.print
 
 # outputs the following:
 #
