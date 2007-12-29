@@ -18,8 +18,7 @@ class Single < Album
 		super(name, artist, songs)
 		@max_song_count = 2
 		#make sure there can only be 2 songs on this single
-		arr_bound = @max_song_count - 1
-		@songs = songs[0..arr_bound]
+		@songs = songs[0...@max_song_count]
 	end
 	
 end

@@ -61,9 +61,11 @@
     <SynchronizeExcludeNoExtension>False</SynchronizeExcludeNoExtension>
   </PropertyGroup>
   <ItemGroup>
+    <Ruby Include="lib\album.rb" />
     <Ruby Include="lib\hello_world.rb" />
     <Ruby Include="lib\hello_world2.rb" />
     <Ruby Include="lib\main.rb" />
+    <Ruby Include="lib\inheritance.rb" />
     <Ruby Include="lib\typing.rb" />
     <Ruby Include="test\hello_world_test.rb" />
   </ItemGroup>
