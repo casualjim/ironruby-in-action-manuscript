@@ -69,6 +69,8 @@
     <Ruby Include="lib\main.rb" />
     <Ruby Include="lib\inheritance.rb" />
     <Ruby Include="lib\numbers.rb" />
+    <Ruby Include="lib\regular_expressions.rb" />
+    <Ruby Include="lib\strings.rb" />
     <Ruby Include="lib\typing.rb" />
     <Ruby Include="test\album_list_test.rb" />
     <Ruby Include="test\hello_world_test.rb" />
