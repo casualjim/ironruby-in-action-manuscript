@@ -65,15 +65,21 @@
     <Ruby Include="lib\album_list.rb" />
     <Ruby Include="lib\album_list_with_iterator.rb" />
     <Ruby Include="lib\casewhen.rb" />
+    <Ruby Include="lib\closures.rb" />
     <Ruby Include="lib\code_blocks.rb" />
     <Ruby Include="lib\code_blocks_parameters.rb" />
     <Ruby Include="lib\collections.rb" />
+    <Ruby Include="lib\define_method.rb" />
     <Ruby Include="lib\hello_world.rb" />
     <Ruby Include="lib\hello_world2.rb" />
     <Ruby Include="lib\ifthenelse.rb" />
+    <Ruby Include="lib\iterators.rb" />
     <Ruby Include="lib\loops.rb" />
     <Ruby Include="lib\main.rb" />
     <Ruby Include="lib\inheritance.rb" />
+    <Ruby Include="lib\method_missing.rb" />
+    <Ruby Include="lib\modules\modules.rb" />
+    <Ruby Include="lib\modules\song_ops.rb" />
     <Ruby Include="lib\numbers.rb" />
     <Ruby Include="lib\regular_expressions.rb" />
     <Ruby Include="lib\strings.rb" />
@@ -84,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib" />
+    <Folder Include="lib\modules" />
     <Folder Include="test" />
   </ItemGroup>
   <Target Name="Rebuild" DependsOnTargets="$(RebuildDependsOn)" Inputs="@(Ruby)" Outputs="$(MSBuildProjectDirectory)\SyntaxCheck\%(Identity)">
