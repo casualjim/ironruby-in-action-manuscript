@@ -1,0 +1,4 @@
+name,description
+"Wellington","home and capital"
+"Auckland","the largest city in NZ"
+"Christchurch","the largest city on the south island"

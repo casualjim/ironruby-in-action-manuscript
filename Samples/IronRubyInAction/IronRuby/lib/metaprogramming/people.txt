@@ -1,0 +1,5 @@
+name,age,weight,height
+"Smith, John", 35, 80, "1m85"
+"Peters, Anne", 49, 68, "1m65"
+"Jackson, James", 55, 90, "1m78"
+"Wilkinson, Tanya", 17, 63, "1m72"
