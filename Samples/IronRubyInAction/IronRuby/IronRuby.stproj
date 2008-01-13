@@ -87,6 +87,7 @@
     <Ruby Include="lib\strings.rb" />
     <Ruby Include="lib\transactional_resource.rb" />
     <Ruby Include="lib\typing.rb" />
+    <Ruby Include="shared_types\main.rb" />
     <Ruby Include="test\album_list_test.rb" />
     <Ruby Include="test\hello_world_test.rb" />
   </ItemGroup>
@@ -94,11 +95,13 @@
     <Folder Include="lib" />
     <Folder Include="lib\modules" />
     <Folder Include="lib\metaprogramming" />
+    <Folder Include="shared_types" />
     <Folder Include="test" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\metaprogramming\people.txt" />
     <Content Include="lib\metaprogramming\Places.txt" />
+    <Content Include="shared_types\HelloWorld.js" />
   </ItemGroup>
   <Target Name="Rebuild" DependsOnTargets="$(RebuildDependsOn)" Inputs="@(Ruby)" Outputs="$(MSBuildProjectDirectory)\SyntaxCheck\%(Identity)">
   </Target>
