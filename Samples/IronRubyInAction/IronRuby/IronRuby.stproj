@@ -90,11 +90,17 @@
     <Ruby Include="shared_types\main.rb" />
     <Ruby Include="test\album_list_test.rb" />
     <Ruby Include="test\hello_world_test.rb" />
+    <Ruby Include="wpf\biffy.rb" />
+    <Ruby Include="wpf\main.rb" />
+    <Ruby Include="wpf\wpf.rb" />
+    <Ruby Include="wpf\wpf_elements.rb" />
+    <Ruby Include="wpf\xaml_main.rb" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib" />
     <Folder Include="lib\modules" />
     <Folder Include="lib\metaprogramming" />
+    <Folder Include="wpf" />
     <Folder Include="shared_types" />
     <Folder Include="test" />
   </ItemGroup>
@@ -102,6 +108,7 @@
     <Content Include="lib\metaprogramming\people.txt" />
     <Content Include="lib\metaprogramming\Places.txt" />
     <Content Include="shared_types\HelloWorld.js" />
+    <Content Include="wpf\Biffy.xaml" />
   </ItemGroup>
   <Target Name="Rebuild" DependsOnTargets="$(RebuildDependsOn)" Inputs="@(Ruby)" Outputs="$(MSBuildProjectDirectory)\SyntaxCheck\%(Identity)">
   </Target>
