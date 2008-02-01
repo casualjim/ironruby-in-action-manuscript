@@ -1,0 +1,1 @@
+(in C:/Users/Ivan Porto Carrero/Projects/ironruby_book/Samples/LightSpeedClassGenerator)

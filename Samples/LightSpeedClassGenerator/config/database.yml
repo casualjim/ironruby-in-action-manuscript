@@ -1,0 +1,5 @@
+sqlserver:
+  database: northwind
+  host: localhost
+  username: sa
+  password: Password123
