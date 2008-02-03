@@ -7,5 +7,5 @@ require 'dbi'
 require APP_ROOT + 'lib/sql_connection_manager'
 require APP_ROOT + 'lib/meta_data'
 require APP_ROOT + 'lib/light_speed_entity'
-require APP_ROOT + 'lib/light_speed_entity_generator'
+require APP_ROOT + 'lib/light_speed_repository'
 

@@ -3,19 +3,36 @@ module DB
     attr_accessor :tables, :primary_keys, :foreign_keys, :column_info
 
     def initialize
-      db = DB::DbiSqlServer.new 
-      sql_statements.each do |key, value|
-        instance_variable_set("@"+key.to_s, db.fetch_all(value))					
+      @db = DB::DbiSqlServer.new 
+      
+      populate
+      
+      sql_statements.each_key do |key|
+        define_method("#{key}_for") do |table|
+          send(key, table).select { |item| item[:table_name] == table_name(table) }
+        end unless key == :tables
       end
     end
     
-    def is_join_table?(table_name)
-      fks = foreign_keys.select { |fk| fk[:table_name] == table_name  }     
-        
+    def populate
+      sql_statements.each do |key, value|
+        instance_variable_set("@"+key.to_s, @db.fetch_all(value))				
+      end
+    end
+    
+    def is_join_table?(table)
+      fks = foreign_keys_for table_name(table)
       fks.size > 1
     end
     
-
+    def is_foreign_key?(column_info)
+      fks = foreign_keys.select { |fk| fk[:table_name] == column_info[:table_name] and fk[:child_id] == column_info[:name]  }
+      fks.size > 0
+    end
+    
+    def table_name(table)
+      table.is_a?(Hash) ? table[:name] : table
+    end
     
     private
     

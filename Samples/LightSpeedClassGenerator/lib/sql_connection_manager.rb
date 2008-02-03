@@ -6,18 +6,30 @@ module DB
 		
 		attr_reader :connection_string, :connection
 			
-		def initialize(config_path=DEFAULT_CONFIG_PATH)
-			read_config config_path, 'sqlserver'
+		def initialize(config=DEFAULT_CONFIG_PATH)
+		  if config.is_a? Hash
+		    initialize_config config
+		  else
+		    read_config config, 'sqlserver' unless config.is_a? Hash
+	    end
 		end
 		
-		def read_config(config_path, config_name)
-			config = YAML::load(File.open(config_path || DEFAULT_CONFIG_PATH))[config_name]
-			@host= config['host']
-			@username = config['username']
-			@password = config['password']
-			@database = config['database']
-			@connection=nil
+		def read_config(config_path, config_name = 'sqlserver')
+			initialize_config(YAML::load(File.open(config_path || DEFAULT_CONFIG_PATH))[config_name])
 		end
+		
+		def initialize_config(config)
+		  @config = config
+			@connection=nil
+	  end
+		
+		def is_odbc?
+		  true unless @config.nil? || @config['dsn'].nil?
+		end
+		
+		def connection_string
+		  "DBI:ODBC:#{@config['dsn']}" unless @config.nil?
+	  end
 	
 	end
 	
@@ -28,11 +40,18 @@ module DB
 		
 		def connection
 			if @connection.nil?
-				@connection_string = "DBI:ADO:Provider=SQLOLEDB;Data Source=#{@host};Initial Catalog=#{@database};User ID=#{@username};Password=#{@password};"
-				@connection = DBI.connect(@connection_string, @username, @password)
+			  @connection = DBI.connect(connection_string, @config['username'], @config['password'])
 			end
 			@connection
 		end
+		
+		def connection_string
+		  if is_odbc?
+		    "DBI:ODBC:#{@config['dsn']}"
+		  else
+		    "DBI:ADO:Provider=SQLOLEDB;Data Source=#{@config['host']};Initial Catalog=#{@config['database']};User ID=#{@config['username']};Password=#{@config['password']};"
+	    end
+	  end
 		
 		def fetch_all(sql_statement)
 			result = []
@@ -48,10 +67,10 @@ module DB
 			result
 		end
 		
+		def execute_non_query(sql_statement)
+		  connection.do sql_statement
+		end
+		
 	end
-	
-#	require 'lib/connection_manager.rb'
-#	db = DB::DbiSqlServer.new
-	
 	
 end

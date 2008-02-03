@@ -1,5 +1,10 @@
+# sqlserver:
+#   database: northwind
+#   host: localhost
+#   username: sa
+#   password: Password123
+
 sqlserver:
-  database: northwind
-  host: localhost
+  dsn: NorthwindSql
   username: sa
   password: Password123

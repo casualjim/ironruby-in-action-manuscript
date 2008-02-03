@@ -10,3 +10,4 @@ describe LightSpeedProperty do
     
   end
 end
+
