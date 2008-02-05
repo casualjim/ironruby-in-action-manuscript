@@ -10,7 +10,7 @@ module DB
 		  if config.is_a? Hash
 		    initialize_config config
 		  else
-		    read_config config, 'sqlserver' unless config.is_a? Hash
+		    read_config config
 	    end
 		end
 		
@@ -23,13 +23,11 @@ module DB
 			@connection=nil
 	  end
 		
-		def is_odbc?
-		  true unless @config.nil? || @config['dsn'].nil?
+		def odbc?
+		  return true unless @config.nil? || @config['dsn'].nil?
+		  false
 		end
-		
-		def connection_string
-		  "DBI:ODBC:#{@config['dsn']}" unless @config.nil?
-	  end
+	
 	
 	end
 	
@@ -46,7 +44,7 @@ module DB
 		end
 		
 		def connection_string
-		  if is_odbc?
+		  if odbc?
 		    "DBI:ODBC:#{@config['dsn']}"
 		  else
 		    "DBI:ADO:Provider=SQLOLEDB;Data Source=#{@config['host']};Initial Catalog=#{@config['database']};User ID=#{@config['username']};Password=#{@config['password']};"

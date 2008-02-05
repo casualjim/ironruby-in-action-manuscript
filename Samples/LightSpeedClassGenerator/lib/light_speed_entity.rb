@@ -4,7 +4,7 @@
  
 
 class LightSpeedEntity
-  attr_accessor :properties, :belongs_to, :has_many, :through_associations
+  attr_accessor :properties, :belongs_to, :has_many, :through_associations, :name, :name_space
 
 
   def initialize
@@ -15,5 +15,4 @@ class LightSpeedEntity
   end
   
   
-
 end

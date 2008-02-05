@@ -1,5 +1,5 @@
-APP_ROOT = File.dirname(__FILE__) + '/../' 
-APP_DIRS = %w(config lib) 
+APP_ROOT ||= File.dirname(__FILE__) + '/../' 
+APP_DIRS ||= %w(config lib) 
 
 require 'active_support'
 require 'dbi'

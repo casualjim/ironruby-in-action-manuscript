@@ -33,7 +33,7 @@ initialize_config	/Users/ivan/projects/ironruby_book/Samples/LightSpeedClassGene
 is_join_table?	/Users/ivan/projects/ironruby_book/Samples/LightSpeedClassGenerator/lib/meta_data.rb	/^    def is_join_table?(table_name)$/;"	method	line:16
 is_odbc?	/Users/ivan/projects/ironruby_book/Samples/LightSpeedClassGenerator/lib/sql_connection_manager.rb	/^		def is_odbc?$/;"	method	line:26
 migrate_to_single_primary_key	/Users/ivan/projects/ironruby_book/Samples/LightSpeedClassGenerator/lib/light_speed_entity_generator.rb	/^    def migrate_to_single_primary_key(table)$/;"	method	line:59
-needs_conventionalising?	/Users/ivan/projects/ironruby_book/Samples/LightSpeedClassGenerator/lib/light_speed_entity_generator.rb	/^    def needs_conventionalising?$/;"	method	line:50
+conventionalized?	/Users/ivan/projects/ironruby_book/Samples/LightSpeedClassGenerator/lib/light_speed_entity_generator.rb	/^    def conventionalized?$/;"	method	line:50
 populate	/Users/ivan/projects/ironruby_book/Samples/LightSpeedClassGenerator/lib/meta_data.rb	/^    def populate$/;"	method	line:10
 primary_keys_for	/Users/ivan/projects/ironruby_book/Samples/LightSpeedClassGenerator/lib/meta_data.rb	/^    def primary_keys_for(table_name)$/;"	method	line:26
 read_config	/Users/ivan/projects/ironruby_book/Samples/LightSpeedClassGenerator/lib/sql_connection_manager.rb	/^		def read_config(config_path, config_name = 'sqlserver')$/;"	method	line:17
