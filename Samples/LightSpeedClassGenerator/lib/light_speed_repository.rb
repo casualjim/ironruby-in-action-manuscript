@@ -1,5 +1,11 @@
-
-
+require "pp"
+require File.dirname(__FILE__) + "/meta_data"
+require File.dirname(__FILE__) + "/string"
+require File.dirname(__FILE__) + "/light_speed_entity"
+require File.dirname(__FILE__) + "/light_speed_property"
+require File.dirname(__FILE__) + "/light_speed_belongs_to"
+require File.dirname(__FILE__) + "/light_speed_has_many"
+require File.dirname(__FILE__) + "/light_speed_through_association"
 class LightSpeedRepository
 
   include DB::MetaData
@@ -19,32 +25,100 @@ class LightSpeedRepository
       
       field_infos = col_infos.collect do |col_info|
         {
-          :name => col_info[:name],
+          :name => col_info[:name].underscore,
           :sql_type => col_info[:sql_type],
-          :max_length => col_info[:max_length],
-          :nullable => col_info[:is_nullable],  
+          :max_length => col_info[:max_length].to_i,
+          :nullable => !col_info[:is_nullable].to_i.zero?,  
           :precision => col_info[:precision],
           :foreign_key => foreign_key?(col_info),
           :primary_key => primary_key?(col_info),
-          :unique => col_info[:is_unique]
+          :unique => !col_info[:is_unique].to_i.zero?,
+          :belongs_to => belongs_to_relation?(table[:name], col_info)
         }
       end
       
-      { :table_name => table[:name], :class_name => table[:name].camelize, :fields => field_infos }
+      { :table_name => table[:name], :class_name => table[:name].singularize.camelize, :fields => field_infos }
     end
   end
   
   def generate_entities
     meta_data = to_light_speed_meta_data
     meta_data.each do |md|
-      entity = generate_entity
+      @entities << generate_entity(md)
     end
+    @entities
   end
   
   def generate_entity(meta_data)
     entity = LightSpeedEntity.new
     entity.name = meta_data[:class_name]
+    entity.namespace = namespace
+
+    meta_data[:fields].each do |fi|
+      prop = LightSpeedProperty.new(fi)
+      
+      prop.name = entity.create_property_name_from prop.name.underscore.camelize
+      entity.pk_type = prop.clr_type if prop.primary_key?
+      entity.properties << prop unless prop.primary_key?
+      entity.belongs_to << LightSpeedBelongsTo.new(generate_belongs_to_relation(meta_data, fi, entity)) if prop.foreign_key?
+
+    end
+    
+    entity.has_many = generate_has_many_relations meta_data, entity
+    generate_through_associations meta_data, entity
+    
+    entity
   end
+  
+ 
+  def conventionalized?
+     result = true
+     tables.each do |table|
+       pks = primary_keys_for table[:name]
+       result = (pks.size == 1 and pks[0][:column_name] == "Id") if result
+     end
+     result
+  end
+
+  
+  private
+  
+    def generate_belongs_to_relation(meta_data, field_info, entity)
+      { 
+        :name => entity.create_property_name_from(field_info[:name].underscore.humanize.titleize.gsub(/\s/,'')), 
+        :class_name => get_belongs_to_table(meta_data[:table_name], field_info[:name]).underscore.camelize.singularize
+      }
+    end
+  
+    def generate_has_many_relations(meta_data, entity)
+      hms = collect_has_many_relations meta_data[:table_name]
+      hms.collect do |hm|
+         hm[:name] = entity.create_property_name_from hm[:class_name].pluralize
+         LightSpeedHasMany.new hm
+      end
+      
+    end
+    
+    def generate_through_associations(meta_data, entity)
+      tas = collect_through_associations(meta_data[:table_name]) 
+      tas.each do |ta|
+        ta[:end_tables].each do |et|
+          entity.through_associations << LightSpeedThroughAssociation.new(generate_through_association(ta, et, entity))
+        end
+      end
+    end
+    
+    def generate_through_association(association, end_table, entity)
+      {
+        :through => association[:through_table].classify.singularize, 
+        :class_name => end_table.camelize.singularize, 
+        :name => entity.create_property_name_from(end_table.camelize),
+        :dependant_name => entity.create_property_name_from(association[:through_table].pascalize)
+      }
+    end
+
+
+    
   
   # def conventionalize
   #     unless conventionalized?
@@ -55,16 +129,7 @@ class LightSpeedRepository
   #       
   #       populate
   #     end
-  #   end
-  
-  def conventionalized?
-    result = true
-    tables.each do |table|
-      pks = primary_keys_for table[:name]
-      result = (pks.size == 1 and pks[0][:column_name] == "Id") if result
-    end
-    result
-  end
+  #   end  
   
 # require 'config/boot'
 # ls = LightSpeedRepository.new

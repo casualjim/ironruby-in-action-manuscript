@@ -1,33 +1,47 @@
+require File.dirname(__FILE__) + "/sql_connection_manager"
+
 module DB
   module MetaData
     attr_accessor :tables, :primary_keys, :foreign_keys, :column_info
 
     def initialize
-      @db = DB::DbiSqlServer.new 
       populate
     end
     
     def populate
+      db = DB::DbiSqlServer.new 
       DB::MetaData.sql_statements.each do |key, value|
-        instance_variable_set("@"+key.to_s, @db.fetch_all(value))				
+        instance_variable_set("@"+key.to_s, db.fetch_all(value))				
       end
     end
     
     def collect_has_many_relations(table)
       fks = foreign_keys.select { |fk| fk[:parent_table] ==  table_name(table)  }
       
-      fks.collect { |fk| { :table_name => fk[:table_name] } }.compact
+      fks.collect  do |fk| 
+        unless fk[:table_name].nil? 
+          { :table_name => fk[:table_name].underscore, :class_name => fk[:table_name].singularize.underscore.camelize }
+        end
+       end.compact
     end
     
     def collect_through_associations(table)
       fks = foreign_keys.select { |fk| fk[:parent_table] ==  table_name(table)  }
       
-      fks.collect { |fk| { :through_table => fk[:table_name], :end_tables => get_endpoint_tables(table, fk[:table_name]) } if join_table?(fk[:table_name]) }.compact
+      fks.collect do |fk| 
+          { :through_table => fk[:table_name].underscore, :end_tables => get_endpoint_tables(table, fk[:table_name]) } if join_table?(fk[:table_name])
+      end.compact
     end
     
     def get_endpoint_tables(table, through_table)
       fks = foreign_keys.select { |fk| fk[:table_name] == table_name(through_table) and fk[:parent_table] != table_name(table)  }
-      fks.collect { |fk| fk[:parent_table]  }.compact
+      fks.collect { |fk| fk[:parent_table].underscore unless fk[:parent_table].nil?  }.compact
+    end
+    
+    def get_belongs_to_table(table, column_name)
+      fks = foreign_keys.select { |fk|  fk[:table_name] == table_name(table) and fk[:child_id] = column_name }
+      return fks[0][:parent_table] if fks.size > 0
+      nil
     end
     
     def join_table?(table)
@@ -43,6 +57,11 @@ module DB
     
     def foreign_key?(column_info)
       fks = foreign_keys.select { |fk| fk[:table_name] == column_info[:table_name] and fk[:child_id] == column_info[:name]  }
+      fks.size > 0
+    end
+    
+    def belongs_to_relation?(table, column_info)
+      fks = foreign_keys.select { |fk|  fk[:table_name] == table_name(table) and fk[:child_id] = column_name }
       fks.size > 0
     end
     

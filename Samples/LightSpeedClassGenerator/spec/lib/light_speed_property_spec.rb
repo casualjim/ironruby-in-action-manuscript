@@ -15,6 +15,20 @@ describe LightSpeedProperty do
     ls.sql_type.should == "int"
   end
   
+  it "should return a predicate for booleans" do
+    ls = LightSpeedProperty.new :primary_key => true
+    
+    ls.should respond_to(:primary_key?)
+    ls.should be_primary_key
+  end
+  
+  it "should return a predicate for booleans" do
+    ls = LightSpeedProperty.new :primary_key => false
+    
+    ls.should respond_to(:primary_key?)
+    ls.should_not be_primary_key
+  end
+  
   it "should allow for a property to be set" do
     ls = LightSpeedProperty.new :sql_type => 'int'
     
