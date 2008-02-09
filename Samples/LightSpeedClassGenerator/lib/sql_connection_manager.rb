@@ -35,6 +35,38 @@ module DB
 	class DbiSqlServer 
 		include SqlConnectionManager
 		
+		class << self
+		  
+		  def clr_type_mapping
+    	  {
+          :tinyint => "byte",
+          :smallint => "short",
+          :bigint => "long",
+          :int => "int",
+          :float => "double",
+          :real => "float",
+          :smallmoney => "decimal",
+          :money => "decimal",
+          :numeric => "decimal",
+          :decimal => "decimal",   
+          :bit => "bool",
+          :uniqueidentifier => "Guid",
+          :varchar => "string",
+          :nvarchar => "string",
+          :text => "string",
+          :ntext => "string",
+          :char => "char",
+          :nchar => "char", 
+          :varbinary => "byte[]",
+          :image => "byte[]"
+        }
+      end
+  
+      def to_clr_type(sql_type)
+        clr_type_mapping[sql_type.downcase.to_sym]
+      end 
+    end
+	  
 		
 		def connection
 			if @connection.nil?

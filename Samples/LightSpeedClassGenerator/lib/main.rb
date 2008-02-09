@@ -1,25 +1,10 @@
 
-APP_ROOT ||= File.dirname(__FILE__) + '/../' 
-APP_DIRS ||= %w(config lib) 
-EXCLUSIONS ||= %w(boot main visual_studio light_speed_conventionaliser)
+require File.dirname(__FILE__) + "/../config/boot.rb"
 
 
-require 'dbi'
-
-def exclusion?(file)  
-  APP_DIRS.each do |dir|
-    result = EXCLUSIONS.any?{|exclusion|  exclusion === file}
-    return result if result
-  end
-  false
-end
-
-APP_DIRS.each do |app_dir| 
-  Dir["#{app_dir}/*.rb"].each do |file|
-    require APP_ROOT + "#{file}" unless exclusion? file
-  end
-end
-
+ls = LightSpeedRepository.new ARGV[0], ARGV[1], ARGV[2]
+ls.excluded_tables = %(KeyTable)
+ls.add_files_to_vs_project
 
 # 
 # 

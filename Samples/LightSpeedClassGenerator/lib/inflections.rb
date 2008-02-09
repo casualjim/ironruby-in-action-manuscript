@@ -200,9 +200,7 @@ module CoreExt
         Inflector.constantize(self)
       end
       
-      def pascalize
-        Inflector.pascalize(self)
-      end
+      
     end
   end
 end

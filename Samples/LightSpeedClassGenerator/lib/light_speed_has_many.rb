@@ -1,22 +1,26 @@
 require File.dirname(__FILE__) + "/light_speed_property_base"
 class LightSpeedHasMany < LightSpeedPropertyBase
   
-  
-  def to_field(tabindex)
+  def initialize(params = {})
+    super
+   
+  end
+    
+  def to_field(tabindex = 0)
     tabs = ""
     result = ""
-    tabindex.times { tabs << "\t" }
+    0.upto(tabindex) { tabs << "\t" } if tabindex > 0
     
-    result << "#{tabs}private readonly EntityCollection<#{class_name}> _#{name.pascalize} = new EntityCollection<#{class_name}>();\n"
+    result << "#{tabs}private readonly EntityCollection<#{class_name}> _#{name.camelcase} = new EntityCollection<#{class_name}>();\n"
   end
   
-  def to_property(tabindex)
+  def to_property(tabindex = 0)
     tabs = ""
     result = ""
-    tabindex.times { tabs << "\t" }
+    0.upto(tabindex) { tabs << "\t" } if tabindex > 0
     
     result << "#{tabs}public EntityCollection<#{class_name}> #{name}\n"
-    result << "#{tabs}{\n#{tabs}\tget { return Get(_#{name.pascalize}); }\n#{tabs}}\n"
+    result << "#{tabs}{\n#{tabs}\tget { return Get(_#{name.camelcase}); }\n#{tabs}}\n"
         
   end
   

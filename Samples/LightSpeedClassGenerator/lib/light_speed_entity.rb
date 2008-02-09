@@ -30,6 +30,10 @@ class LightSpeedEntity
     tname
   end
   
+  def has_through_associations?
+    @through_associations.size > 0
+  end
+  
   private
     
     def has_property?(tname)

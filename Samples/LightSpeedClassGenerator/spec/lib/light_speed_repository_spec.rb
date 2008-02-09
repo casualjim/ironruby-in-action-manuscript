@@ -186,7 +186,7 @@ describe LightSpeedRepository do
         result[0][:fields][i][:precision].should == column_infos[i][:precision]
         result[0][:fields][i][:foreign_key].should be_false
         result[0][:fields][i][:primary_key].should be_false
-        result[0][:fields][i][:belongs_to].should be_false
+        
         result[0][:fields][i][:unique].should == !column_infos[i][:is_unique].to_i.zero?
       end
 

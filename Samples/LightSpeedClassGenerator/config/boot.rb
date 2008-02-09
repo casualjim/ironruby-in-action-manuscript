@@ -1,21 +1,11 @@
-APP_ROOT ||= File.dirname(__FILE__) + '/../' 
-APP_DIRS ||= %w(config lib) 
-EXCLUSIONS ||= %w(boot main visual_studio light_speed_conventionaliser)
+APP_ROOT = File.dirname(__FILE__) + '/../' 
 
-require 'active_support'
+require 'yaml'
 require 'dbi'
+require 'rexml/document'
+require 'lib/inflector'
+require "lib/inflections"
+require "lib/string"
+include REXML
 
-
-module Inflector
-  def pascalize(word)
-    word.gsub(/^[A-Z]/){ |capital| capital.downcase }
-  end
-end
-
-
-require APP_ROOT + 'lib/sql_connection_manager'
-require APP_ROOT + 'lib/meta_data'
 require APP_ROOT + 'lib/light_speed_repository'
-require APP_ROOT + 'lib/light_speed_entity'
-
-

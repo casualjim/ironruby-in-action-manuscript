@@ -278,7 +278,7 @@ module Inflector
     end
   end
   
-  def pascalize(word)
+  def camelcase(word)
     word.gsub(/^[A-Z]/){ |capital| capital.downcase }
   end
 end

@@ -1,5 +1,5 @@
 require File.dirname(__FILE__) + "/sql_connection_manager"
-
+require 'pp'
 module DB
   module MetaData
     attr_accessor :tables, :primary_keys, :foreign_keys, :column_info
@@ -11,8 +11,8 @@ module DB
     def populate
       db = DB::DbiSqlServer.new 
       DB::MetaData.sql_statements.each do |key, value|
-        instance_variable_set("@"+key.to_s, db.fetch_all(value))				
-      end
+        instance_variable_set("@"+key.to_s, db.fetch_all(value))	
+       end
     end
     
     def collect_has_many_relations(table)
@@ -20,7 +20,7 @@ module DB
       
       fks.collect  do |fk| 
         unless fk[:table_name].nil? 
-          { :table_name => fk[:table_name].underscore, :class_name => fk[:table_name].singularize.underscore.camelize }
+          { :table_name => fk[:table_name].underscore  }
         end
        end.compact
     end
@@ -59,11 +59,7 @@ module DB
       fks = foreign_keys.select { |fk| fk[:table_name] == column_info[:table_name] and fk[:child_id] == column_info[:name]  }
       fks.size > 0
     end
-    
-    def belongs_to_relation?(table, column_info)
-      fks = foreign_keys.select { |fk|  fk[:table_name] == table_name(table) and fk[:child_id] = column_name }
-      fks.size > 0
-    end
+
     
     def table_name(table)
       table.is_a?(Hash) ? table[:name] : table
@@ -99,9 +95,9 @@ module DB
      end
      
      sql_statements.each_key do |key|
-       define_method("#{key}_for") do |table|
-         send(key, table).select { |item| item[:table_name] == table_name(table) }
-       end unless key == :tables
+       code = lambda { |table| column_info.select {|item| item[:table_name] == table_name(table) } }
+       define_method "#{key}_for", code unless key == :tables
+       
      end
 
   end
