@@ -1,3 +1,30 @@
 == LightSpeedClassGenerator
 
-You should document your project here.
+This gem generates models for the Mindscape LightSpeed ORM
+It adds the generated files to the visual studio project file.
+Currently it only supports Sql Server 2005
+
+To use it you have to tell it which database it has to find by putting a database.yml file in your visual studio project directory.
+The content of that database.yml file may look as follows
+
+# on windows you can use the following connection string
+#
+# sqlserver:
+#   database: northwind
+#   host: localhost
+#   username: sa
+#   password: Password123
+
+# on OSX and Linux you can connect to sql server through odbc (iODBC or unixODBC in combination with FreeTDS)
+#
+# sqlserver:
+#   dsn: NorthwindSql
+#   username: sa
+#   password: Password123
+
+To use the generator open a command shell and type generate_ls_models 
+
+Optionally you can specify a different namespace and folder for the model files to be saved to:
+generate_ls_models <<path to project file>> <<namespace>> <<path to save the models to>>
+
+

@@ -7,6 +7,7 @@ require File.dirname(__FILE__) + "/light_speed_property"
 require File.dirname(__FILE__) + "/light_speed_belongs_to"
 require File.dirname(__FILE__) + "/light_speed_has_many"
 require File.dirname(__FILE__) + "/light_speed_through_association"
+
 class LightSpeedRepository
 
   include DB::MetaData
@@ -113,7 +114,6 @@ class LightSpeedRepository
     puts "Updating the project file #{@project_file_location}"
     File.open(@project_file_location, 'w+'){ |file| doc.write file }
     
-    #puts "The following tables were skipped because they didn't follow lightspeed conventions: #{tables.select{|table| !table_conventionalized?(table)}.collect{|t| t[:name]}.join(', ')}"
     true
   end
   
@@ -147,19 +147,6 @@ class LightSpeedRepository
     File.open(path, 'w+') do |f|
       f << create_file_content(entity)
     end
-  end
-  
-  def conventionalized?
-     result = true
-     tables.each do |table|
-       result = table_conventionalized?(table) if result
-     end
-     result
-  end
-
-  def table_conventionalized?(table)
-    pks = primary_keys_for table[:name]
-    (pks.size == 1 and pks[0][:column_name] == "Id")
   end
   
   private
@@ -215,65 +202,6 @@ class LightSpeedRepository
         :dependant_name => entity.create_property_name_from(association[:through_table].camelcase)
       }
     end
-
-
-    
-  
-  # def conventionalize
-  #     unless conventionalized?
-  #       
-  #       tables.each do |table|
-  #         @db.execute_non_query build_sql_string_for(table)
-  #       end
-  #       
-  #       populate
-  #     end
-  #   end  
-  
-# require 'config/boot'
-# ls = LightSpeedRepository.new
-# ls.conventionalize_database
-  
-  # private 
-  
-    # def build_sql_string_for(table)
-    #       pks = primary_keys_for table[:name]
-    #       sql =""
-    #       case pks.size 
-    #       when 0
-    #         sql = add_primary_key_to(table[:name])
-    #       when 1
-    #         sql = "EXECUTE sp_rename N'dbo.#{table[:name]}.#{pks[0][:column_name]}', N'Id', 'COLUMN' " unless pks[0][:column_name] == "Id"
-    #       else
-    #         sql = migrate_to_single_primary_key(table[:name], pks)
-    #       end
-    #                 
-    #       sql
-    #     end
-    #   
-    #     
-    #     
-    #     def migrate_to_single_primary_key(table, pks)
-    #       sql = ""
-    #       pks.collect { |pk| pk[:index_name]  }.uniq!.each do |index|
-    #         sql << "ALTER TABLE dbo.#{table} DROP CONSTRAINT #{index}\n"
-    #       end
-    #       sql << add_primary_key_to(table)
-    #       sql
-    #     end
-    #     
-    #     def add_primary_key_to(table)
-    #       sql = "ALTER TABLE dbo.#{table} ADD Id uniqueidentifier NOT NULL ROWGUIDCOL;\n"
-    #       sql << add_primary_key_constraints_to(table)
-    #       sql
-    #     end
-    #     
-    #     def add_primary_key_constraints_to(table)
-    #       "ALTER TABLE dbo.#{table} ADD CONSTRAINT DF_#{table}_Id DEFAULT (newid()) FOR Id
-    #         ALTER TABLE dbo.#{table} ADD CONSTRAINT PK_#{table} PRIMARY KEY CLUSTERED(Id) WITH( 
-    #           STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON
-    #         ) ON [PRIMARY]"
-    #     end
 
 end  
   

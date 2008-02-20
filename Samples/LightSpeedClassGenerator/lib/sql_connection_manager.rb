@@ -2,7 +2,7 @@ module DB
 	
 	module SqlConnectionManager
 
-		DEFAULT_CONFIG_PATH = File.dirname(__FILE__) + '/../config/database.yml'
+		DEFAULT_CONFIG_PATH = Dir.getwd + "/database.yml" || File.dirname(__FILE__) + '/database.yml'
 		
 		attr_reader :connection_string, :connection
 			
