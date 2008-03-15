@@ -1,7 +1,7 @@
 module SongOps
 
 	def SongOps.capitalize(string = 'some string')
-		puts string.capitalize
+		puts string.upcase
 	end
 
 	def play

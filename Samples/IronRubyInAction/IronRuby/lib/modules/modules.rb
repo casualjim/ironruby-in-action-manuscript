@@ -18,5 +18,5 @@ SongOps.capitalize(song.name)
 song.play
 
 # Ouputs the following:
-# Ruby tuesday
+# RUBY TUESDAY
 # Playing: Ruby Tuesday

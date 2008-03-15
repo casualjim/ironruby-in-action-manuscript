@@ -4,12 +4,15 @@ end
 
 array = ["first element", [1, 2, 3], 3, hello, "one to last element", "last element"]
 
-# get the 4the element in the list.
+# get the 4th element in the list.
 # it's an expression which we're going to execute
 puts array[3]
 
 # get the 2 last elements (start counting at the second to last object)
 puts array[-2,2].join(", ")
+
+# get 2 elements starting at index 2
+puts array[2,2].join(', ')
 
 # display the child array
 puts array[1].join(', ')
@@ -21,6 +24,7 @@ puts array[2...array.length].join(', ')
 #
 # Hello, World!!!
 # one to last element, last element
+# 3, hello
 # 1, 2, 3
 # 3, Hello, World!!!, one to last element, last element
 
