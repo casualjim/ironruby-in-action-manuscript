@@ -33,15 +33,15 @@
   <ItemGroup>
     <Reference Include="IronRuby, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\tools\Bin\Release\IronRuby.dll</HintPath>
+      <HintPath>C:\tools\IronRuby\build\debug\IronRuby.dll</HintPath>
     </Reference>
     <Reference Include="IronRuby.Libraries, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\tools\Bin\Release\IronRuby.Libraries.dll</HintPath>
+      <HintPath>C:\tools\IronRuby\build\debug\IronRuby.Libraries.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Scripting, Version=1.0.0.700, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Scripting, Version=1.0.0.1000, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\tools\Bin\Release\Microsoft.Scripting.dll</HintPath>
+      <HintPath>C:\tools\IronRuby\build\debug\Microsoft.Scripting.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

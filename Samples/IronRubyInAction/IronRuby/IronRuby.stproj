@@ -69,6 +69,7 @@
     <Ruby Include="lib\code_blocks.rb" />
     <Ruby Include="lib\code_blocks_parameters.rb" />
     <Ruby Include="lib\collections.rb" />
+    <Ruby Include="lib\dlr_internals.rb" />
     <Ruby Include="lib\hello_world.rb" />
     <Ruby Include="lib\hello_world2.rb" />
     <Ruby Include="lib\ifthenelse.rb" />
