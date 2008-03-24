@@ -1,1 +1,4 @@
-(in C:/Users/Ivan Porto Carrero/Projects/ironruby_book/Samples/LightSpeedClassGenerator)
+rake aborted!
+No Rakefile found (looking for: rakefile, Rakefile, rakefile.rb, Rakefile.rb)
+C:/tools/ruby/lib/ruby/gems/1.8/gems/rake-0.8.1/lib/rake.rb:2143:in `raw_load_rakefile'
+(See full trace by running task with --trace)

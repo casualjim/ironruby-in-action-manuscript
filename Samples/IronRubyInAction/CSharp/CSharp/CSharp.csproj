@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="Fibonacci.cs" />
     <Compile Include="HelloWorld.cs" />
     <Compile Include="HelloWorldEmit.cs" />
     <Compile Include="HelloWorldLCG.cs" />

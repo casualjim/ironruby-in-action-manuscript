@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using Microsoft.Scripting;
 using Microsoft.Scripting.Hosting;
+using Microsoft.Scripting.Utils;
 using Ruby;
 using Ruby.Runtime;
+using Action=System.Action;
 
 namespace DLRHost
 {
@@ -13,56 +15,69 @@ namespace DLRHost
     {
         static void Main(string[] args)
         {
-            MyObjectContainer container = new MyObjectContainer();
+            
+            //TODO: update when hosting API changes
+//            ScriptScope scope = engine.CreateScope();
+
+//            scope.SetVariable("txt", "IronRuby is awesome!");
+//            scope.Execute("def self.upper; txt.to_s.upcase; end;");
+//            
+//            string result = scope.GetVariable<Function<string>>("upper")();
+//            Console.WriteLine("The result is: " + result);
+//            Console.WriteLine("");
 
             ScriptRuntime runtime = IronRuby.CreateRuntime();
-            
-            //Console.WriteLine("Executing from file:");
-            //runtime.ExecuteFile("hello_world.rb");
-
             ScriptEngine engine = IronRuby.GetEngine(runtime);
-            RubyExecutionContext ctx = IronRuby.GetExecutionContext(runtime);
+            ScriptScope scope = engine.CreateScope();
+            StringAdder adder = new StringAdder();
 
-            ctx.GlobalVariables[SymbolTable.StringToId("my_container")] = container;
-            runtime.ExecuteSourceUnit(engine.CreateScriptSourceFromFile("commands.rb"));
-            
+            scope.Execute("def self.string_added(val = ''); puts \"The string \\\"#{val}\\\" has been added.\"; end;");
+            StringAdder.OnStringAddedDelegate functionPointer = scope.GetVariable<StringAdder.OnStringAddedDelegate>("string_added");
 
-            Console.WriteLine("Press any key to close...");
+            adder.OnStringAdded += functionPointer;
+
+            Console.WriteLine("Initialisation complete. About to add some strings.\r\n");
+            adder.Add("IronRuby");
+            adder.Add("IronPython");
+            adder.Add("VBx");
+            adder.Add("Managed JavaScript");
+            adder.Add("IronLisp");
+            adder.Add("IronScheme");
+            adder.Add("Nua");
+
+            Console.WriteLine("\r\nSome DLR languages: " + adder);
+                        
+            Console.WriteLine("\r\nPress any key to close...");
             Console.ReadKey();
-            //runtime.Globals.GetVariable<MyObjectContainer>("my_container").Commands["show_me"]();
 
-//            ScriptEngine engine = IronRuby.GetEngine(runtime);
-//            ScriptScope scope = engine.CreateScope();
-//
-//            List<string> strings = new List<string>();
-//            strings.Add("Hello, ");
-//            strings.Add("World!!!");
-//            IronRuby.GetExecutionContext(runtime).GlobalVariables[SymbolTable.StringToId("strings")] = strings;
-//
-//            ScriptSource script = engine.CreateScriptSourceFromString(
-// @"
-//puts ""Hello World! There are #{$strings.count.to_s} strings:""
-//$strings.each_with_index { |s,i| puts ""#{i}: #{s}"" }
-//");
-//
-//            Console.WriteLine("Executing from string:");
+
             
         }
     }
 
-
-    public class MyObjectContainer
+    public class StringAdder
     {
-        public MyObjectContainer()
+        private readonly List<string> _stringList;
+
+        public StringAdder()
         {
-            Commands = new Dictionary<string, Action>();
-            EventHandlers = new Dictionary<string, EventHandler>();
-            Version = "Hello, world!!!";
+            _stringList = new List<string>();
         }
 
-        public string Version { get; private set; }
+        public void Add(string value)
+        {
+            _stringList.Add(value);
+            OnStringAdded(value);
+        }
 
-        public Dictionary<string, Action> Commands { get; set; }
-        public Dictionary<string, EventHandler> EventHandlers { get; set; }
+        public override string ToString()
+        {
+            return string.Join(", ", _stringList.ToArray());
+        }
+
+        public delegate void OnStringAddedDelegate(string addedValue);
+        public event OnStringAddedDelegate OnStringAdded;
     }
+
+
 }
