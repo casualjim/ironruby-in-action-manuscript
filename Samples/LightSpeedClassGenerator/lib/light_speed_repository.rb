@@ -18,10 +18,10 @@ class LightSpeedRepository
   
   DEFAULT_REFERENCES = ["System", "Mindscape.LightSpeed", "Mindscape.LightSpeed.Validation"]
 
-  def initialize(namespace, project_file_location, model_path)
+  def initialize(project_file_location, namespace, model_path)
     @entities = []
-    @namespace = namespace
     @project_file_location = project_file_location
+    @namespace = namespace || File.basename(project_file_location, ".csproj")
     @model_path = model_path || File.dirname(project_file_location)
     puts "Will append files to #{@project_file_location}"
     puts "Models will be saved to #{@model_path}"
@@ -40,11 +40,11 @@ class LightSpeedRepository
             :name => col_info[:name].underscore,
             :sql_type => col_info[:sql_type],
             :max_length => col_info[:max_length].to_i,
-            :nullable => !col_info[:is_nullable].to_i.zero?,  
+            :nullable => col_info[:is_nullable],  
             :precision => col_info[:precision],
             :foreign_key => foreign_key?(col_info),
             :primary_key => primary_key?(col_info),
-            :unique => !col_info[:is_unique].to_i.zero?
+            :unique => col_info[:is_unique]
           
           }
         end
@@ -143,9 +143,11 @@ class LightSpeedRepository
   
   def generate_user_stub_file_for(entity)
     path = "#{@model_path}/#{entity.name}.cs"
-    puts "creating user stub file: #{path}"
-    File.open(path, 'w+') do |f|
-      f << create_file_content(entity)
+    unless File.exists? path
+      puts "creating user stub file: #{path}"
+      File.open(path, 'w+') do |f|
+        f << create_file_content(entity)
+      end 
     end
   end
   
@@ -199,7 +201,7 @@ class LightSpeedRepository
         :through => association[:through_table].classify.singularize, 
         :class_name => end_table.classify.singularize, 
         :name => entity.create_property_name_from(end_table.classify),
-        :dependant_name => entity.create_property_name_from(association[:through_table].camelcase)
+        :dependant_name => "_#{association[:through_table].camelcase(:lower)}"
       }
     end
 

@@ -1,0 +1,101 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <Name>Debug</Name>
+    <OutputPath>Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <Name>Release</Name>
+    <OutputPath>Release\</OutputPath>
+  </PropertyGroup>
+  <UsingTask TaskName="Sapphire.Steel.SteelRubyBuild" AssemblyName="SteelBuild, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8a42f26dbbcba2be, processorArchitecture=x86" />
+  <UsingTask TaskName="Sapphire.Steel.SteelRailsBuild" AssemblyName="SteelBuild, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8a42f26dbbcba2be, processorArchitecture=x86" />
+  <Target Name="BuildRails" Inputs="@(EmbeddedRuby)" Outputs="$(MSBuildProjectDirectory)\SyntaxCheck\%(Identity)">
+    <MakeDir Directories="SyntaxCheck" />
+    <SteelRailsBuild ERBFile="@(EmbeddedRuby)" ProjectDirectory="$(MSBuildProjectDirectory)" ERBProcessor="$(ERBProcessor)" ERBFlags="$(ERBFlags)" ERBLibraryFiles="$(ERBLibraryFiles)" ERBTimeout="$(ERBTimeout)" />
+  </Target>
+  <Target Name="BuildRuby" Inputs="@(Ruby)" Outputs="$(MSBuildProjectDirectory)\SyntaxCheck\%(Identity)">
+    <MakeDir Directories="SyntaxCheck" />
+    <SteelRubyBuild RubyFile="@(Ruby)" ProjectDirectory="$(MSBuildProjectDirectory)" RubyInterpreter="$(RubyInterpreter)" RubyInterpreterFlags="$(RubyInterpreterFlags)" RubyLibraryFiles="$(RubyLibraryFiles)" RubyLibraryPaths="$(LibraryPath)" RubyTimeout="$(RubyTimeout)" />
+  </Target>
+  <Target Name="Clean">
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\SyntaxCheck" />
+  </Target>
+  <Target Name="Build" DependsOnTargets="$(BuildDependsOn)" Inputs="@(Ruby); @(EmbeddedRuby)" Outputs="$(MSBuildProjectDirectory)\SyntaxCheck\%(Identity)">
+  </Target>
+  <Target Name="Clean">
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\SyntaxCheck" />
+  </Target>
+  <PropertyGroup>
+    <RebuildDependsOn>
+      Clean;
+      Build;
+    </RebuildDependsOn>
+    <BuildDependsOn>
+      BeforeBuild;
+      BuildRuby; 
+      BuildRails;
+      AfterBuild;
+    </BuildDependsOn>
+    <SteelVersion>1.2</SteelVersion>
+    <ProjectGuid>{7efd4276-797c-4c4c-af10-c18af105acc3}</ProjectGuid>
+    <AssemblyName>LightSpeedClassGenerator</AssemblyName>
+    <Name>LightSpeedClassGenerator</Name>
+    <RootNamespace>LightSpeedClassGenerator</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="db" />
+    <Folder Include="lib" />
+    <Folder Include="spec" />
+    <Folder Include="spec\fixtures" />
+    <Folder Include="spec\lib" />
+    <Folder Include="test" />
+    <Folder Include="test\.svn" />
+    <Folder Include="test\.svn\prop-base" />
+    <Folder Include="test\.svn\props" />
+    <Folder Include="test\.svn\text-base" />
+    <Folder Include="test\.svn\tmp" />
+    <Folder Include="test\.svn\tmp\prop-base" />
+    <Folder Include="test\.svn\tmp\props" />
+    <Folder Include="test\.svn\tmp\text-base" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="db\northwind_data_ls.sql" />
+    <Content Include="db\northwind_schema_ls.sql" />
+    <Content Include="lib\database.yml" />
+    <Content Include="spec.opts" />
+    <Content Include="spec\rcov.opts" />
+    <Content Include="spec\spec.opts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Ruby Include="lib\inflections.rb" />
+    <Ruby Include="lib\inflector.rb" />
+    <Ruby Include="lib\light_speed_belongs_to.rb" />
+    <Ruby Include="lib\light_speed_class_generator.rb" />
+    <Ruby Include="lib\light_speed_entity.rb" />
+    <Ruby Include="lib\light_speed_has_many.rb" />
+    <Ruby Include="lib\light_speed_property.rb" />
+    <Ruby Include="lib\light_speed_property_base.rb" />
+    <Ruby Include="lib\light_speed_repository.rb" />
+    <Ruby Include="lib\light_speed_through_association.rb" />
+    <Ruby Include="lib\main.rb" />
+    <Ruby Include="lib\meta_data.rb" />
+    <Ruby Include="lib\sql_connection_manager.rb" />
+    <Ruby Include="lib\string.rb" />
+    <Ruby Include="lib\visual_studio.rb" />
+    <Ruby Include="spec\lib\dbi_sql_server_spec.rb" />
+    <Ruby Include="spec\lib\light_speed_entity_spec.rb" />
+    <Ruby Include="spec\lib\light_speed_property_spec.rb" />
+    <Ruby Include="spec\lib\light_speed_repository_spec.rb" />
+    <Ruby Include="spec\spec_helper.rb" />
+  </ItemGroup>
+  <Target Name="Rebuild" DependsOnTargets="$(RebuildDependsOn)" Inputs="@(Ruby)" Outputs="$(MSBuildProjectDirectory)\SyntaxCheck\%(Identity)">
+  </Target>
+  <Target Name="BeforeBuild" Condition="'$(PreBuildEvent)'!='' ">
+    <Exec Command="$(PreBuildEvent)" />
+  </Target>
+  <Target Name="AfterBuild" Condition="'$(PostBuildEvent)'!='' ">
+    <Exec Command="$(PostBuildEvent)" />
+  </Target>
+  <!--<Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />-->
+  <Target Name="ResolveAssemblyReferences" />
+</Project>

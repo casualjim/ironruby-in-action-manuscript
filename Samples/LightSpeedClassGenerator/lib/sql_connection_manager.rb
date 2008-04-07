@@ -15,7 +15,8 @@ module DB
 		end
 		
 		def read_config(config_path, config_name = 'sqlserver')
-			initialize_config(YAML::load(File.open(config_path || DEFAULT_CONFIG_PATH))[config_name])
+                    config = YAML::load(File.open(config_path || DEFAULT_CONFIG_PATH))
+			initialize_config(config[config_name])
 		end
 		
 		def initialize_config(config)
@@ -58,7 +59,8 @@ module DB
           :char => "char",
           :nchar => "char", 
           :varbinary => "byte[]",
-          :image => "byte[]"
+          :image => "byte[]",
+          :datetime => "DateTime"
         }
       end
   

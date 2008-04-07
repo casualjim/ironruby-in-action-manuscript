@@ -1,11 +1,11 @@
 # on windows you can use the following connection string
-# sqlserver:
-#   database: northwind
-#   host: localhost
-#   username: sa
-#   password: Password123
-
 sqlserver:
-  dsn: NorthwindSql
+  database: northwind
+  host: localhost
   username: sa
   password: Password123
+
+# sqlserver:
+#  dsn: NorthwindSql
+#  username: sa
+#  password: Password123

@@ -8,21 +8,21 @@ class LightSpeedProperty < LightSpeedPropertyBase
   def to_field(tabindex = 0)
     tabs = ""
     result = ""
-    0.upto(tabindex) { tabs << "\t" }
+    0.upto(tabindex-1) { tabs << "\t" }
     
     result << validate_presence_attribute(tabs) unless nullable?
     result << "#{tabs}[ValidateUnique]\n" if unique?
-    result << "#{tabs}private #{clr_type} _#{name.camelcase};\n"
+    result << "#{tabs}private #{clr_type} _#{name.camelcase(:lower)};\n"
   end
   
   def to_property(tabindex = 0)
     tabs = ""
     result = ""
-    0.upto(tabindex) { tabs << "\t" }
+    0.upto(tabindex-1) { tabs << "\t" }
     
-    result << "#{tabs}public #{clr_type} #{name}\n"
-    result << "#{tabs}{\n#{tabs}\tget { return _#{name.camelcase}; }\n"
-    result << "#{tabs}\tset { _#{name.camelcase} = value; }\n#{tabs}}\n"
+    result << "#{tabs}public virtual #{clr_type} #{name}\n"
+    result << "#{tabs}{\n#{tabs}\tget { return _#{name.camelcase(:lower)}; }\n"
+    result << "#{tabs}\tset { _#{name.camelcase(:lower)} = value; }\n#{tabs}}\n"
   end
   
   def clr_type

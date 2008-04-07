@@ -1,4 +1,4 @@
-require 'lib/inflector'
+require 'inflector'
 
 Inflector.inflections do |inflect|
   inflect.plural(/$/, 's')
