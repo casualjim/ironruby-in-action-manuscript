@@ -22,11 +22,12 @@ class LightSpeedProperty < LightSpeedPropertyBase
     
     result << "#{tabs}public virtual #{clr_type} #{name}\n"
     result << "#{tabs}{\n#{tabs}\tget { return _#{name.camelcase(:lower)}; }\n"
-    result << "#{tabs}\tset { _#{name.camelcase(:lower)} = value; }\n#{tabs}}\n"
+    result << "#{tabs}\tset { Set(ref _#{name.camelcase(:lower)}, value); }\n#{tabs}}\n"
   end
   
   def clr_type
-    DB::DbiSqlServer.to_clr_type sql_type
+    clrtype = DB::DbiSqlServer.to_clr_type sql_type
+    (clrtype != "string" && nullable? ? "#{clrtype}?" : clrtype)
   end
   
   private

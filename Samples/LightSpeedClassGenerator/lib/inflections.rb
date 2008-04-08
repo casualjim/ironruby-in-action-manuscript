@@ -1,4 +1,4 @@
-require 'inflector'
+require File.dirname(__FILE__) + '/inflector'
 
 Inflector.inflections do |inflect|
   inflect.plural(/$/, 's')

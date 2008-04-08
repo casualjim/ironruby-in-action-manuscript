@@ -87,12 +87,14 @@ class LightSpeedRepository
   def add_files_to_vs_project
     puts "starting to generate files"
     generate_entities
+        
     proj_file = File.new(@project_file_location)
     doc = Document.new proj_file
-    
+    updates_project_file = false
     @entities.each do |entity|
-      generate_files_for entity
-      unless doc.elements.to_a('//Compile').any?{ |e| e.attributes['Include'] === "#{entity.name}.cs"}
+      updates_project_file = generate_files_for entity unless updates_project_file
+
+      if updates_project_file && !doc.elements.to_a('//Compile').any?{ |e| e.attributes['Include'] === "#{entity.name}.cs"}
         u_el = Element.new "Compile"
         u_el.attributes["Include"] = "#{entity.name}.cs"
         el = Element.new "Compile"
@@ -108,12 +110,14 @@ class LightSpeedRepository
         end
         parent << u_el
         parent << el
+
       end
     end
     
-    puts "Updating the project file #{@project_file_location}"
-    File.open(@project_file_location, 'w+'){ |file| doc.write file }
-    
+    if updates_project_file
+      puts "Updating the project file #{@project_file_location}"
+      File.open(@project_file_location, 'w+'){ |file| doc.write file }
+    end
     true
   end
   
@@ -143,12 +147,15 @@ class LightSpeedRepository
   
   def generate_user_stub_file_for(entity)
     path = "#{@model_path}/#{entity.name}.cs"
+    updates_project_file = false
     unless File.exists? path
       puts "creating user stub file: #{path}"
+      updates_project_file = true
       File.open(path, 'w+') do |f|
         f << create_file_content(entity)
       end 
     end
+    updates_project_file
   end
   
   private
@@ -162,7 +169,7 @@ class LightSpeedRepository
       file_content << "using System.Collections.Generic;\n" if entity.has_through_associations?
       
       file_content << "\nnamespace #{entity.namespace}\n{\n"
-      file_content << "\tpublic partial class #{entity.name} : Entity<#{entity.pk_type}>"
+      file_content << (block_given? ? "\tpublic partial class #{entity.name} : Entity<#{entity.pk_type}>" : "\tpublic partial class #{entity.name}")
       file_content << "\n\t{\n"
       
       yield file_content, 2 if block_given?

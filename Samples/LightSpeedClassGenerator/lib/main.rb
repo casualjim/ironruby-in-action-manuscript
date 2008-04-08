@@ -20,5 +20,5 @@ end
 #puts proj_file_location
 
 ls = LightSpeedRepository.new proj_file_location, ARGV[1], ARGV[2]
-ls.excluded_tables = %(KeyTable)
+ls.excluded_tables = %w(KeyTable sysdiagrams)
 ls.add_files_to_vs_project

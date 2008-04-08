@@ -1,3 +1,3 @@
 #! /usr/bin/env ruby
 
-load 'lib/main.rb'
+load File.dirname(__FILE__) + '/lib/main.rb'
