@@ -39,7 +39,7 @@ module DB
     end
     
     def get_belongs_to_table(table, column_name)
-      fks = foreign_keys.select { |fk|  fk[:table_name] == table_name(table) and fk[:child_id] = column_name }
+      fks = foreign_keys.select { |fk|  fk[:table_name] == table_name(table) and fk[:child_id] == column_name }
       return fks[0][:parent_table] if fks.size > 0
       nil
     end
