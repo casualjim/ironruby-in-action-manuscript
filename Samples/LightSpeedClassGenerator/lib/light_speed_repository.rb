@@ -49,7 +49,7 @@ class LightSpeedRepository
           }
         end
       
-        { :table_name => table[:name], :class_name => table[:name].singularize.classify, :fields => field_infos }
+        { :table_name => table[:name], :class_name => table[:name].classify, :fields => field_infos }
       end
       
     end.compact
@@ -70,8 +70,7 @@ class LightSpeedRepository
 
     md[:fields].each do |fi|
       prop = LightSpeedProperty.new(fi)
-      
-      prop.name = entity.create_property_name_from prop.name.underscore.classify
+      prop.name = entity.create_property_name_from prop.name.underscore.camelize()
       entity.pk_type = prop.clr_type if prop.primary_key?
       entity.properties << prop unless prop.primary_key?
       entity.belongs_to << LightSpeedBelongsTo.new(generate_belongs_to_relation(md, fi, entity)) if prop.foreign_key?

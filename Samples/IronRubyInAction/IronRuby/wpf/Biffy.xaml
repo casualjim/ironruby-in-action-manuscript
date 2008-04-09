@@ -5,9 +5,9 @@
     <DockPanel x:Name="dock_panel">
         <TextBlock FontSize="36" Background="AliceBlue" DockPanel.Dock="Top">Biffy</TextBlock>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <TextBox x:Name="web_url" Width="750">http://blogs.msdn.com/dsyme/archive/2007/10/26/expert-f-available-by-end-of-november.aspx</TextBox>
+            <TextBox x:Name="web_url" Width="750">http://www.ironruby.net/</TextBox>
             <Button x:Name="get_url_button">Show Url</Button>
         </StackPanel>
-        <Frame x:Name="web_url_display" Source="http://blogs.msdn.com/dsyme/archive/2007/10/26/expert-f-available-by-end-of-november.aspx"></Frame>
+        <Frame x:Name="web_url_display" Source="http://www.ironruby.net/"></Frame>
     </DockPanel>
 </Window>

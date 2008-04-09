@@ -10,7 +10,7 @@ class LightSpeedThroughAssociation < LightSpeedPropertyBase
     result = ""
     0.upto(tabindex -1) { tabs << "\t" } if tabindex > 0
     
-    result << "#{tabs}private ThroughAssociation<#{through}, #{class_name}> _#{name.camelcase(:lower)};\n"
+    result << "#{tabs}private ThroughAssociation<#{through}, #{class_name}> _#{name.camelcase(:lower).pluralize};\n"
   end
   
   def to_property(tabindex = 0)
@@ -18,11 +18,11 @@ class LightSpeedThroughAssociation < LightSpeedPropertyBase
     result = ""
     0.upto(tabindex -1) { tabs << "\t" } if tabindex > 0
     
-    result << "#{tabs}public virtual ThroughAssociation<#{through}, #{class_name}> #{name}\n"
+    result << "#{tabs}public virtual ThroughAssociation<#{through}, #{class_name}> #{name.pluralize}\n"
     result << "#{tabs}{\n#{tabs}\tget\n#{tabs}\t{\n"
-    result << "#{tabs}\t\tif(_#{name.camelcase(:lower)} == null)\n"
-    result << "#{tabs}\t\t\t_#{name.camelcase(:lower)} = new ThroughAssociation<#{through}, #{class_name}>(#{dependant_name});\n"
-    result << "#{tabs}\t\treturn Get(_#{name.camelcase(:lower)}); }\n#{tabs}\n}\n"
+    result << "#{tabs}\t\tif(_#{name.camelcase(:lower).pluralize} == null)\n"
+    result << "#{tabs}\t\t\t_#{name.camelcase(:lower).pluralize} = new ThroughAssociation<#{through}, #{class_name}>(#{dependant_name});\n"
+    result << "#{tabs}\t\treturn Get(_#{name.camelcase(:lower).pluralize});\n#{tabs}\t}\n#{tabs}}\n"
         
   end
   
