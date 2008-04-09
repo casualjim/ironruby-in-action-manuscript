@@ -5,6 +5,9 @@ class LightSpeedBelongsTo < LightSpeedPropertyBase
     super
   end
   
+  def should_generate?(user_file_content)
+    Regexp.compile("EntityHolder<#{class_name}>\s+_#{name.camelcase(:lower)}").match(user_file_content).nil?
+  end
   
   def to_field(tabindex = 0)
     tabs = ""

@@ -120,14 +120,18 @@ class LightSpeedRepository
   def generate_file_for(entity)
     path = "#{@model_path}/#{entity.name}.lightspeed.cs"
     puts "creating lightspeed model file: #{path}"
+    user_path = "#{@model_path}/#{entity.name}.cs"
+    user_file_content = File.open(user_path, 'r'){|f| f.read }
     File.open(path, 'w') do |f|
       f << create_file_content(entity) do |file_content, tabindex|
         rendered_fields, rendered_properties = "", ""
         
         %w(properties belongs_to has_many through_associations).each do |method|
           entity.send(method.to_sym).each do |prop|
-            rendered_fields << prop.to_field(tabindex)
-            rendered_properties << prop.to_property(tabindex)
+            if prop.should_generate?(user_file_content)
+              rendered_fields << prop.to_field(tabindex)
+              rendered_properties << prop.to_property(tabindex)
+            end
           end
         end
         
