@@ -5,7 +5,7 @@ class LightSpeedProperty < LightSpeedPropertyBase
   end
   
   def should_generate?(user_file_content)
-    Regexp.compile("#{clr_type}\s+_#{name.camelcase(:lower)}").match(user_file_content).nil?
+    Regexp.compile("#{clr_type!}\\??\s+_#{name.camelcase(:lower)}", Regexp::MULTILINE).match(user_file_content).nil?
   end
   
   def to_field(tabindex = 0)
@@ -31,6 +31,10 @@ class LightSpeedProperty < LightSpeedPropertyBase
   def clr_type
     clrtype = DB::DbiSqlServer.to_clr_type sql_type
     (clrtype != "string" && nullable? ? "#{clrtype}?" : clrtype)
+  end
+  
+  def clr_type!
+    DB::DbiSqlServer.to_clr_type sql_type
   end
   
   private

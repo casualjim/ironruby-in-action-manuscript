@@ -10,8 +10,10 @@ class LightSpeedDataContext
   def initialize(namespace, model_path, context_name)
     @namespace = namespace
     @model_path = model_path
-    @context_name = context_name || "#{namespace.split('.')[0]}DataContext"
+    @context_name = context_name || "#{@namespace.split('.')[0]}DataContext"
     @entities = []
+    @user_file_content = ""
+    @should_read_user_file = true
   end
   
   def add_entity(entity)
@@ -48,10 +50,23 @@ class LightSpeedDataContext
       File.open(path, 'w') do |f|
         f << create_file_content do |file_content, tabindex|
           @entities.each do |entity|
-            file_content << render_queryable(entity, tabindex)
+            if(Regexp.compile("IQueryable<#{entity}>\s+_#{entity.pluralize}").match(user_file_content).nil?)
+                file_content << render_queryable(entity, tabindex)
+            end
           end
         end
       end
+    end
+    
+    def user_file_content
+      user_path = "#{@model_path}/#{@context_name}.cs"
+      if File.exists? user_path
+        if @user_file_content.empty? && @should_read_user_file
+            @user_file_content = File.open(user_path, 'r').read{ |f| f.read } 
+            @should_read_user_file = false
+        end
+      end
+      @user_file_content || ""
     end
     
     def generate_interface_file
@@ -124,7 +139,7 @@ class LightSpeedDataContext
       0.upto(tabindex-1) { tabs << "\t" }
 
       result << "#{tabs}public virtual IQueryable<#{entity}> #{entity.pluralize}\n"
-      result << "#{tabs}{\n#{tabs}\tget { return _#{entity}; }\n#{tabs}}\n"
+      result << "#{tabs}{\n#{tabs}\tget { return Query<#{entity}>(); }\n#{tabs}}\n"
     end
   
 end
