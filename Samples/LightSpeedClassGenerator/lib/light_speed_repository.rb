@@ -91,9 +91,11 @@ class LightSpeedRepository
     doc = Document.new proj_file
     updates_project_file = false
     @entities.each do |entity|
-      updates_project_file = generate_files_for entity unless updates_project_file
+      did_update = generate_files_for entity
+      
+      updates_project_file = did_update if did_update && !updates_project_file
 
-      if updates_project_file && !doc.elements.to_a('//Compile').any?{ |e| e.attributes['Include'] === "#{entity.name}.cs"}
+      unless doc.elements.to_a('//Compile').any?{ |e| e.attributes['Include'] === "#{entity.name}.cs"}
         u_el = Element.new "Compile"
         u_el.attributes["Include"] = "#{entity.name}.cs"
         el = Element.new "Compile"
