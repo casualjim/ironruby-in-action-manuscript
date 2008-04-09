@@ -7,6 +7,7 @@ require File.dirname(__FILE__) + "/light_speed_property"
 require File.dirname(__FILE__) + "/light_speed_belongs_to"
 require File.dirname(__FILE__) + "/light_speed_has_many"
 require File.dirname(__FILE__) + "/light_speed_through_association"
+require File.dirname(__FILE__) + "/light_speed_data_context"
 
 class LightSpeedRepository
 
@@ -16,13 +17,14 @@ class LightSpeedRepository
   attr_reader :entities
   attr_accessor :namespace, :excluded_tables
   
-  DEFAULT_REFERENCES = ["System", "Mindscape.LightSpeed", "Mindscape.LightSpeed.Validation"]
+  DEFAULT_REFERENCES = ["System", "Mindscape.LightSpeed", "Mindscape.LightSpeed.Validation", "Mindscape.LightSpeed.Linq"]
 
-  def initialize(project_file_location, namespace, model_path)
+  def initialize(project_file_location, namespace, context_name, model_path)
     @entities = []
     @project_file_location = project_file_location
     @namespace = namespace || File.basename(project_file_location, ".csproj")
     @model_path = model_path || File.dirname(project_file_location)
+    @context_name = context_name || "#{@namespace.split('.')[0]}DataContext"
     puts "Will append files to #{@project_file_location}"
     puts "Models will be saved to #{@model_path}"
     puts "fetching meta data from the database"
@@ -90,30 +92,18 @@ class LightSpeedRepository
     proj_file = File.new(@project_file_location)
     doc = Document.new proj_file
     updates_project_file = false
+    data_context = LightSpeedDataContext.new @namespace, @model_path, @context_name
     @entities.each do |entity|
       did_update = generate_files_for entity
       
       updates_project_file = did_update if did_update && !updates_project_file
-
-      unless doc.elements.to_a('//Compile').any?{ |e| e.attributes['Include'] === "#{entity.name}.cs"}
-        u_el = Element.new "Compile"
-        u_el.attributes["Include"] = "#{entity.name}.cs"
-        el = Element.new "Compile"
-        el.attributes["Include"] = "#{entity.name}.lightspeed.cs"
-        dep_el = Element.new "DependentUpon"
-        dep_el.text = "#{entity.name}.cs"
-        el.add_element dep_el
-        unless doc.elements['//Compile'].nil?
-          parent = doc.elements['//Compile'].parent
-        else
-          parent = Element.new "ItemGroup" 
-          doc.elements['//Project'] << parent
-        end
-        parent << u_el
-        parent << el
-
-      end
+      data_context.add_entity(entity.name)
+      add_file_reference_to_project_file entity.name, doc
     end
+    
+    data_context.generate_files
+    data_context.add_interface_reference_to_project_file(doc)
+    add_file_reference_to_project_file("#{@context_name}", doc)
     
     if updates_project_file
       puts "Updating the project file #{@project_file_location}"
@@ -160,6 +150,27 @@ class LightSpeedRepository
   end
   
   private
+  
+    def add_file_reference_to_project_file(file_name, doc)
+      unless doc.elements.to_a('//Compile').any?{ |e| e.attributes['Include'] === "#{file_name}.cs"}
+        u_el = Element.new "Compile"
+        u_el.attributes["Include"] = "#{file_name}.cs"
+        el = Element.new "Compile"
+        el.attributes["Include"] = "#{file_name}.lightspeed.cs"
+        dep_el = Element.new "DependentUpon"
+        dep_el.text = "#{file_name}.cs"
+        el.add_element dep_el
+        unless doc.elements['//Compile'].nil?
+          parent = doc.elements['//Compile'].parent
+        else
+          parent = Element.new "ItemGroup" 
+          doc.elements['//Project'] << parent
+        end
+        parent << u_el
+        parent << el
+
+      end
+    end
   
     def create_file_content(entity)
       file_content = ""
