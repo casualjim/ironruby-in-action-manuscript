@@ -1,0 +1,13 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Biffy"  Height="500" Width="826"  >
+    
+    <DockPanel x:Name="dock_panel">
+        <TextBlock FontSize="36" Background="AliceBlue" DockPanel.Dock="Top">Biffy</TextBlock>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <TextBox x:Name="web_url" Width="750">http://www.ironruby.net</TextBox>
+            <Button x:Name="get_url_button">Show Url</Button>
+        </StackPanel>
+        <Frame x:Name="web_url_display" Source="http://www.ironruby.net"></Frame>
+    </DockPanel>
+</Window>

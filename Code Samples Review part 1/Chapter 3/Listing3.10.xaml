@@ -1,0 +1,95 @@
+<Canvas 
+	x:Class="System.Windows.Controls.Canvas"
+    xmlns="http://schemas.microsoft.com/client/2007"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:c="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+	xmlns:e="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Extended"
+    x:Name="parentCanvas">
+
+   <Grid>
+       <Grid.Resources>
+           <Style x:Name="DefaultStyle" TargetType="Button">
+               <Setter Property="Margin" Value="5,5,5,5"/>
+           </Style>
+       </Grid.Resources>
+       <Grid.RowDefinitions>
+           <RowDefinition Height="Auto"/>
+           <RowDefinition Height="*"/>
+       </Grid.RowDefinitions>
+       <Grid.ColumnDefinitions>
+           <ColumnDefinition Width="*" />
+           <ColumnDefinition Width="*" />
+       </Grid.ColumnDefinitions>
+       <Rectangle RadiusX="4" RadiusY="4" Fill="White" Grid.Row="1" Grid.ColumnSpan="2" Margin="10,10,10,10"/>
+       <TextBlock Text="Controls" Grid.Row="0" Grid.ColumnSpan="2" /> 
+       <StackPanel Grid.Row="1" Grid.Column="0" Margin="20,20,10,20">
+           <TextBlock Text="TextBlock" Margin="5"/>
+           <TextBox Text="TextBox" Margin="5" />
+           <WatermarkedTextBox x:Name="watermark" Margin="5"/>
+           <ContentControl Content="ContentControl" Margin="5"/>
+           <Button Content="Button w/ ToolTip" Margin="5" ToolTip="ToolTip"/>
+           <ToggleButton Content="ToggleButton" Margin="5"/>
+           <RadioButton Content="RadioButton" Margin="5"/>
+           <CheckBox Content="CheckBox" IsThreeState="True" Margin="5" />
+           <HyperlinkButton Content="HyperlinkButton" NavigateUri="http://blogs.msdn.com/kathykam" Margin="5"/>
+           <RepeatButton Content="RepeatButton" Margin="5"/>              
+         <ListBox Margin="5" Height="150">
+             <ListBoxItem Content="One" />
+             <ListBoxItem Content="Two" />
+             <ListBoxItem Content="Three" />
+             <ListBoxItem Content="Four" />
+             <ListBoxItem Content="Five" />
+             <ListBoxItem Content="Six" />
+             <ListBoxItem Content="Seven" />
+             <ListBoxItem Content="Eight" />
+             <ListBoxItem Content="Nine" />
+             <ListBoxItem Content="Ten" />
+             <ListBoxItem Content="Eleven" />
+             <ListBoxItem Content="Twelve" />
+             <ListBoxItem Content="Thirteen" />
+             <ListBoxItem Content="Fourteen" />
+             <ListBoxItem Content="Fifteen" />
+             <ListBoxItem Content="Sixteen" />
+             <ListBoxItem Content="Seventeen" />
+             <ListBoxItem Content="Eighteen" />
+             <ListBoxItem Content="Nineteen" />
+             <ListBoxItem Content="Twenty" />
+             <ListBoxItem Content="Twenty-one" />
+             <ListBoxItem Content="Twenty-two" />
+             <ListBoxItem Content="Twenty-three" />
+             <ListBoxItem Content="Twenty-four" />
+             <ListBoxItem Content="Twenty-five" />
+             <ListBoxItem Content="Twenty-six" />              
+         </ListBox>  
+       </StackPanel>    
+       <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,20,20,20">
+
+           <DatePicker Margin="5"/>
+           <Calendar Margin="5"/>
+           <Slider Margin="5"/>
+              <Grid  Margin="5" Width="250" Height="250"> 
+           <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="100" />
+               <ColumnDefinition Width="5" />
+               <ColumnDefinition Width="100" />
+           </Grid.ColumnDefinitions>      
+           <Grid.RowDefinitions>
+               <RowDefinition Height="100" />
+               <RowDefinition Height="5" />
+               <RowDefinition Height="100" />
+
+           </Grid.RowDefinitions>               
+               <Rectangle  Grid.Row="0" Grid.Column="0" Fill="Red"/>
+               <Rectangle  Grid.Row="0" Grid.Column="2" Fill="Green" />                        
+               <Rectangle Grid.Row="2" Grid.Column="0" Fill="Blue" />
+               <Rectangle   Grid.Row="2" Grid.Column="2" Fill="Yellow" />
+               <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch" ShowsPreview="True"/>
+               <GridSplitter Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch" ShowsPreview="True"/>            
+       </Grid>        
+
+       </StackPanel>        
+   </Grid>
+
+</Canvas>

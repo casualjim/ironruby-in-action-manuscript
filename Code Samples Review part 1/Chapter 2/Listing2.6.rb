@@ -1,5 +1,4 @@
 def hello
-/bin/bash: def: command not found
 	"Hello, World!!!" 
 end
 

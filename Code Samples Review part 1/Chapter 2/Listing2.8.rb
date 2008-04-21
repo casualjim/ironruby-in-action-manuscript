@@ -1,8 +1,8 @@
 $:.unshift File.join(File.dirname(__FILE__),'..','lib')
 
 require 'test/unit'
-require 'album_list'
-require 'album'
+require 'Listing2.4'
+require 'Listing2.9'
 
 class AlbumListTest < Test::Unit::TestCase
 		

@@ -12,28 +12,15 @@ namespace DLRHost
     {
         static void Main(string[] args)
         {
-            //TODO: review this when the hosting api changes.
-            IScriptEnvironment runtime = ScriptEnvironment.GetEnvironment();
+            ScriptRuntime runtime = IronRuby.CreateRuntime();
 
-            Console.WriteLine("Executing from file:");
-            runtime.ExecuteFile("..\\..\\hello_world.rb");
 
-            IScriptEngine engine = IronRuby.GetEngine(runtime);
-            IScriptScope scope = engine.CreateScope();
+			Console.WriteLine("Executing from file:");
+			runtime.ExecuteFile("hello_world.rb");
 
-            List<string> strings = new List<string>();
-            strings.Add("Hello, ");
-            strings.Add("World!!!");
-            IronRuby.GetExecutionContext(runtime).GlobalVariables[SymbolTable.StringToId("strings")] = strings;
-
-            SourceUnit script = engine.CreateScriptSourceFromString(
- @"
-puts ""Hello World! There are #{$strings.count.to_s} strings:""
-$strings.each_with_index { |s,i| puts ""#{i}: #{s}"" }
-");
-
-            Console.WriteLine("Executing from string:");
-            engine.Execute(scope, script);
+			Console.WriteLine("Press any key to close...");
+			Console.ReadKey();
+			
         }
     }
 }

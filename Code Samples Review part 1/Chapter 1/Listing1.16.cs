@@ -16,7 +16,7 @@ namespace CSharp
 
         public string Print()
         {
-            return message;
+            return string.Format("Book: {0}", message);
         }
     }
 }

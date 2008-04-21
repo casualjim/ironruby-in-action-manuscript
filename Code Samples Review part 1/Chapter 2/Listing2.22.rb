@@ -1,6 +1,6 @@
 class Song
 	
-	require 'string_ops'
+	require 'Listing2.21'
 	
 	include SongOps
 	
@@ -15,8 +15,6 @@ end
 song = Song.new
 SongOps.capitalize(song.name)
 
-song.play
 
 # Ouputs the following:
 # Ruby tuesday
-# Playing: Ruby Tuesday

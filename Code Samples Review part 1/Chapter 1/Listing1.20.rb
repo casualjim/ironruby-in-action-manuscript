@@ -1,3 +1,5 @@
+require 'listing1.18.rb'
+
 class Book
 	include Printable
 	
