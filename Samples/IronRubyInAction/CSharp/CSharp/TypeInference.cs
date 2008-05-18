@@ -10,7 +10,7 @@ namespace CSharp
 
             System.Console.WriteLine("Inferred type: {0}, value: {1}", i.GetType().Name, i);
 
-            // i = "hello"; // Still won't compile because of the
+            // i = "hello"; // Still won't compile because  i is inferred as an int
 
             System.Console.WriteLine("Converted type: {0}, value: \"{1}\"", i.ToString().GetType().Name, i);
         }
