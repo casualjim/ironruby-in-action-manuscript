@@ -11,7 +11,7 @@ class WpfApplication < Application
     
 end
 
-start_url = "http://blogs.msdn.com/dsyme/archive/2007/10/26/expert-f-available-by-end-of-november.aspx"
+start_url = "http://flanders.co.nz"
 title = "Biffy"
 
 WpfApplication.new do 
