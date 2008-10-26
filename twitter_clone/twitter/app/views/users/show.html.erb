@@ -1,0 +1,73 @@
+<p>
+  <b>Description:</b>
+  <%=h @user.description %>
+</p>
+
+<p>
+  <b>Favourites count:</b>
+  <%=h @user.favourites_count %>
+</p>
+
+<p>
+  <b>Followers count:</b>
+  <%=h @user.followers_count %>
+</p>
+
+<p>
+  <b>Following:</b>
+  <%=h @user.following %>
+</p>
+
+<p>
+  <b>Friends count:</b>
+  <%=h @user.friends_count %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%=h @user.location %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @user.name %>
+</p>
+
+<p>
+  <b>Profile image url:</b>
+  <%=h @user.profile_image_url %>
+</p>
+
+<p>
+  <b>Protected:</b>
+  <%=h @user.protected %>
+</p>
+
+<p>
+  <b>Statuses count:</b>
+  <%=h @user.statuses_count %>
+</p>
+
+<p>
+  <b>Screen name:</b>
+  <%=h @user.screen_name %>
+</p>
+
+<p>
+  <b>Time zone:</b>
+  <%=h @user.time_zone %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%=h @user.url %>
+</p>
+
+<p>
+  <b>Utc offset:</b>
+  <%=h @user.utc_offset %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

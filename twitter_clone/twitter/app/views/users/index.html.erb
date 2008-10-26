@@ -1,0 +1,46 @@
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Favourites count</th>
+    <th>Followers count</th>
+    <th>Following</th>
+    <th>Friends count</th>
+    <th>Location</th>
+    <th>Name</th>
+    <th>Profile image url</th>
+    <th>Protected</th>
+    <th>Statuses count</th>
+    <th>Screen name</th>
+    <th>Time zone</th>
+    <th>Url</th>
+    <th>Utc offset</th>
+  </tr>
+
+<% for user in @users %>
+  <tr>
+    <td><%=h user.description %></td>
+    <td><%=h user.favourites_count %></td>
+    <td><%=h user.followers_count %></td>
+    <td><%=h user.following %></td>
+    <td><%=h user.friends_count %></td>
+    <td><%=h user.location %></td>
+    <td><%=h user.name %></td>
+    <td><%=h user.profile_image_url %></td>
+    <td><%=h user.protected %></td>
+    <td><%=h user.statuses_count %></td>
+    <td><%=h user.screen_name %></td>
+    <td><%=h user.time_zone %></td>
+    <td><%=h user.url %></td>
+    <td><%=h user.utc_offset %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New user', new_user_path %>

@@ -1,0 +1,241 @@
+  [4;36;1mSQL (0.000902)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000327)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (0.003264)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (0.003293)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.000457)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000170)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateUsers (20081019200551)
+  [4;36;1mSQL (0.002747)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar(140) DEFAULT '', "favourites_count" integer DEFAULT 0 NOT NULL, "followers_count" integer DEFAULT 0 NOT NULL, "following" boolean DEFAULT 'f', "friends_count" integer DEFAULT 0 NOT NULL, "location" varchar(140) DEFAULT '', "name" varchar(140) NOT NULL, "profile_image_url" varchar(500), "protected" boolean DEFAULT 'f', "statuses_count" integer DEFAULT 0 NOT NULL, "screen_name" integer(140) NOT NULL, "time_zone" varchar(140), "url" varchar(500), "utc_offset" varchar(50), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.002686)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20081019200551')[0m
+Migrating to CreateStatuses (20081019200710)
+  [4;36;1mSQL (0.002483)[0m   [0;1mCREATE TABLE "statuses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "favourited" boolean DEFAULT 'f', "in_reply_to_status_id" integer, "in_reply_to_user_id" integer, "source" varchar(50), "source_url" varchar(500), "text" varchar(140), "truncated" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.003771)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20081019200710')[0m
+  [4;36;1mSQL (0.000357)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000329)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000293)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000131)[0m   [0mPRAGMA index_list("statuses")[0m
+  [4;36;1mSQL (0.000069)[0m   [0;1mPRAGMA index_list("users")[0m
+  [4;36;1mSQL (0.000486)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000123)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000125)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000155)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002785)[0m   [0;1mCREATE TABLE "statuses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "favourited" boolean DEFAULT 'f', "in_reply_to_status_id" integer, "in_reply_to_user_id" integer, "source" varchar(50), "source_url" varchar(500), "text" varchar(140), "truncated" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.000325)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002545)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar(140) DEFAULT '', "favourites_count" integer DEFAULT 0 NOT NULL, "followers_count" integer DEFAULT 0 NOT NULL, "following" boolean DEFAULT 'f', "friends_count" integer DEFAULT 0 NOT NULL, "location" varchar(140) DEFAULT '', "name" varchar(140) NOT NULL, "profile_image_url" varchar(500), "protected" boolean DEFAULT 'f', "statuses_count" integer DEFAULT 0 NOT NULL, "screen_name" integer(140) NOT NULL, "time_zone" varchar(140), "url" varchar(500), "utc_offset" varchar(50), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.000374)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002696)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (0.002279)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.000302)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000129)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.002067)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20081019200710')[0m
+  [4;35;1mSQL (0.002793)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20081019200551')[0m
+  [4;36;1mSQL (0.000526)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000124)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000122)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000170)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.015748)[0m   [0;1mCREATE TABLE "statuses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "favourited" boolean DEFAULT 'f', "in_reply_to_status_id" integer, "in_reply_to_user_id" integer, "source" varchar(50), "source_url" varchar(500), "text" varchar(140), "truncated" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.000442)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.004010)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar(140) DEFAULT '', "favourites_count" integer DEFAULT 0 NOT NULL, "followers_count" integer DEFAULT 0 NOT NULL, "following" boolean DEFAULT 'f', "friends_count" integer DEFAULT 0 NOT NULL, "location" varchar(140) DEFAULT '', "name" varchar(140) NOT NULL, "profile_image_url" varchar(500), "protected" boolean DEFAULT 'f', "statuses_count" integer DEFAULT 0 NOT NULL, "screen_name" integer(140) NOT NULL, "time_zone" varchar(140), "url" varchar(500), "utc_offset" varchar(50), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.000333)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.003638)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (0.002922)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.000397)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000202)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.003094)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20081019200710')[0m
+  [4;35;1mSQL (0.001863)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20081019200551')[0m
+  [4;36;1mSQL (0.000562)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000123)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000121)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000167)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002919)[0m   [0;1mCREATE TABLE "statuses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "favourited" boolean DEFAULT 'f', "in_reply_to_status_id" integer, "in_reply_to_user_id" integer, "source" varchar(50), "source_url" varchar(500), "text" varchar(140), "truncated" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.000304)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002925)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar(140) DEFAULT '', "favourites_count" integer DEFAULT 0 NOT NULL, "followers_count" integer DEFAULT 0 NOT NULL, "following" boolean DEFAULT 'f', "friends_count" integer DEFAULT 0 NOT NULL, "location" varchar(140) DEFAULT '', "name" varchar(140) NOT NULL, "profile_image_url" varchar(500), "protected" boolean DEFAULT 'f', "statuses_count" integer DEFAULT 0 NOT NULL, "screen_name" integer(140) NOT NULL, "time_zone" varchar(140), "url" varchar(500), "utc_offset" varchar(50), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.000322)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002943)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (0.002752)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.000339)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000142)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.001851)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20081019200710')[0m
+  [4;35;1mSQL (0.002286)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20081019200551')[0m
+
+
+Processing UsersController#index (for 127.0.0.1 at 2008-10-19 22:18:24) [GET]
+  Session ID: 2af764a185da39256f22d6bd5b4d3622
+  Parameters: {"action"=>"index", "controller"=>"users"}
+  [4;36;1mUser Load (0.000421)[0m   [0;1mSELECT * FROM "users" [0m
+Rendering users/index
+Completed in 0.00753 (132 reqs/sec) | Rendering: 0.00205 (27%) | DB: 0.00042 (5%) | 200 OK [http://localhost/users]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2008-10-19 22:18:28) [GET]
+  Session ID: BAh7BiIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo
+SGFzaHsABjoKQHVzZWR7AA==--b6fe238ed321f395b620ba71394fa52f6bb440a3
+  Parameters: {"action"=>"new", "controller"=>"users"}
+Rendering users/new
+Completed in 0.01629 (61 reqs/sec) | Rendering: 0.00997 (61%) | DB: 0.00000 (0%) | 200 OK [http://localhost/users/new]
+
+
+Processing StatusesController#new (for 127.0.0.1 at 2008-10-19 22:18:36) [GET]
+  Session ID: BAh7BzoMY3NyZl9pZCIlODAxZGU0MDhiNWRiMDg3MDhlYTZlMTZjMTM1Njk1
+ZTQiCmZsYXNoSUM6J0FjdGlvbkNvbnRyb2xsZXI6OkZsYXNoOjpGbGFzaEhh
+c2h7AAY6CkB1c2VkewA=--d1b1e93237b05b1ac1dcea86971b0c4b3c061d73
+  Parameters: {"action"=>"new", "controller"=>"statuses"}
+Rendering statuses/new
+Completed in 0.04727 (21 reqs/sec) | Rendering: 0.00706 (14%) | DB: 0.00000 (0%) | 200 OK [http://localhost/statuses/new]
+
+
+Processing StatusesController#create (for 127.0.0.1 at 2008-10-19 22:18:50) [POST]
+  Session ID: BAh7BzoMY3NyZl9pZCIlODAxZGU0MDhiNWRiMDg3MDhlYTZlMTZjMTM1Njk1
+ZTQiCmZsYXNoSUM6J0FjdGlvbkNvbnRyb2xsZXI6OkZsYXNoOjpGbGFzaEhh
+c2h7AAY6CkB1c2VkewA=--d1b1e93237b05b1ac1dcea86971b0c4b3c061d73
+  Parameters: {"status"=>{"truncated"=>"0", "text"=>"sfdasdf", "source_url"=>"asdfasfd", "favourited"=>"0", "in_reply_to_status_id"=>"1", "in_reply_to_user_id"=>"2", "source"=>"dasfsd"}, "commit"=>"Create", "authenticity_token"=>"ffdbbec5c3e1c4551c73ef18d57adbc9bc29913d", "action"=>"create", "controller"=>"statuses"}
+  [4;35;1mStatus Create (0.000412)[0m   [0mINSERT INTO "statuses" ("truncated", "updated_at", "text", "source_url", "favourited", "in_reply_to_status_id", "in_reply_to_user_id", "source", "created_at") VALUES('f', '2008-10-19 20:18:50', 'sfdasdf', 'asdfasfd', 'f', 1, 2, 'dasfsd', '2008-10-19 20:18:50')[0m
+Redirected to http://localhost:3000/statuses/1
+Completed in 0.01580 (63 reqs/sec) | DB: 0.00041 (2%) | 302 Found [http://localhost/statuses]
+
+
+Processing StatusesController#show (for 127.0.0.1 at 2008-10-19 22:18:50) [GET]
+  Session ID: BAh7BzoMY3NyZl9pZCIlODAxZGU0MDhiNWRiMDg3MDhlYTZlMTZjMTM1Njk1
+ZTQiCmZsYXNoSUM6J0FjdGlvbkNvbnRyb2xsZXI6OkZsYXNoOjpGbGFzaEhh
+c2h7BjoLbm90aWNlIiVTdGF0dXMgd2FzIHN1Y2Nlc3NmdWxseSBjcmVhdGVk
+LgY6CkB1c2VkewY7B0Y=--a6afb70c91b8ed6c25d918346a07c38e87bc43fe
+  Parameters: {"action"=>"show", "id"=>"1", "controller"=>"statuses"}
+  [4;36;1mStatus Load (0.000212)[0m   [0;1mSELECT * FROM "statuses" WHERE ("statuses"."id" = 1) [0m
+Rendering statuses/show
+Completed in 0.00872 (114 reqs/sec) | Rendering: 0.00242 (27%) | DB: 0.00021 (2%) | 200 OK [http://localhost/statuses/1]
+
+
+Processing StatusesController#index (for 127.0.0.1 at 2008-10-19 22:18:52) [GET]
+  Session ID: BAh7BzoMY3NyZl9pZCIlODAxZGU0MDhiNWRiMDg3MDhlYTZlMTZjMTM1Njk1
+ZTQiCmZsYXNoSUM6J0FjdGlvbkNvbnRyb2xsZXI6OkZsYXNoOjpGbGFzaEhh
+c2h7BjoLbm90aWNlIiVTdGF0dXMgd2FzIHN1Y2Nlc3NmdWxseSBjcmVhdGVk
+LgY6CkB1c2VkewY7B1Q=--5deda96d32982c1548c5b127fbbec336db310b7e
+  Parameters: {"action"=>"index", "controller"=>"statuses"}
+  [4;35;1mStatus Load (0.000501)[0m   [0mSELECT * FROM "statuses" [0m
+Rendering statuses/index
+Completed in 0.07347 (13 reqs/sec) | Rendering: 0.06820 (92%) | DB: 0.00050 (0%) | 200 OK [http://localhost/statuses]
+
+
+Processing StatusesController#show (for 127.0.0.1 at 2008-10-19 22:18:55) [GET]
+  Session ID: BAh7BzoMY3NyZl9pZCIlODAxZGU0MDhiNWRiMDg3MDhlYTZlMTZjMTM1Njk1
+ZTQiCmZsYXNoSUM6J0FjdGlvbkNvbnRyb2xsZXI6OkZsYXNoOjpGbGFzaEhh
+c2h7AAY6CkB1c2VkewA=--d1b1e93237b05b1ac1dcea86971b0c4b3c061d73
+  Parameters: {"action"=>"show", "id"=>"1", "controller"=>"statuses"}
+  [4;36;1mStatus Load (0.000247)[0m   [0;1mSELECT * FROM "statuses" WHERE ("statuses"."id" = 1) [0m
+Rendering statuses/show
+Completed in 0.00858 (116 reqs/sec) | Rendering: 0.00154 (17%) | DB: 0.00025 (2%) | 200 OK [http://localhost/statuses/1]
+  [4;36;1mSQL (0.000497)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000125)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000114)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000174)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.003333)[0m   [0;1mCREATE TABLE "statuses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "favourited" boolean DEFAULT 'f', "in_reply_to_status_id" integer, "in_reply_to_user_id" integer, "source" varchar(50), "source_url" varchar(500), "text" varchar(140), "truncated" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.000215)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.004545)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar(140) DEFAULT '', "favourites_count" integer DEFAULT 0 NOT NULL, "followers_count" integer DEFAULT 0 NOT NULL, "following" boolean DEFAULT 'f', "friends_count" integer DEFAULT 0 NOT NULL, "location" varchar(140) DEFAULT '', "name" varchar(140) NOT NULL, "profile_image_url" varchar(500), "protected" boolean DEFAULT 'f', "statuses_count" integer DEFAULT 0 NOT NULL, "screen_name" integer(140) NOT NULL, "time_zone" varchar(140), "url" varchar(500), "utc_offset" varchar(50), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.000784)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.002579)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (0.002781)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.000362)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000131)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.008310)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20081019200710')[0m
+  [4;35;1mSQL (0.001507)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20081019200551')[0m
+  [4;36;1mSQL (0.000489)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000125)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000128)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000180)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.006451)[0m   [0;1mCREATE TABLE "statuses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "favourited" boolean DEFAULT 'f', "in_reply_to_status_id" integer, "in_reply_to_user_id" integer, "source" varchar(50), "source_url" varchar(500), "text" varchar(140), "truncated" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.000244)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.026947)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar(140) DEFAULT '', "favourites_count" integer DEFAULT 0 NOT NULL, "followers_count" integer DEFAULT 0 NOT NULL, "following" boolean DEFAULT 'f', "friends_count" integer DEFAULT 0 NOT NULL, "location" varchar(140) DEFAULT '', "name" varchar(140) NOT NULL, "profile_image_url" varchar(500), "protected" boolean DEFAULT 'f', "statuses_count" integer DEFAULT 0 NOT NULL, "screen_name" integer(140) NOT NULL, "time_zone" varchar(140), "url" varchar(500), "utc_offset" varchar(50), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.000402)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.003095)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (0.002800)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.000391)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000148)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.004991)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20081019200710')[0m
+  [4;35;1mSQL (0.001889)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20081019200551')[0m
