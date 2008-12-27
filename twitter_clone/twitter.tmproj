@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>twitter/app/models/user.rb</string>
+	<string>twitter/db/migrate/20081019200710_create_statuses.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -35,6 +35,48 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>twitter/config/initializers/inflections.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>twitter/config/initializers/mime_types.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>twitter/config/initializers/new_rails_defaults.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>twitter/config/routes.rb</key>
 		<dict>
 			<key>caret</key>
@@ -48,6 +90,36 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+		</dict>
+		<key>twitter/db/migrate/20081019200710_create_statuses.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>18</integer>
+				<key>line</key>
+				<integer>11</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>6</integer>
+				<key>line</key>
+				<integer>3</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>18</integer>
+				<key>line</key>
+				<integer>11</integer>
+			</dict>
 		</dict>
 		<key>twitter/spec/controllers/statuses_controller_spec.rb</key>
 		<dict>
@@ -99,10 +171,14 @@
 		<string>twitter/spec/controllers/statuses_controller_spec.rb</string>
 		<string>twitter/config/routes.rb</string>
 		<string>twitter/app/models/user.rb</string>
+		<string>twitter/config/initializers/inflections.rb</string>
+		<string>twitter/config/initializers/mime_types.rb</string>
+		<string>twitter/config/initializers/new_rails_defaults.rb</string>
+		<string>twitter/db/migrate/20081019200710_create_statuses.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>windowFrame</key>
-	<string>{{0, 49}, {1440, 829}}</string>
+	<string>{{0, 54}, {1440, 824}}</string>
 </dict>
 </plist>

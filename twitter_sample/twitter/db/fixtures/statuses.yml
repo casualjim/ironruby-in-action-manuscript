@@ -1,0 +1,250 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value
+first:
+    id: 1
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: IronRuby rocks... 
+    user_id: 1
+    created_at: <%= (2.days.ago + 6.hours).to_s :db %>
+    
+second:
+    id: 2
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: I hear they run rails now
+    user_id: 2
+    created_at: <%= (2.days.ago + 5.hours).to_s :db %>
+
+third:
+    id: 3
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: <%= "@andrew yes they do" %>
+    user_id: 2
+    in_reply_to_status_id: 2
+    created_at: <%= (2.days.ago + 4.hours).to_s :db %>
+    
+fourth:
+    id: 4
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: <%= "@michael how is the silverlight thing going?" %>
+    user_id: 1
+    in_reply_to_user_id: 2
+    created_at: <%= (2.days.ago + 3.hours).to_s :db %>
+
+fifth:
+    id: 5
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: <%= "@ivan great!!! sending a demo now" %>
+    user_id: 3
+    in_reply_to_user_id: 1
+    created_at: <%= (2.days.ago + 2.hours).to_s :db %>
+
+sixth:
+    id: 6
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: <%= "@michael super :D can't wait to see it."%>
+    user_id: 1
+    created_at: <%= (2.days.ago + 1.hour).to_s :db %>
+
+seven:    
+    user_id: 1
+    source: ironruby in action
+    text: the 7th tweet in the sample
+    id: 7
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago).to_s :db %>
+
+eight:
+    user_id: 2
+    source: ironruby in action
+    text: the 8th tweet in the sample
+    id: 8
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 23.hours).to_s :db %>
+
+nine:
+    user_id: 3
+    source: ironruby in action
+    text: the 9th tweet in the sample
+    id: 9
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 22.hours).to_s :db %>
+
+ten:
+    user_id: 1
+    source: ironruby in action
+    text: the 10th tweet in the sample
+    id: 10
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 21.hours).to_s :db %>
+
+eleven:
+    user_id: 2
+    source: ironruby in action
+    text: the 11th tweet in the sample
+    id: 11
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 20.hours).to_s :db %>
+
+twelve:
+    user_id: 3
+    source: ironruby in action
+    text: the 12th tweet in the sample
+    id: 12
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 19.hours).to_s :db %>
+    
+thirteen:
+    user_id: 1
+    source: ironruby in action
+    text: the 13th tweet in the sample
+    id: 13
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 18.hours).to_s :db %>
+
+fourteen:
+    user_id: 2
+    source: ironruby in action
+    text: the 14th tweet in the sample
+    id: 14
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 17.hours).to_s :db %>
+
+fifteen: 
+    user_id: 3
+    source: ironruby in action
+    text: the 15th tweet in the sample
+    id: 15
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 16.hours).to_s :db %>
+
+sixteen:
+    user_id: 1
+    source: ironruby in action
+    text: the 16th tweet in the sample
+    id: 16
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 15.hours).to_s :db %>
+
+seventeen:
+    user_id: 2
+    source: ironruby in action
+    text: the 17th tweet in the sample
+    id: 17
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 14.hours).to_s :db %>
+
+eighteen:
+    user_id: 3
+    source: ironruby in action
+    text: the 18th tweet in the sample
+    id: 18
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 13.hours).to_s :db %>
+
+nineteen:
+    user_id: 1
+    source: ironruby in action
+    text: the 19th tweet in the sample
+    id: 19
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 12.hours).to_s :db %>
+    
+twenty:
+    user_id: 2
+    source: ironruby in action
+    text: the 20th tweet in the sample
+    id: 20
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 11.hours).to_s :db %>
+
+twentyone:
+    user_id: 3
+    source: ironruby in action
+    text: the 21st tweet in the sample
+    id: 21
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 10.hours).to_s :db %>
+
+twentytwo:
+    user_id: 1
+    source: ironruby in action
+    text: the 22nd tweet in the sample
+    id: 22
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 9.hours).to_s :db %>
+
+twentythree:
+    user_id: 2
+    source: ironruby in action
+    text: the 23rd tweet in the sample
+    id: 23
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 8.hours).to_s :db %>
+
+twentyfour:
+    user_id: 3
+    source: ironruby in action
+    text: the 24th tweet in the sample
+    id: 24
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 7.hours).to_s :db %>
+
+twentyfive:
+    user_id: 1
+    source: ironruby in action
+    text: the 25th tweet in the sample
+    id: 25
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 6.hours).to_s :db %>
+
+twentysix:
+    user_id: 2
+    source: ironruby in action
+    text: the 26th tweet in the sample
+    id: 26
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 5.hours).to_s :db %>
+
+
+twentyseven:
+    user_id: 3
+    source: ironruby in action
+    text: the 27th tweet in the sample
+    id: 27
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 4.hours).to_s :db %>
+
+twentyeight:
+    user_id: 1
+    source: ironruby in action
+    text: the 28th tweet in the sample
+    id: 28
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 3.hours).to_s :db %>
+
+twentynine:
+    user_id: 2
+    source: ironruby in action
+    text: the 29th tweet in the sample
+    id: 29
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 2.hours).to_s :db %>
+
+thirty:
+    user_id: 3
+    source: ironruby in action
+    text: the 30th tweet in the sample
+    id: 30
+    source_url: http://manning.com/carrero
+    created_at: <%= (3.days.ago + 1.hours).to_s :db %>

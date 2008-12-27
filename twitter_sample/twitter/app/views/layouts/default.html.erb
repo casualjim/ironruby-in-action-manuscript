@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="Your description goes here" />
+	<meta name="keywords" content="your,keywords,goes,here" />
+	<meta name="author" content="Your Name" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/andreas01.css" media="screen,projection" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/print.css" media="print" />
+	<title>Twitter redux sample</title>
+</head>
+
+<body>
+<div id="wrap">
+
+	<div id="header">
+		<h1><a href="/">Twitter Redux Sample</a></h1>
+		<p>IronRuby in Action: Chapter 10</p>
+	</div>
+
+	<img id="frontphoto" src="/images/front.jpg" width="760" height="175" alt="" />
+
+	<div id="leftside">
+		<h2 class="hide">Menu:</h2>
+		
+		<ul class="avmenu">
+			<li><a class="current" href="/">Home</a></li>
+			<li><a href="/user/friends_timeline">Your updates</a></li>
+			
+		</ul>
+		
+		<div class="announce">
+			<h2>Updates:</h2>
+			<p><strong>Apr 24, 2008:</strong><br />Refreshed: v3.0!</p>
+			<p><strong>Jan 11, 2007:</strong><br />Improved: v2.5!</p>
+			<p><strong>June 25, 2006:</strong><br />Major upgrade: v2.0.</p>
+			<p><strong>June 25, 2005:</strong><br />First release: v1.0.</p>
+			<p class="textright"><a href="#">Sample link &raquo;</a></p>
+		</div>
+	</div>
+
+	<div id="contentwide">
+		<%= yield %>
+	</div>
+
+	<div id="footer">
+		<p><span>&copy; 2008 <a href="#">Your Name</a></span><br />
+		Original design by <a href="http://andreasviklund.com/">Andreas Viklund</a></p>
+	</div>
+
+</div>
+</body>
+</html>
