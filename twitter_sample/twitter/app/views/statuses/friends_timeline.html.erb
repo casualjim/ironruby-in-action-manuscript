@@ -1,21 +1,14 @@
 <h2>Timeline with friends for <%= current_user.login %></h2>
-<div class="status-update" style="display:block;margin:5px;padding:3px;clear:right">
-	<form action="/statuses/create" style="padding-bottom:5px;" >
+<div class="status-update" style="display:block;margin:5px;padding:3px;">
+	<% form_for(@status) do |f| %>
 		<label for="status[text]">Update:<br /></label>
 		<textarea rows="5" cols="70" id="status[text]" name="status[text]" style="width:100%"></textarea><br />
-		<div style="display:block;text-align:right"><button type="submit" style="margin-bottom:5px;">Update</button>
-	</form>
+		<div style="display:block;text-align:right"><button type="submit">Update</button></div>
+	<% end %>
 </div>
 <div class="timeline">
-<% for status in current_user.friends_timeline %>
+<% for status in @statuses %>
         <%= render :partial => 'timeline_item', :locals => {:status => status} %>
-	<div class="timeline-item" >
-	    <a class="profile-link" href="<%="/users/show/#{status.user.login}" %>" ><img src="http://static.twitter.com/images/default_profile_normal.png" alt="profile image" /></a>
-	    <p>
-	        <a href="<%= "/users/show/#{status.user.login}" %>"><%= status.user.login %></a>
-	        <%= status.text %><br />
-	        <%= status.created_at %> from <a href="<%= status.source_url %>"><%= status.source %></a>
-	    </p>
-	</div>
+	
 <% end %>
 </div>

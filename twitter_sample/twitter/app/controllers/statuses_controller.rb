@@ -24,17 +24,19 @@ class StatusesController < ApplicationController
   end
   
   def friends_timeline
+    @status = Status.new
+    @statuses = Status.timeline_with_friends_for(current_user)
+    logger.debug "Statuses count: #{@statuses.size}"
     respond_to do |format|
       format.html
-      format.xml { render :xml => current_user.friends_timeline }
+      format.xml { render :xml => @statuses }
     end
   end
 
   # GET /statuses/new
   # GET /statuses/new.xml
   def new
-    @status = Status.new params[:status]
-    @status.user = current_user
+    @status = Status.new
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @status }
@@ -50,6 +52,7 @@ class StatusesController < ApplicationController
   # POST /statuses.xml
   def create
     @status = Status.new(params[:status])
+    @status.user = current_user
 
     respond_to do |format|
       if @status.save
