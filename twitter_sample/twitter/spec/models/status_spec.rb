@@ -14,48 +14,48 @@ context "Status class with fixtures loaded\n" do
       @status = Status.new
     end
     
-    describe 'for persistence it' do
+    context 'for persistence it' do
     
-      it "should create a status" do
+      specify "should create a status" do
         status = create_status
         violated "#{create_status.errors.full_messages.to_sentence}" if status.new_record?
       end
     
       
-      it "should not create an empty instance" do
+      specify "should not create an empty instance" do
         @status.should_not be_valid
         
       end
       
-      it "user_id cannot be nil" do
+      specify "user_id cannot be nil" do
         lambda do
           status = create_status(:user_id => nil)
           status.errors.on(:user_id).should_not be_nil      
         end.should_not change(Status, :count)
       end
 
-      it "should have a text" do
+      specify "should have a text" do
         lambda do
           status = create_status(:text => nil)
           status.errors.on(:text).should_not be_nil      
         end.should_not change(Status, :count)
       end
 
-      it "source_url can be blank" do
+      specify "source_url can be blank" do
         lambda do
           status = create_status(:source_url => "")
           violated "#{status.errors.full_messages.to_sentence}" if status.new_record?      
         end.should change(Status, :count)
       end
       
-      it "source_url can be nil" do
+      specify "source_url can be nil" do
         lambda do
           status = create_status(:source_url => nil)
           violated "#{status.errors.full_messages.to_sentence}" if status.new_record?   
         end.should change(Status, :count)
       end
     
-      it "should be a valid url when source_url is not blank or nil" do
+      specify "should be a valid url when source_url is not blank or nil" do
         lambda do
           status = create_status(:source_url => "htt://dld.")
           status.errors.on(:source_url).should_not be_nil      
@@ -66,23 +66,23 @@ context "Status class with fixtures loaded\n" do
     end
       
     
-    describe "as relations it" do
+    context "as relations it" do
       
-      it "should have a user which is the author" do
+      specify "should have a user which is the author" do
         status = statuses(:first)
         status.should_not be_nil
         status.user.should_not be_nil
         status.user.id.should == 1
       end
       
-      it "can have a user to which this status is a reply" do
+      specify "can have a user to which this status is a reply" do
         status = statuses(:fourth)
         status.should_not be_nil
         status.in_reply_to_user.should_not be_nil
         status.in_reply_to_user.id.should == 2
       end
       
-      it "can have a status to which this can be a reply" do
+      specify "can have a status to which this can be a reply" do
         status = statuses(:third)
         status.should_not be_nil
         status.in_reply_to_status_id.should == 2
@@ -91,9 +91,9 @@ context "Status class with fixtures loaded\n" do
       end
     end
     
-    describe "finders" do
+    context "finders" do
       
-      it "find all the statuses for a user including his friends" do
+      specify "find all the statuses for a user including his friends" do
         result = Status.timeline_with_friends_for users(:aaron)
         result.should_not be_empty
         result.length.should == 5
