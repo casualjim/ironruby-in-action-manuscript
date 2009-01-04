@@ -26,7 +26,8 @@ class Status < ActiveRecord::Base
 
   class << self
 
-    def timeline_with_friends_for(options)
+    def timeline_with_friends_for(options={})
+      logger.debug("entering timeline_with_friends_for || parameters: #{options.collect { |k, v| ":#{k} => #{v}"}.join(", ") }")
       options[:where] = "( user_id = :user_id or user_id in (select user_id from follower_users where follower_id = :user_id) )"
       find :all, extract_timeline_options(options)
     end
@@ -35,11 +36,11 @@ class Status < ActiveRecord::Base
       find :all, :limit => DEFAULT_PAGESIZE, :order => DEFAULT_SORT, :include => [:user]
     end
 
-    def timeline_for(options)
+    def timeline_for(options={})
       find :all, extract_timeline_options(options)
     end
 
-    def replies_for(options)
+    def replies_for(options={})
       options[:where] = "( text LIKE '@%' AND user_id = :user_id )"
       find :all, extract_timeline_options(options.reject {|k, v| k.to_sym == :count  })
     end
@@ -50,9 +51,8 @@ class Status < ActiveRecord::Base
 
     private
     
-      def extract_timeline_options(options)
-        options = { :user_id => options.id } if options.is_a? User
-        opts = { :where => "(user_id = :user_id)", :page => 1, :count => DEFAULT_PAGESIZE, :sort => DEFAULT_SORT}.merge(options)
+      def extract_timeline_options(options={})
+        opts = { :where => "( user_id = :user_id )", :page => 1, :count => DEFAULT_PAGESIZE, :sort => DEFAULT_SORT }.merge(options)
         limit = opts[:count].to_i
         limit = 200 if limit > 200
         offset = (opts[:page].to_i - 1) * limit
@@ -67,6 +67,7 @@ class Status < ActiveRecord::Base
       end
 
       def build_conditions_from(opts)
+        opts.symbolize_keys!
         whr = opts[:where]
         par = { :user_id => opts[:user_id] }
         if opts.respond_to?(:since)
@@ -77,6 +78,7 @@ class Status < ActiveRecord::Base
           whr = whr.blank? ? "( id >= :since_id )" : "#{whr} AND ( id >= :since_id )"
           par[:since_id] = opts[:since_id]
         end
+        logger.debug("params: #{par.collect {| k, v | ":#{k} => #{v}" }.join(", ")} || query: #{whr}" )
         [whr, par]
       end
 

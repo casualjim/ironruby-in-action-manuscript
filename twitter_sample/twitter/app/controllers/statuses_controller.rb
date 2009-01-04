@@ -23,10 +23,9 @@ class StatusesController < ApplicationController
   def friends_timeline
     @status = Status.new
     @user = current_user
-    params[:user_id] = @user.id
-    since = headers['If-Modified-Since']||params[:since]
-    params[:since] = Time.parse(since) unless since.nil?
-    @statuses = Status.timeline_with_friends_for params 
+    opts = conditions
+    opts[:user_id] = @user.id
+    @statuses = Status.timeline_with_friends_for opts 
     render_for_api(@statuses)
   end
 
@@ -37,18 +36,16 @@ class StatusesController < ApplicationController
 
   def user_timeline
     @status = Status.new
-    params[:user_id] = requested_user.id
-    since = headers['If-Modified-Since']||params[:since]
-    params[:since] = Time.parse(since) unless since.nil?
-    @statuses = Status.timeline_for params
+    opts = conditions
+    opts[:user_id] = requested_user.id             
+    @statuses = Status.timeline_for(opts)
+#    @statuses = requested_user.id == current_user.id ? Status.timeline_for(opts) : Status.timeline_with_friends_for(opts)
     render_for_api(@statuses)
   end
 
   def replies
     @status = Status.new
     params[:user_id] = current_user.id
-    since = headers['If-Modified-Since']||params[:since]
-    params[:since] = Time.parse(since) unless since.nil?
     @statuses = Status.replies_for(params)
     render_for_api(@statuses)
   end

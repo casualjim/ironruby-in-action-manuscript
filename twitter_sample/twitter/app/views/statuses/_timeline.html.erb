@@ -1,4 +1,5 @@
 <div class="timeline">
+  Count: <%= @statuses.size %><br />
   <% for status in @statuses %>
     <%= render :partial => 'timeline_item', :locals => {:status => status} %>
   <% end %>

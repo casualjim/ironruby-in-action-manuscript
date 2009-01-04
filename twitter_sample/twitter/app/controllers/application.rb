@@ -16,6 +16,13 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
 
-  
+  def conditions
+#    params.symbolize_keys!
+    result = params.reject {|k, v| [:controller, :action, :format].include? k.to_sym }
+    result.symbolize_keys!
+    since = headers['If-Modified-Since']||result[:since]
+    result[:since] = Time.parse(since) unless since.nil?
+    result
+  end
 
 end

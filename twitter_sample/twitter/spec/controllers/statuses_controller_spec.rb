@@ -2,6 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe StatusesController do
 
+  fixtures :users, :follower_users, :statuses
+
   def mock_status(stubs={})
     @mock_status ||= mock_model(Status, stubs)
   end
@@ -112,6 +114,11 @@ describe StatusesController do
 
   describe "responding to PUT udpate" do
 
+    before do
+      login_as :quentin
+      stub!(:reset_session)
+    end
+    
     describe "with valid params" do
 
       it "should update the requested status" do
