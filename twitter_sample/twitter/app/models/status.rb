@@ -71,7 +71,7 @@ class Status < ActiveRecord::Base
         par = { :user_id => opts[:user_id] }
         if opts.respond_to?(:since)
           whr = whr.blank? ? "( created_at >= :since )" : "#{whr} AND ( created_at >= :since )"
-          par[:since] = opts[:since]
+          par[:since] = opts[:since].to_s(:db)
         end
         if opts.respond_to?(:since_id)
           whr = whr.blank? ? "( id >= :since_id )" : "#{whr} AND ( id >= :since_id )"

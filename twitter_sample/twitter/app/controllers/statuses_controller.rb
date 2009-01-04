@@ -1,5 +1,5 @@
 class StatusesController < ApplicationController
-  before_filter :login_required, :only => [:friends_timeline]
+  before_filter :login_required, :only => [:friends_timeline, :user_timeline, :replies, :update]
   
   # GET /statuses
   # GET /statuses.xml
@@ -22,7 +22,10 @@ class StatusesController < ApplicationController
   
   def friends_timeline
     @status = Status.new
-    params[:user_id] = current_user.id
+    @user = current_user
+    params[:user_id] = @user.id
+    since = headers['If-Modified-Since']||params[:since]
+    params[:since] = Time.parse(since) unless since.nil?
     @statuses = Status.timeline_with_friends_for params 
     render_for_api(@statuses)
   end
@@ -35,6 +38,8 @@ class StatusesController < ApplicationController
   def user_timeline
     @status = Status.new
     params[:user_id] = requested_user.id
+    since = headers['If-Modified-Since']||params[:since]
+    params[:since] = Time.parse(since) unless since.nil?
     @statuses = Status.timeline_for params
     render_for_api(@statuses)
   end
@@ -42,6 +47,8 @@ class StatusesController < ApplicationController
   def replies
     @status = Status.new
     params[:user_id] = current_user.id
+    since = headers['If-Modified-Since']||params[:since]
+    params[:since] = Time.parse(since) unless since.nil?
     @statuses = Status.replies_for(params)
     render_for_api(@statuses)
   end

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+  before_filter :requested_user, :only => [:show]
   # render new.rhtml
   def new
     @user = User.new
@@ -24,11 +24,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    requested_user
+    logger.debug("In show method")
     respond_to do |format|
       format.html
-      format.xml { render :xml => param.to_xml(User.default_serialization_options) }
-      format.json { render :json => param.to_json(User.default_serialization_options) }
+      format.xml { render :xml => @user.to_xml(User.default_serialization_options) }
+      format.json { render :json => @user.to_json(User.default_serialization_options) }
     end
   end
 
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     def requested_user
       @user = current_user
       @user = User.find_by_id_or_login(params[:id]) unless params[:id].nil?
-      @user = User.find_by_email unless params[:email].nil?
+      @user = User.find_by_email(params[:email]) unless params[:email].nil?
       @user
     end
 
