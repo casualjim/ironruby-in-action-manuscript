@@ -46,6 +46,18 @@ class StatusesController < ApplicationController
     render_for_api(@statuses)
   end
 
+  def friends
+    requested_user
+    @users = @user.following.paged(params)
+    render_user_for_api(@users)
+  end
+
+  def followers
+    requested_user
+    @users = @user.followers.paged(params)
+    render_user_for_api(@users)
+  end
+
   # GET /statuses/new
   # GET /statuses/new.xml
   def new
@@ -115,8 +127,16 @@ class StatusesController < ApplicationController
     def render_for_api(param)
       respond_to do |format|
         format.html
-        format.xml { render :xml => param }
-        format.json { render :json => param }
+        format.xml { render :xml => param.to_xml(Status.default_serialization_options) }
+        format.json { render :json => param.to_json(Status.default_serialization_options) }
+      end
+    end
+
+    def render_user_for_api(param)
+      respond_to do |format|
+        format.html
+        format.xml { render :xml => param.to_xml(User.default_serialization_options) }
+        format.json { render :json => param.to_json(User.default_serialization_options) }
       end
     end
 

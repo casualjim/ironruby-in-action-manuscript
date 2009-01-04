@@ -1,5 +1,12 @@
 require 'digest/sha1'
 
+module PagedFindExtension
+  def paged(options)
+    offset = (((options[:page]||1).to_i - 1) * 100)
+    find :all, :limit => 100, :offset => offset
+  end
+end
+
 class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
@@ -18,9 +25,34 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
   
-  has_many :statuses
-  has_and_belongs_to_many :followers, :join_table => "follower_users", :association_foreign_key => :follower_id, :foreign_key => :user_id, :class_name => "User"
-  has_and_belongs_to_many :following, :join_table => "follower_users", :association_foreign_key => :user_id, :foreign_key => :follower_id, :class_name => "User"
+  has_many :statuses, :order => Status::DEFAULT_SORT, :after_add => :increment_status_count
+  has_one :status, :order => Status::DEFAULT_SORT
+
+  has_and_belongs_to_many :followers, :join_table => "follower_users",
+                                      :association_foreign_key => :follower_id,
+                                      :foreign_key => :user_id,
+                                      :class_name => "User",
+                                      :extend => PagedFindExtension,
+                                      :after_add => :increment_followers_count
+  
+  has_and_belongs_to_many :following, :join_table => "follower_users",
+                                      :association_foreign_key => :user_id,
+                                      :foreign_key => :follower_id,
+                                      :class_name => "User",
+                                      :extend => PagedFindExtension,
+                                      :after_add => :increment_friends_count
+
+#  has_and_belongs_to_many :friends, :join_table => "follower_users",
+#                                    :association_foreign_key => :user_id,
+#                                    :foreign_key => :follower_id,
+#                                    :class_name => "User",
+#                                    :limit => 100
+#
+#  has_and_belongs_to_many :limited_followers, :join_table => "follower_users",
+#                                              :association_foreign_key => :follower_id,
+#                                              :foreign_key => :user_id,
+#                                              :class_name => "User",
+#                                              :limit => 100
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
@@ -46,6 +78,9 @@ class User < ActiveRecord::Base
       find(:first, :conditions => ["id = '#{login}' OR login = '#{login}'" ])
     end
 
+    def default_serialization_options
+      { :include => [:status] }   
+    end
 
   end
 
@@ -71,4 +106,7 @@ class User < ActiveRecord::Base
   def timeline
     Status.timeline_for :user_id => self.id 
   end
+
+  
+
 end

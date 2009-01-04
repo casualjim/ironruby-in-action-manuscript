@@ -1,10 +1,5 @@
 class UsersController < ApplicationController
   
-  
-  def friends_timeline
-    #@user = current_user    
-  end
-
   # render new.rhtml
   def new
     @user = User.new
@@ -27,5 +22,24 @@ class UsersController < ApplicationController
       render :action => 'new'
     end
   end
+
+  def show
+    requested_user
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => param.to_xml(User.default_serialization_options) }
+      format.json { render :json => param.to_json(User.default_serialization_options) }
+    end
+  end
+
+  private
+
+    def requested_user
+      @user = current_user
+      @user = User.find_by_id_or_login(params[:id]) unless params[:id].nil?
+      @user = User.find_by_email unless params[:email].nil?
+      @user
+    end
+
 end
 #

@@ -1,0 +1,14 @@
+<table border="0" cellpadding="0" cellspacing="3">
+  <% for user in @users %>
+    <tr   >
+      <td>
+         <a class="profile-link" href="<%="/users/show/#{user.login}" %>" >
+           <img src="http://static.twitter.com/images/default_profile_normal.png" alt="profile image" />
+         </a>
+      </td>
+      <td>
+        <a href="<%= "/users/show/#{user.login}" %>"><%= user.login %></a>
+      </td>
+    </tr>
+  <% end %>
+</table>

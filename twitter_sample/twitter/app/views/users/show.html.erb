@@ -1,0 +1,11 @@
+<h2>Profile for for <%= @user.login %></h2>
+<div class="timeline">
+  <% for status in @user.statuses %>
+    <div class="timeline-item" >
+      <p>
+          <%= status.text %><br />
+          <%= status.created_at %> from <a href="<%= status.source_url %>"><%= status.source %></a>
+      </p>
+    </div>
+  <% end %>
+</div>

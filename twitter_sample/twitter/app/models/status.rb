@@ -44,6 +44,10 @@ class Status < ActiveRecord::Base
       find :all, extract_timeline_options(options.reject {|k, v| k.to_sym == :count  })
     end
 
+    def default_serialization_options
+      { :include => [:user] }   
+    end
+
     private
     
       def extract_timeline_options(options)
