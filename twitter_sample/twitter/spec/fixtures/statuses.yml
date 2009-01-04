@@ -23,7 +23,7 @@ third:
     id: 3
     source: ironruby in action
     source_url: http://manning.com/carrero
-    text: the third status description
+    text: @aaron the third status description
     user_id: 2
     in_reply_to_status_id: 2
     
@@ -31,7 +31,7 @@ fourth:
     id: 4
     source: ironruby in action
     source_url: http://manning.com/carrero
-    text: the fourth status description
+    text: @aaron the fourth status description
     user_id: 1
     in_reply_to_user_id: 2
 

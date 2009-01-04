@@ -94,9 +94,27 @@ context "Status class with fixtures loaded\n" do
     context "finders" do
       
       specify "find all the statuses for a user including his friends" do
-        result = Status.timeline_with_friends_for users(:aaron)
+        result = Status.timeline_with_friends_for :user_id => users(:aaron).id
         result.should_not be_empty
         result.length.should == 5
+      end
+
+      specify "find the last 20 status updates for the public timeline" do
+        result = Status.public_timeline
+        result.should_not be_empty
+        result.length.should == 6
+      end
+
+      specify "find the status updates for this user only" do
+        result = Status.timeline_for(:user_id => users(:aaron).id )
+        result.should_not be_empty
+        result.length.should == 2
+      end
+
+      specify "find all the replies by this user only" do
+        result = Status.replies_for(:user_id => users(:aaron).id )
+        result.should_not be_empty
+        result.length.should == 1
       end
       
     end

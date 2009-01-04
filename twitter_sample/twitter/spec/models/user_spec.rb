@@ -244,14 +244,14 @@ fixtures :users, :follower_users, :statuses
   
   describe "should find all the statuses for the user and his friends" do
     
-    it "when the user has no friends" do
+    specify "when the user has no friends" do
       user = users(:quentin)
       user.should_not be_nil
       user.friends_timeline.should_not be_empty
       user.friends_timeline.length.should == 3
     end
     
-    it "when the user has (a) friend(s)" do
+    specify "when the user has (a) friend(s)" do
       user = users(:aaron)
       user.should_not be_nil
       

@@ -65,10 +65,10 @@ class User < ActiveRecord::Base
   end
 
   def friends_timeline
-    Status.timeline_with_friends_for self
+    Status.timeline_with_friends_for :user_id => self.id
   end
 
   def timeline
-    Status.timeline_for self 
+    Status.timeline_for :user_id => self.id 
   end
 end

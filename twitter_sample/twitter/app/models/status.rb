@@ -48,7 +48,7 @@ class Status < ActiveRecord::Base
     
       def extract_timeline_options(options)
         options = { :user_id => options.id } if options.is_a? User
-        opts = { :where => "", :page => 1, :count => DEFAULT_PAGESIZE, :sort => DEFAULT_SORT}.merge(options)
+        opts = { :where => "(user_id = :user_id)", :page => 1, :count => DEFAULT_PAGESIZE, :sort => DEFAULT_SORT}.merge(options)
         limit = opts[:count].to_i
         limit = 200 if limit > 200
         offset = (opts[:page].to_i - 1) * limit
