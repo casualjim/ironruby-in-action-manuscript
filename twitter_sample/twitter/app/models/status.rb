@@ -25,7 +25,16 @@ class Status < ActiveRecord::Base
     def timeline_with_friends_for(user)
       find :all, :conditions => ["user_id = '#{user.id}' or user_id in (select user_id from follower_users where follower_id = '#{user.id}')"],
                  :order => "created_at DESC",
-                 :include => [:user]
+                 :include => [:user],
+                 :limit => 20
+    end
+
+    def public_timeline
+      find :all, :limit => 20, :order => "created_at DESC", :include => [:user]
+    end
+
+    def timeline_for(user)
+      find :all, :conditions => { :user_id => user.id }, :limit => 20, :order => "created_at DESC", :include => [:user]
     end
 
   end

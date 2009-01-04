@@ -76,12 +76,14 @@ describe StatusesController do
       
       it "should expose a newly created status as @status" do
         Status.should_receive(:new).with({'these' => 'params'}).and_return(mock_status(:save => true))
+        mock_status.stub!(:user=).and_return(User.new(:id => 1))
         post :create, :status => {:these => 'params'}
         assigns(:status).should equal(mock_status)
       end
 
       it "should redirect to the created status" do
         Status.stub!(:new).and_return(mock_status(:save => true))
+        mock_status.stub!(:user=).and_return(User.new(:id => 1))
         post :create, :status => {}
         response.should redirect_to(status_url(mock_status))
       end
@@ -92,12 +94,14 @@ describe StatusesController do
 
       it "should expose a newly created but unsaved status as @status" do
         Status.stub!(:new).with({'these' => 'params'}).and_return(mock_status(:save => false))
+        mock_status.stub!(:user=).and_return(User.new(:id => 1))
         post :create, :status => {:these => 'params'}
         assigns(:status).should equal(mock_status)
       end
 
       it "should re-render the 'new' template" do
         Status.stub!(:new).and_return(mock_status(:save => false))
+        mock_status.stub!(:user=).and_return(User.new(:id => 1))
         post :create, :status => {}
         response.should render_template('new')
       end

@@ -25,7 +25,7 @@ michael:
     id:                        3
     login:                     michael
     name:                      Michael Letterle
-    email:                     andrew@example.com
+    email:                     michael@example.com
     salt:                      <%= Digest::SHA1.hexdigest('ironruby')   %> 
     crypted_password:          <%= User.password_digest('ironruby in action', Digest::SHA1.hexdigest('ironruby')) %> 
     created_at:                <%= 5.days.ago.to_s :db  %>

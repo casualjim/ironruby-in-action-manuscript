@@ -20,17 +20,27 @@ class StatusesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @status }
+      format.json { render :json => @status }
     end
   end
   
   def friends_timeline
+    get_user
     @status = Status.new
-    @statuses = Status.timeline_with_friends_for(current_user)
-    logger.debug "Statuses count: #{@statuses.size}"
-    respond_to do |format|
-      format.html
-      format.xml { render :xml => @statuses }
-    end
+    @statuses = Status.timeline_with_friends_for @user
+    render_for_api(@statuses)
+  end
+
+  def public_timeline
+    @statuses = Status.public_timeline
+    render_for_api(@statuses)
+  end
+
+  def user_timeline
+    get_user
+    @status = Status.new
+    @statuses = Status.timeline_for @user
+    render_for_api(@statuses)
   end
 
   # GET /statuses/new
@@ -94,4 +104,14 @@ class StatusesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+
+    def render_for_api(param)
+      respond_to do |format|
+        format.html
+        format.xml { render :xml => param }
+        format.json { render :json => param }
+      end
+    end
 end

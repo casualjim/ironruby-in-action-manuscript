@@ -1,0 +1,10 @@
+<div class="status-update" style="display:block;margin:5px;padding:3px;">
+  <% form_for(@status) do |f| %>
+    <label for="status[text]">Update:<br/></label>
+    <textarea rows="5" cols="70" id="status[text]" name="status[text]" style="width:100%"></textarea><br/>
+
+    <div style="display:block;text-align:right">
+      <button type="submit">Update</button>
+    </div>
+  <% end %>
+</div>

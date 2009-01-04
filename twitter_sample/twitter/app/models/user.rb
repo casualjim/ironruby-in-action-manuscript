@@ -29,16 +29,24 @@ class User < ActiveRecord::Base
                   :description, :location, :protected, :time_zone, :url, :utc_offset
 
 
-  # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
-  #
-  # uff.  this is really an authorization, not authentication routine.  
-  # We really need a Dispatch Chain here or something.
-  # This will also let us return a human error message.
-  #
-  def self.authenticate(login, password)
-    return nil if login.blank? || password.blank?
-    u = find_by_login(login) # need to get the salt
-    u && u.authenticated?(password) ? u : nil
+  class << self
+    # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
+    #
+    # uff.  this is really an authorization, not authentication routine.
+    # We really need a Dispatch Chain here or something.
+    # This will also let us return a human error message.
+    #
+    def authenticate(login, password)
+      return nil if login.blank? || password.blank?
+      u = find_by_login(login) # need to get the salt
+      u && u.authenticated?(password) ? u : nil
+    end
+
+    def find_by_id_or_login(login)
+      find(:first, :conditions => ["id = '#{login}' OR login = '#{login}'" ])
+    end
+
+
   end
 
   def login=(value)
@@ -60,4 +68,7 @@ class User < ActiveRecord::Base
     Status.timeline_with_friends_for self
   end
 
+  def timeline
+    Status.timeline_for self 
+  end
 end

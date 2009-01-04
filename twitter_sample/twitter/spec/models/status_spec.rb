@@ -34,21 +34,21 @@ context "Status class with fixtures loaded\n" do
         end.should_not change(Status, :count)
       end
 
-      specify "should have a text" do
+      specify "should be invalid without a text" do
         lambda do
           status = create_status(:text => nil)
           status.errors.on(:text).should_not be_nil      
         end.should_not change(Status, :count)
       end
 
-      specify "source_url can be blank" do
+      specify "should be valid with a blank source_url" do
         lambda do
           status = create_status(:source_url => "")
           violated "#{status.errors.full_messages.to_sentence}" if status.new_record?      
         end.should change(Status, :count)
       end
       
-      specify "source_url can be nil" do
+      specify "should be valid with a source_url of nil" do
         lambda do
           status = create_status(:source_url => nil)
           violated "#{status.errors.full_messages.to_sentence}" if status.new_record?   

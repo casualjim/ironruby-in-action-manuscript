@@ -25,6 +25,22 @@ describe StatusesController do
     it "should map #destroy" do
       route_for(:controller => "statuses", :action => "destroy", :id => 1).should == "/statuses/1"
     end
+
+    it "should map #user_timeline" do
+      route_for(:controller => "statuses", :action => "user_timeline").should == "/statuses/user_timeline"
+    end
+
+    it "should map #friends_timeline" do
+      route_for(:controller => "statuses", :action => "friends_timeline").should == "/statuses/friends_timeline"
+    end
+
+    it "should map #public_timeline" do
+      route_for(:controller => "statuses", :action => "public_timeline").should == "/statuses/public_timeline"
+    end
+
+    it "should map #replies" do
+      route_for(:controller => "statuses", :action => "replies").should == "/statuses/replies"
+    end
   end
 
   describe "route recognition" do
@@ -55,5 +71,22 @@ describe StatusesController do
     it "should generate params for #destroy" do
       params_from(:delete, "/statuses/1").should == {:controller => "statuses", :action => "destroy", :id => "1"}
     end
+
+    it "should generate params for #user_timeline" do
+      params_from(:replies, "/statuses/user_timeline").should == {:controller => "statuses", :action => "user_timeline"}
+    end
+
+    it "should generate params for #friends_timeline" do
+      params_from(:replies, "/statuses/friends_timeline").should == {:controller => "statuses", :action => "friends_timeline"}
+    end
+
+    it "should generate params for #public_timeline" do
+      params_from(:replies, "/statuses/public_timeline").should == {:controller => "statuses", :action => "public_timeline"}
+    end
+
+    it "should generate params for #replies" do
+      params_from(:replies, "/statuses/replies").should == {:controller => "statuses", :action => "replies"}
+    end
+
   end
 end
