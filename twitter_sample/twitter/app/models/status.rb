@@ -1,4 +1,8 @@
 class Status < ActiveRecord::Base
+
+  DEFAULT_PAGESIZE = 20
+  DEFAULT_SORT = "created_at DESC"
+
   validates_presence_of :text
   validates_presence_of :user_id
 
@@ -22,20 +26,55 @@ class Status < ActiveRecord::Base
 
   class << self
 
-    def timeline_with_friends_for(user)
-      find :all, :conditions => ["user_id = '#{user.id}' or user_id in (select user_id from follower_users where follower_id = '#{user.id}')"],
-                 :order => "created_at DESC",
-                 :include => [:user],
-                 :limit => 20
+    def timeline_with_friends_for(options)
+      options[:where] = "( user_id = :user_id or user_id in (select user_id from follower_users where follower_id = :user_id) )"
+      find :all, extract_timeline_options(options)
     end
 
     def public_timeline
-      find :all, :limit => 20, :order => "created_at DESC", :include => [:user]
+      find :all, :limit => DEFAULT_PAGESIZE, :order => DEFAULT_SORT, :include => [:user]
     end
 
-    def timeline_for(user)
-      find :all, :conditions => { :user_id => user.id }, :limit => 20, :order => "created_at DESC", :include => [:user]
+    def timeline_for(options)
+      find :all, extract_timeline_options(options)
     end
+
+    def replies_for(options)
+      options[:where] = "( text LIKE '@%' AND user_id = :user_id )"
+      find :all, extract_timeline_options(options.reject {|k, v| k.to_sym == :count  })
+    end
+
+    private
+    
+      def extract_timeline_options(options)
+        options = { :user_id => options.id } if options.is_a? User
+        opts = { :where => "", :page => 1, :count => DEFAULT_PAGESIZE, :sort => DEFAULT_SORT}.merge(options)
+        limit = opts[:count].to_i
+        limit = 200 if limit > 200
+        offset = (opts[:page].to_i - 1) * limit
+
+        {
+          :conditions => build_conditions_from(opts),
+          :order => opts[:sort],
+          :include => [:user],
+          :limit => limit,
+          :offset => offset
+        }
+      end
+
+      def build_conditions_from(opts)
+        whr = opts[:where]
+        par = { :user_id => opts[:user_id] }
+        if opts.respond_to?(:since)
+          whr = whr.blank? ? "( created_at >= :since )" : "#{whr} AND ( created_at >= :since )"
+          par[:since] = opts[:since]
+        end
+        if opts.respond_to?(:since_id)
+          whr = whr.blank? ? "( id >= :since_id )" : "#{whr} AND ( id >= :since_id )"
+          par[:since_id] = opts[:since_id]
+        end
+        [whr, par]
+      end
 
   end
 end

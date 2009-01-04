@@ -17,17 +17,13 @@ class StatusesController < ApplicationController
   def show
     @status = Status.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @status }
-      format.json { render :json => @status }
-    end
+    render_for_api(@status)
   end
   
   def friends_timeline
-    get_user
     @status = Status.new
-    @statuses = Status.timeline_with_friends_for @user
+    params[:user_id] = current_user.id
+    @statuses = Status.timeline_with_friends_for params 
     render_for_api(@statuses)
   end
 
@@ -37,9 +33,16 @@ class StatusesController < ApplicationController
   end
 
   def user_timeline
-    get_user
     @status = Status.new
-    @statuses = Status.timeline_for @user
+    params[:user_id] = requested_user.id
+    @statuses = Status.timeline_for params
+    render_for_api(@statuses)
+  end
+
+  def replies
+    @status = Status.new
+    params[:user_id] = current_user.id
+    @statuses = Status.replies_for(params)
     render_for_api(@statuses)
   end
 
@@ -47,10 +50,7 @@ class StatusesController < ApplicationController
   # GET /statuses/new.xml
   def new
     @status = Status.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @status }
-    end
+    render_for_api(@status)
   end
 
   # GET /statuses/1/edit
@@ -69,9 +69,11 @@ class StatusesController < ApplicationController
         flash[:notice] = 'Status was successfully created.'
         format.html { redirect_to(@status) }
         format.xml  { render :xml => @status, :status => :created, :location => @status }
+        format.json { render :json => @status, :status => :created, :location => @status }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @status.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @status.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -86,9 +88,11 @@ class StatusesController < ApplicationController
         flash[:notice] = 'Status was successfully updated.'
         format.html { redirect_to(@status) }
         format.xml  { head :ok }
+        format.json  { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @status.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @status.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -102,6 +106,7 @@ class StatusesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(statuses_url) }
       format.xml  { head :ok }
+      format.json  { head :ok }
     end
   end
 
@@ -113,5 +118,11 @@ class StatusesController < ApplicationController
         format.xml { render :xml => param }
         format.json { render :json => param }
       end
+    end
+
+    def requested_user
+      @user = current_user
+      @user = User.find_by_id_or_login(params[:id]) unless params[:id].nil?
+      @user
     end
 end

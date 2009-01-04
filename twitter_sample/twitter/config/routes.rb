@@ -3,7 +3,9 @@ ActionController::Routing::Routes.draw do |map|
                                             :friends_timeline => :get,
                                             :user_timeline => :get,
                                             :public_timeline => :get,
-                                            :replies => :get
+                                            :replies => :get,
+                                            :friends => :get,
+                                            :followers => :get
                                           }
 
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
