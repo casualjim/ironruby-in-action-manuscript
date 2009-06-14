@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<minimalLanguageDiagram dslVersion="1.1.0.0" absoluteBounds="0, 0, 11, 8.5" name="MockChatRepository">
+  <modelMoniker name="/MockChat" />
+  <nestedChildShapes>
+    <entityShape Id="21fd2131-4399-4710-b70b-4161bb7aecc3" absoluteBounds="4.125, 2, 1.5, 1.4715071614583333">
+      <entityMoniker name="/MockChat/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="da368271-a22e-43b0-963c-fb8372243bf4" absoluteBounds="4.14, 2.41, 1.4700000000000002, 0.96150716145833326" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </entityShape>
+    <entityShape Id="b307e062-ff38-4b71-8d10-129fea59289f" absoluteBounds="1, 2.5, 1.5, 0.70230143229166675">
+      <entityMoniker name="/MockChat/ChatSession" />
+      <nestedChildShapes>
+        <elementListCompartment Id="13a463d5-4ccd-47f2-bd21-d97695d0f7c7" absoluteBounds="1.0149999999999997, 2.91, 1.4700000000000002, 0.19230143229166666" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </entityShape>
+    <entityShape Id="a04e77fe-beca-4c8e-91cc-b41bd4ecea6e" absoluteBounds="2.625, 4.125, 1.5, 0.70230143229166675">
+      <entityMoniker name="/MockChat/ChatMessage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b8dbbef4-d962-44e8-98d8-8d776cdd41d5" absoluteBounds="2.6399999999999997, 4.535, 1.4700000000000002, 0.19230143229166666" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </entityShape>
+    <oneToManyAssociationConnector edgePoints="[(4.90625 : 3.47150716145833); (4.90625 : 4.47615071614583); (4.125 : 4.47615071614583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <oneToManyAssociationMoniker Id="1fae7377-8e08-431e-9016-c7b4ef9ff375" />
+      <relativeChildShapes />
+      <nodes>
+        <entityShapeMoniker Id="21fd2131-4399-4710-b70b-4161bb7aecc3" />
+        <entityShapeMoniker Id="a04e77fe-beca-4c8e-91cc-b41bd4ecea6e" />
+      </nodes>
+    </oneToManyAssociationConnector>
+    <oneToManyAssociationConnector edgePoints="[(1.75 : 3.20230143229167); (1.75 : 4.47615071614583); (2.625 : 4.47615071614583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <oneToManyAssociationMoniker Id="fa0a5aee-4d3a-4b70-ac7e-e19858141090" />
+      <relativeChildShapes />
+      <nodes>
+        <entityShapeMoniker Id="b307e062-ff38-4b71-8d10-129fea59289f" />
+        <entityShapeMoniker Id="a04e77fe-beca-4c8e-91cc-b41bd4ecea6e" />
+      </nodes>
+    </oneToManyAssociationConnector>
+    <oneToManyAssociationConnector edgePoints="[(4.125 : 2.85115071614583); (2.5 : 2.85115071614583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <oneToManyAssociationMoniker Id="9dcbfbc2-32a5-4285-b32e-f31c267344d7" />
+      <relativeChildShapes />
+      <nodes>
+        <entityShapeMoniker Id="21fd2131-4399-4710-b70b-4161bb7aecc3" />
+        <entityShapeMoniker Id="b307e062-ff38-4b71-8d10-129fea59289f" />
+      </nodes>
+    </oneToManyAssociationConnector>
+    <entityShape Id="ad4a468d-128b-4158-af1a-b5b0b23f2d6d" absoluteBounds="4.625, 0.625, 1.5, 0.51000000000000023">
+      <entityMoniker name="/MockChat/RoomUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="89844548-ddfa-4833-8d20-d8ffb52eac06" absoluteBounds="4.6400000000000006, 1.0350000000000001, 1.4700000000000002, 0" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </entityShape>
+    <entityShape Id="6db57473-2b98-4ead-8675-8ba9af2c87b6" absoluteBounds="1.25, 0.5, 1.5, 0.70230143229166675">
+      <entityMoniker name="/MockChat/Room" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8e7b3ed9-a307-4067-8fa3-78db19419648" absoluteBounds="1.2649999999999997, 0.91000000000000014, 1.4700000000000002, 0.19230143229166666" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </entityShape>
+    <oneToManyAssociationConnector edgePoints="[(5.125 : 2); (5.125 : 1.135)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <oneToManyAssociationMoniker Id="79787f13-fa7e-4d63-85f5-e2d116519050" />
+      <relativeChildShapes />
+      <nodes>
+        <entityShapeMoniker Id="21fd2131-4399-4710-b70b-4161bb7aecc3" />
+        <entityShapeMoniker Id="ad4a468d-128b-4158-af1a-b5b0b23f2d6d" />
+      </nodes>
+    </oneToManyAssociationConnector>
+    <oneToManyAssociationConnector edgePoints="[(4.15625 : 2); (4.15625 : 1.09375); (3.2140625 : 1.09375); (3.2140625 : 1.09375); (2.75 : 1.09375)]" manuallyRouted="true" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <oneToManyAssociationMoniker Id="55aca27d-b1ae-4a2d-b87f-412d295ab4e1" />
+      <relativeChildShapes />
+      <nodes>
+        <entityShapeMoniker Id="21fd2131-4399-4710-b70b-4161bb7aecc3" />
+        <entityShapeMoniker Id="6db57473-2b98-4ead-8675-8ba9af2c87b6" />
+      </nodes>
+    </oneToManyAssociationConnector>
+    <oneToManyAssociationConnector edgePoints="[(1.875 : 1.20230143229167); (1.875 : 2.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <oneToManyAssociationMoniker Id="ed8063b2-2420-43e7-bffe-77d1623aab0c" />
+      <relativeChildShapes />
+      <nodes>
+        <entityShapeMoniker Id="6db57473-2b98-4ead-8675-8ba9af2c87b6" />
+        <entityShapeMoniker Id="b307e062-ff38-4b71-8d10-129fea59289f" />
+      </nodes>
+    </oneToManyAssociationConnector>
+    <oneToManyAssociationConnector edgePoints="[(2.75 : 0.75); (3.5 : 0.75); (3.5 : 0.75); (4.625 : 0.75)]" manuallyRouted="true" fixedFrom="Caller" fixedTo="Caller">
+      <oneToManyAssociationMoniker Id="df66a5c3-3aa9-4bc7-a9b3-9e90f857c9ad" />
+      <relativeChildShapes />
+      <nodes>
+        <entityShapeMoniker Id="6db57473-2b98-4ead-8675-8ba9af2c87b6" />
+        <entityShapeMoniker Id="ad4a468d-128b-4158-af1a-b5b0b23f2d6d" />
+      </nodes>
+    </oneToManyAssociationConnector>
+  </nestedChildShapes>
+</minimalLanguageDiagram>

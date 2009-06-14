@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<model dslVersion="1.1.0.0" name="MockChat" targetNamespace="MockChat.Models" databaseProvider="Sqlite3" connectionString="data source=C:\dev\ironruby_book\Samples\MockChat\MockChat\App_Data\mockchat_dev.sqlite3" pluralizedInDatabase="true" xmlns="http://namespaces.mindscape.co.nz/lightspeed">
+  <entities>
+    <entity name="User" identityType="Int64" cacheExpiry="0" optimisticConcurrencyChecking="true" trackCreateTime="true" trackUpdateTime="true">
+      <entityProperties>
+        <entityProperty name="Name">
+          <validations>
+            <presenceValidation />
+            <lengthValidation minimumLength="0" maximumLength="100" />
+          </validations>
+        </entityProperty>
+        <entityProperty name="Username">
+          <validations>
+            <presenceValidation />
+            <lengthValidation minimumLength="0" maximumLength="100" />
+            <uniquenessValidation />
+          </validations>
+        </entityProperty>
+        <entityProperty name="Email">
+          <validations>
+            <presenceValidation />
+            <emailValidation />
+            <lengthValidation minimumLength="0" maximumLength="100" />
+            <uniquenessValidation />
+          </validations>
+        </entityProperty>
+        <entityProperty name="Password">
+          <validations>
+            <presenceValidation />
+            <lengthValidation minimumLength="0" maximumLength="50" />
+          </validations>
+        </entityProperty>
+        <entityProperty name="Salt">
+          <validations>
+            <presenceValidation />
+            <lengthValidation minimumLength="0" maximumLength="20" />
+          </validations>
+        </entityProperty>
+      </entityProperties>
+      <oneToManyAssociations>
+        <oneToManyAssociation Id="1fae7377-8e08-431e-9016-c7b4ef9ff375" collectionName="ChatMessages" backreferenceName="CreatedBy" isNullable="false">
+          <entityMoniker name="/MockChat/ChatMessage" />
+        </oneToManyAssociation>
+        <oneToManyAssociation Id="9dcbfbc2-32a5-4285-b32e-f31c267344d7" collectionName="ChatSessions" backreferenceName="CreatedBy" isNullable="false">
+          <entityMoniker name="/MockChat/ChatSession" />
+        </oneToManyAssociation>
+        <oneToManyAssociation Id="79787f13-fa7e-4d63-85f5-e2d116519050" collectionName="RoomUsers" backreferenceName="User" isNullable="false">
+          <entityMoniker name="/MockChat/RoomUser" />
+        </oneToManyAssociation>
+        <oneToManyAssociation Id="55aca27d-b1ae-4a2d-b87f-412d295ab4e1" collectionName="OwnedRooms" backreferenceName="CreatedBy" isNullable="false">
+          <entityMoniker name="/MockChat/Room" />
+        </oneToManyAssociation>
+      </oneToManyAssociations>
+    </entity>
+    <entity name="ChatSession" identityType="Int64" cacheExpiry="0" optimisticConcurrencyChecking="true" trackCreateTime="true" trackUpdateTime="true">
+      <entityProperties>
+        <entityProperty name="Name" indexed="true">
+          <validations>
+            <lengthValidation minimumLength="0" maximumLength="150" />
+            <uniquenessValidation />
+          </validations>
+        </entityProperty>
+      </entityProperties>
+      <oneToManyAssociations>
+        <oneToManyAssociation Id="fa0a5aee-4d3a-4b70-ac7e-e19858141090" collectionName="ChatMessages" backreferenceName="ChatSession" orderBy="CreatedOn" isNullable="false" eagerLoadBackreference="true">
+          <entityMoniker name="/MockChat/ChatMessage" />
+        </oneToManyAssociation>
+      </oneToManyAssociations>
+    </entity>
+    <entity name="ChatMessage" identityType="Int64" cacheExpiry="0" optimisticConcurrencyChecking="true" trackCreateTime="true" trackUpdateTime="true">
+      <entityProperties>
+        <entityProperty name="Body" indexed="true">
+          <validations>
+            <presenceValidation />
+          </validations>
+        </entityProperty>
+      </entityProperties>
+    </entity>
+    <entity name="RoomUser" identityType="Int64" cacheExpiry="0" />
+    <entity name="Room" identityType="Int64" cacheExpiry="0" tableName="Room" optimisticConcurrencyChecking="true" trackCreateTime="true" trackUpdateTime="true">
+      <entityProperties>
+        <entityProperty name="Name">
+          <validations>
+            <presenceValidation />
+            <lengthValidation minimumLength="0" maximumLength="50" />
+          </validations>
+        </entityProperty>
+      </entityProperties>
+      <oneToManyAssociations>
+        <oneToManyAssociation Id="ed8063b2-2420-43e7-bffe-77d1623aab0c" collectionName="ChatSessions" backreferenceName="Room" isNullable="false">
+          <entityMoniker name="/MockChat/ChatSession" />
+        </oneToManyAssociation>
+        <oneToManyAssociation Id="df66a5c3-3aa9-4bc7-a9b3-9e90f857c9ad" collectionName="RoomUsers" backreferenceName="Room" isNullable="false">
+          <entityMoniker name="/MockChat/RoomUser" />
+        </oneToManyAssociation>
+      </oneToManyAssociations>
+    </entity>
+  </entities>
+</model>

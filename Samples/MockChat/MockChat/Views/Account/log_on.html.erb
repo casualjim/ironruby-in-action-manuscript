@@ -1,0 +1,29 @@
+<h2>Log On</h2>
+    <p>
+        Please enter your username and password. <%= html.action_link("Register", "Register") %> if you don't have an account.
+</p>
+<%= html.validation_summary("Login was unsuccessful. Please correct the errors and try again.") %>
+
+<% html.begin_form("sign_on", "account") %>
+    <div>
+    <fieldset>
+                <legend>Account Information</legend>
+                <p>
+    <label for="username">Username:</label>
+    <%= html.text_box("username") %>
+    <%= html.validation_message("username") %>
+                </p>
+                <p>
+    <label for="password">Password:</label>
+    <%= html.password("password") %>
+    <%= html.validation_message("password") %>
+                </p>
+                <p>
+    <%= html.check_box("rememberMe") %> <label class="inline" for="rememberMe">Remember me?</label>
+                </p>
+                <p>
+    <input type="submit" value="Log On" />
+                </p>
+    </fieldset>
+        </div>
+    <% html.end_form %>
