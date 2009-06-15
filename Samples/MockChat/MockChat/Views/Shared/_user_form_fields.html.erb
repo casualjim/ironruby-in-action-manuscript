@@ -1,0 +1,6 @@
+<label for="user.name">Name:</label><br /><%= html.text_box("user.name", view_data.user.name, :tabindex => 1) %>
+<%= html.validation_message("user.name") %><br />
+<label for="user.username">Username:</label><br /><%= html.text_box("user.username", view_data.user.username, :tabindex => 2) %>
+<%= html.validation_message("user.username") %><br />
+<label for="user.email">Email:</label><br /><%= html.text_box("user.email", view_data.user.email, :tabindex => 3) %>
+<%= html.validation_message("user.email") %><br />

@@ -147,7 +147,7 @@ a:hover {
 
 #page {
 	padding: 40px 60px 0 60px;
-    height:77%;
+    min-height:77%;
 }
 
 /* Content */

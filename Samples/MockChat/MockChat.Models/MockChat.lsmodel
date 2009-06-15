@@ -27,13 +27,12 @@
         <entityProperty name="Password">
           <validations>
             <presenceValidation />
-            <lengthValidation minimumLength="0" maximumLength="50" />
+            <lengthValidation minimumLength="0" maximumLength="255" />
           </validations>
         </entityProperty>
         <entityProperty name="Salt">
           <validations>
-            <presenceValidation />
-            <lengthValidation minimumLength="0" maximumLength="20" />
+            <lengthValidation minimumLength="0" maximumLength="100" />
           </validations>
         </entityProperty>
       </entityProperties>

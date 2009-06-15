@@ -20,9 +20,10 @@ module Lightspeed
     @uow_scope ||= PerRequestUnitOfWorkScope.of(MockChatUnitOfWork).new($context)
   end
 
-  def collect_errors(entity)
+  def collect_errors(entity, prefix="")
     entity.errors.each do |error|
-      model_state.add_model_error error.property_name, error.error_message
+      prop = prefix.nil? || prefix.empty? ? error.property_name.underscore : "#{prefix}.#{error.property_name.underscore}" 
+      model_state.add_model_error prop, error.error_message
     end
   end 
 

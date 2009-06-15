@@ -17,10 +17,6 @@ module MockChat
         uow.method(:find).of(Messages).call
       end
 
-      def uow
-        self.unit_of_work_scope.current
-      end
-
       def find_user_by_username(username)
         uow.method(:find_one).of(User).call LSEntity.attribute("Username") == username
       end

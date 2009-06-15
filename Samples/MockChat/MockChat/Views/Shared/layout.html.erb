@@ -1,3 +1,4 @@
+<% require 'ruby_html_helper' %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 
@@ -30,8 +31,8 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
   </div>
   <div id="menu">
     <ul>
-      <li class="current_page_item"><a href="/">Home</a></li>
-      <li><a href="/account/log_on">Login</a></li>
+      <%= html.menu_link("Home", "/", "Home") %>
+      <%= html.login_menu_link %>
       <li><a href="#">Archives</a></li>
     </ul>
   </div>

@@ -25,10 +25,9 @@ namespace MockChat.Models
     [ValidateUnique]
     private string _email;
     [ValidatePresence]
-    [ValidateLength(0, 50)]
+    [ValidateLength(0, 255)]
     private string _password;
-    [ValidatePresence]
-    [ValidateLength(0, 20)]
+    [ValidateLength(0, 100)]
     private string _salt;
 
     #pragma warning disable 649  // "Field is never assigned to" - LightSpeed assigns these fields internally

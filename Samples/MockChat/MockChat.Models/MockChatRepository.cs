@@ -12,6 +12,12 @@ namespace MockChat.Models
             
         }
 
+        public IUnitOfWork Uow()
+        {
+            return UnitOfWorkScope.Current;
+        }
+
+
 //        public IEnumerable<ChatMessage> FindLast30Messages()
 //        {
 //            var query = new Query

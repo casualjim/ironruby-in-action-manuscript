@@ -1,10 +1,10 @@
 <h2>Log On</h2>
     <p>
-        Please enter your username and password. <%= html.action_link("Register", "Register") %> if you don't have an account.
+        Please enter your username and password. <%= html.action_link("Register", "register") %> if you don't have an account.
 </p>
 <%= html.validation_summary("Login was unsuccessful. Please correct the errors and try again.") %>
 
-<% html.begin_form("sign_on", "account") %>
+<% html.begin_form("sign_on", "account", :return_url => view_data.return_url) %>
     <div>
     <fieldset>
                 <legend>Account Information</legend>
@@ -19,7 +19,7 @@
     <%= html.validation_message("password") %>
                 </p>
                 <p>
-    <%= html.check_box("rememberMe") %> <label class="inline" for="rememberMe">Remember me?</label>
+    <%= html.check_box("remember_me") %> <label class="inline" for="remember_me">Remember me?</label>
                 </p>
                 <p>
     <input type="submit" value="Log On" />

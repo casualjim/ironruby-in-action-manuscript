@@ -1,0 +1,5 @@
+<% html.render_partial "user_form_fields" %>
+<label for="user.password">Password:</label><br /><%= html.password("user.password", "", :tabindex => 4) %>
+<%= html.validation_message("user.password") %><br />
+<label for="confirm_password">Confirm password:</label><br /><%= html.password("confirm_password", "", :tabindex => 5) %>
+<%= html.validation_message("confirm_password") %><br />

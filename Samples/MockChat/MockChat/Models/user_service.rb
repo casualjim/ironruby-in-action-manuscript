@@ -1,4 +1,5 @@
 require 'digest/sha2'
+require 'openssl'
 require 'mock_chat_repository'
 
 class UserService
@@ -26,10 +27,7 @@ class UserService
   end
 
   def save(user)
-    if user.entity_state == EntityState.new
-      user.salt = create_salt
-      user.password = create_hash(user.password, user.salt)
-    end
+    set_password user, user.password if user.entity_state == EntityState.new
     repo.save user
   end
 
@@ -46,7 +44,7 @@ class UserService
   def change_password(user_name, old_password, new_password)
     current_user = get_one_by_username user_name
     if current_user.password == create_hash(old_password, current_user.salt)
-      current_user.password = create_hash(new_password, current_user.salt)
+      set_password current_user, new_password
       save current_user
     else
       current_user.errors.add "Password", "There was a problem changing your password"
@@ -55,10 +53,13 @@ class UserService
 
   private
 
+  def set_password(user, passwd)
+    user.salt = create_salt
+    user.password = create_hash passwd, user.salt
+  end
+
   def create_salt
-    slt = ""
-    64.times { salt << (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }
-    slt
+    [OpenSSL::Random.random_bytes(64)].pack("m*").delete("\n")
   end
 
   def create_hash(password, salt)

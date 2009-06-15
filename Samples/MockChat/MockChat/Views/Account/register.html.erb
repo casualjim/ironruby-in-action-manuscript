@@ -1,39 +1,22 @@
 <h2>Create a New Account</h2>
-    <p>
-        Use the form below to create a new account. 
+<p>
+  Use the form below to create a new account.
 </p>
 <p>
-Passwords are required to be a minimum of <%=html.encode(view_data.password_length)%> characters in length.
+  Passwords are required to be a minimum of <%= html.encode(view_data.password_length) %> characters in length.
 </p>
 <%= html.validation_summary("Account creation was unsuccessful. Please correct the errors and try again.") %>
 
 <% html.begin_form %>
-    <div>
-    <fieldset>
-<legend>Account Information</legend>
-<p>
-<label for="username">Username:</label>
-    <%= html.text_box("username") %>
-    <%= html.validation_message("username") %>
-                </p>
-                <p>
-    <label for="email">Email:</label>
-    <%= html.text_box("email") %>
-    <%= html.validation_message("email") %>
-                </p>
-                <p>
-    <label for="password">Password:</label>
-    <%= html.password("password") %>
-    <%= html.validation_message("password") %>
-                </p>
-                <p>
-    <label for="confirmPassword">Confirm password:</label>
-    <%= html.password("confirmPassword") %>
-    <%= html.validation_message("confirmPassword") %>
-                </p>
-                <p>
-    <input type="submit" value="Register" />
-                </p>
-    </fieldset>
-        </div>
-    <% html.end_form %>
+<div>
+  <fieldset>
+    <legend>Account Information</legend>
+    <p>
+       <% html.render_partial("create_user_fields") %>
+    </p>
+    <p>
+      <button type="submit">Register</button>&nbsp;<%= html.action_link("Cancel", "register") %>
+    </p>
+  </fieldset>
+</div>
+<% html.end_form %>
