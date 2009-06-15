@@ -1,3 +1,4 @@
+require 'controller'
 require 'mvc_application'
 #default routes
 $routes.ignore_route("{resource}.axd/{*pathInfo}");

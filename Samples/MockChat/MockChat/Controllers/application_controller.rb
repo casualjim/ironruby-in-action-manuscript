@@ -4,7 +4,7 @@ require 'user_service'
 
 class ApplicationController < Controller
 
-  #filter HandleErrorAttribute
+  filter HandleErrorAttribute
   filter LightspeedFilter
 
   include Lightspeed

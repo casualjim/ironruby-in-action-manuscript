@@ -1,0 +1,11 @@
+<h2>Edit <%= view_data.user.name %></h2>
+<%= html.validation_summary("Account update was unsuccessful. Please correct the errors and try again.") %>
+<% html.begin_form "update", "users", :id => view_data.user.id %>
+<div class="user">
+	<fieldset>
+	    <legend>Edit <%= view_data.user.name %></legend>
+	    <% html.render_partial 'user_form_fields' %>
+	    <p><button type="submit">Save</button>&nbsp;</p>
+	</fieldset>
+</div>
+<% html.end_form %>
