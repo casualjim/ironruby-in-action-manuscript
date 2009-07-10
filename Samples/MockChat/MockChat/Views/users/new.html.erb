@@ -1,12 +1,21 @@
-<h2>Add user</h2>
-<%= html.validation_summary("Account creation was unsuccessful. Please correct the errors and try again.") %>
-<% html.begin_form "create", "users" %>
-<div class="user">
-	<fieldset>
-	    <legend>Create a user</legend>
+<div class="post">
+  <div class="title">
+    <h2>Add user</h2>
+  </div>
+  <div class="entry">
+    <%= html.validation_summary("Account creation was unsuccessful. Please correct the errors and try again.") %>
+    <% html.begin_form "create", "users" %>
+    <div class="user">
+      <fieldset>
+        <legend>Create a user</legend>
 
-	    <% html.render_partial 'create_user_fields' %>
-	    <p><button type="submit">Create</button>&nbsp;</p>
-	</fieldset>
+        <% html.render_partial 'create_user_fields' %>
+        <p>
+          <button type="submit">Create</button>
+          &nbsp;</p>
+      </fieldset>
+    </div>
+    <% html.end_form %>
+  </div>
+  <p class="links">&nbsp; </p>
 </div>
-<% html.end_form %>

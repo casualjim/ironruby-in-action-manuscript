@@ -1,0 +1,24 @@
+<div class="post">
+  <div class="title">
+    <h2>Topic: <%= view_data.session.name %></h2>
+  </div>
+  <div class="entry">
+    <% view_data.messages.each do |message| %>
+        <div class="message-in-list">
+          <%= message.body %>
+        </div>
+    <% end %>
+  </div>
+  <p class="links">&nbsp; </p>
+</div>
+<% html.begin_form("add_message", "chat") %>
+<div class="post">
+  <div class="entry">
+    <label for="message">Message:</label><br/>
+    <textarea name="message" id="message" rows="5" ></textarea><br/>
+  </div>
+  <p class="links" style="display:block;text-align:right">
+    <button type="submit">Send</button>
+  </p>
+</div>
+<% html.end_form %>

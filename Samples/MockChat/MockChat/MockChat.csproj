@@ -113,6 +113,7 @@
     <None Include="controller.rb" />
     <None Include="Controllers\application_controller.rb" />
     <None Include="Controllers\authenticated_controller_base.rb" />
+    <None Include="Controllers\chat_controller.rb" />
     <None Include="Controllers\home_controller.rb" />
     <None Include="Controllers\account_controller.rb" />
     <None Include="Controllers\users_controller.rb" />

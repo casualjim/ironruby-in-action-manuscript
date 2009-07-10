@@ -1,5 +1,6 @@
 include Mindscape::LightSpeed
 include Mindscape::LightSpeed::Logging
+include Mindscape::LightSpeed::Querying
 
 unless defined? $context
 
@@ -26,6 +27,91 @@ module Lightspeed
       model_state.add_model_error prop, error.error_message
     end
   end 
+
+  LSEntity = Mindscape::LightSpeed::Entity.to_a.first
+
+  module Finder
+    def where(&b)
+      RubyQueryExpression.new(b).to_expr
+    end
+    
+    class RubyQueryExpression
+
+      # Represents the attribute path that needs to be added to the where clause
+      attr_reader :attribute
+
+
+      # The operator to use for this part of the where clause
+      attr_reader :operator
+
+      # The value that needs to be compared to.
+      attr_reader :value
+
+      # builds a new +RubyPathExpression+ instance
+      def initialize(&b)
+        instance_eval b unless b.nil?
+      end
+
+      # Adds an attribute name to this where clause
+      def a(name)
+        @attribute = name.to_s.to_clr_string
+        @attr_expression = LSEntity.attribute(attribute)
+        self
+      end
+
+      # Creates either a equals, a between or a in operator.
+      # it creates an +IN+ comparison when the value provided is an Array or IEnumerable implementation
+      # it creates a +BETWEEN+ comparison when the value provided is a Range
+      # in all other cases it creates an +EQUALS+ comparison
+      def ==(val)
+        case val
+          when Range
+            between val.min, val.max
+          when String
+            @operator = RelationalOperator.equal_to
+            set val          
+          when Enumerable, System::Collections::IEnumerable
+            @operator = RelationalOperator.in
+            set val
+          else
+            @operator = RelationalOperator.equal_to
+            set val
+        end
+      end
+      alias_method :equals, :==
+      alias_method :eql, :==
+      alias_method :equal_to, :==      
+
+      # Creates a +BETWEEN+ comparison
+      def between(min, max)
+        @operator = RelationalOperator.between
+        set min, max
+      end
+
+      # Creates an +IN+ comparison
+      def in(values)
+        @operator = RelationalOperator.in
+        set *values
+      end
+
+      # Creates a +LIKE+ comparison
+      def like(val)
+        @operator = RelationalOperator.like
+        set val
+      end
+
+      # Constructs the CLR version of the expression
+      def to_expr(&b)
+        PathExpression.build_expression @attr_expression, operator, value
+      end
+
+      private
+
+        def set(*val)
+          @value = LiteralExpression.new(val)
+        end
+    end
+  end
 
 end
 

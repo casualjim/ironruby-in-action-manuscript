@@ -11,12 +11,16 @@ class ChatService
     @current_subject ||= repo.find_current_subject
   end
 
+  def get_all_messages
+    repo.messages
+  end
+
   def get_last_30_messages
     repo.find_last_30_messages
   end
 
   def save(message)
-    repo.save
+    repo.save message
   end
 
   def change_subject(subject)

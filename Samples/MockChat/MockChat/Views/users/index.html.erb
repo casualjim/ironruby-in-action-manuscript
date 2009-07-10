@@ -1,29 +1,37 @@
-<h2>Users: list</h2>
-<p>Registered users for the MockChat application</p>
-<div class="main">
-  <% if view_data.users.empty? %>
-      <div>No users registered yet.</div>
-  <% end %>
-  <div>
-    <%= html.action_link('Add user', 'new', 'users') %>
-    <br/>
+<div class="post">
+  <div class="title">
+    <h2>Users: list</h2>
   </div>
-  <% unless view_data.users.empty? %>
-      <table>
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Username</th>
-          <th>&nbsp;</th>
-        </tr>
-        <% view_data.users.each do |user| %>
+  <div class="entry">
+    <p>Registered users for the MockChat application</p>
+
+    <div class="main">
+      <% if view_data.users.empty? %>
+          <div>No users registered yet.</div>
+      <% end %>
+      <div>
+        <%= html.action_link('Add user', 'new', 'users') %>
+        <br/>
+      </div>
+      <% unless view_data.users.empty? %>
+          <table>
+            <thead>
             <tr>
-              <td><%= html.action_link(user.name, { :action => :edit, :id => user.id}) %></td>
-              <td><%= user.username %></td>
-              <td><%= html.action_link("destroy", { :action => :destroy, :id => user.id}) %></td>
+              <th>Name</th>
+              <th>Username</th>
+              <th>&nbsp;</th>
             </tr>
-        <% end %>
-        </thead>
-      </table>
-  <% end %>
+            <% view_data.users.each do |user| %>
+                <tr>
+                  <td><%= html.action_link(user.name, { :action => :edit, :id => user.id}) %></td>
+                  <td><%= user.username %></td>
+                  <td><%= html.action_link("destroy", { :action => :destroy, :id => user.id}) %></td>
+                </tr>
+            <% end %>
+            </thead>
+          </table>
+      <% end %>
+    </div>
+  </div>
+  <p class="links">&nbsp; </p>
 </div>

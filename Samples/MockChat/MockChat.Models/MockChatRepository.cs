@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mindscape.LightSpeed;
-using Mindscape.LightSpeed.Querying;
 
 namespace MockChat.Models
 {
@@ -16,16 +15,16 @@ namespace MockChat.Models
         {
             return UnitOfWorkScope.Current;
         }
-
-
+        
 //        public IEnumerable<ChatMessage> FindLast30Messages()
 //        {
-//            var query = new Query
-//                            {
-//                                Page = Page.At(0, 30), 
-//                                Order = Order.By(Entity.Attribute("CreatedOn")).Descending()
-//                            };
-//            return UnitOfWorkScope.Current.Find<ChatMessage>(query);
+//            return 
+//                UnitOfWorkScope
+//                    .Current
+//                    .ChatMessages
+//                        .Take(30)
+//                        .OrderByDescending(msg => msg.CreatedOn);
 //        }
+        
     }
 }

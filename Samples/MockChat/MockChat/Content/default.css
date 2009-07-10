@@ -21,6 +21,14 @@ form {
 	padding: 0;
 }
 
+textarea{
+    width:100%;
+}
+
+button{
+    border: 1px solid #626262;
+}
+
 input {
 	padding: 5px;
 	background: #FEFEFE url(images/img13.gif) repeat-x;
@@ -252,6 +260,7 @@ a:hover {
 	padding: 20px 30px 40px 30px;
 }
 
+button,
 #search input {
 	padding: 0;
 	width: 70px;

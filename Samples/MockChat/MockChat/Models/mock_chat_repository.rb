@@ -12,9 +12,9 @@ module MockChat
       end
 
       def messages
-        query = Query.new
+        query = Mindscape::LightSpeed::Querying::Query.new
         query.order = Order.by(LSEntity.attribute("CreatedOn")).descending
-        uow.method(:find).of(Messages).call
+        uow.method(:find).of(ChatMessage).overload(Mindscape::LightSpeed::Querying::Query).call(query)
       end
 
       def find_user_by_username(username)
@@ -27,7 +27,7 @@ module MockChat
 
       def find_last_30_messages
         query = Query.create_from_hash :page => Page.at(0, 30), :order => Order.by(LSEntity.attribute("CreatedOn")).descending
-        uow.method(:find).of(ChatMessage).call query
+        uow.method(:find).of(ChatMessage).overload(Query).call query
       end
 
       def find_current_subject
