@@ -7,7 +7,7 @@ class ApplicationController < Controller
   filter HandleErrorAttribute
   filter LightspeedFilter
 
-  include Lightspeed
+  include Lightspeed::ControllerHelpers
 
   attr_reader :user_service
 

@@ -7,14 +7,16 @@ module MockChat
 
     class MockChatRepository
 
+      include Lightspeed::Finder
+
       def users
         uow.method(:find).of(User).call
       end
 
       def messages
-        query = Mindscape::LightSpeed::Querying::Query.new
+        query = Query.new(ChatMessage.to_clr_type)
         query.order = Order.by(LSEntity.attribute("CreatedOn")).descending
-        uow.method(:find).of(ChatMessage).overload(Mindscape::LightSpeed::Querying::Query).call(query)
+        uow.method(:find).overload(Query).call(query)
       end
 
       def find_user_by_username(username)

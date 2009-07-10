@@ -5,7 +5,7 @@ include Mindscape::LightSpeed::Querying
 unless defined? $context
 
   ph_path = System::Web::HttpContext.current.request.physical_application_path
-  
+
   #setup context
   $context = LightSpeedContext.of(MockChatUnitOfWork).new
   $context.connection_string = "Data Source=#{ph_path}\\App_Data\\mockchat_dev.sqlite3"
@@ -17,29 +17,34 @@ end
 
 module Lightspeed
 
-  def uow_scope
-    @uow_scope ||= PerRequestUnitOfWorkScope.of(MockChatUnitOfWork).new($context)
-  end
+  module ControllerHelpers
 
-  def collect_errors(entity, prefix="")
-    entity.errors.each do |error|
-      prop = prefix.nil? || prefix.empty? ? error.property_name.underscore : "#{prefix}.#{error.property_name.underscore}" 
-      model_state.add_model_error prop, error.error_message
+    def uow_scope
+      @uow_scope ||= PerRequestUnitOfWorkScope.of(MockChatUnitOfWork).new($context)
     end
-  end 
 
+    def collect_errors(entity, prefix="")
+      entity.errors.each do |error|
+        prop = prefix.nil? || prefix.empty? ? error.property_name.underscore : "#{prefix}.#{error.property_name.underscore}"
+        model_state.add_model_error prop, error.error_message
+      end
+    end
+
+  end
+  
   LSEntity = Mindscape::LightSpeed::Entity.to_a.first
 
   module Finder
+
+    # Evaluate the block to build a query expression
     def where(&b)
-      RubyQueryExpression.new(b).to_expr
+      RubyQueryExpression.evaluate b
     end
-    
+
     class RubyQueryExpression
 
       # Represents the attribute path that needs to be added to the where clause
       attr_reader :attribute
-
 
       # The operator to use for this part of the where clause
       attr_reader :operator
@@ -48,8 +53,13 @@ module Lightspeed
       attr_reader :value
 
       # builds a new +RubyPathExpression+ instance
-      def initialize(&b)
+      def build(&b)
         instance_eval b unless b.nil?
+      end
+
+      # Evaluate the block to build a query expression
+      def self.evaluate(&b)
+        new.build(&b)
       end
 
       # Adds an attribute name to this where clause
@@ -69,7 +79,7 @@ module Lightspeed
             between val.min, val.max
           when String
             @operator = RelationalOperator.equal_to
-            set val          
+            set val
           when Enumerable, System::Collections::IEnumerable
             @operator = RelationalOperator.in
             set val
@@ -78,9 +88,10 @@ module Lightspeed
             set val
         end
       end
+
       alias_method :equals, :==
       alias_method :eql, :==
-      alias_method :equal_to, :==      
+      alias_method :equal_to, :==
 
       # Creates a +BETWEEN+ comparison
       def between(min, max)
@@ -100,16 +111,84 @@ module Lightspeed
         set val
       end
 
+      # Creates a +greater than+ comparison
+      def >(val)
+        @operator = RelationalOperator.greater_than
+        set val
+      end
+
+      alias_method :greater_than, :>
+
+      # Creates a +greater than or equal to+ comparison
+      def >=(val)
+        @operator = RelationalOperator.greater_than_or_equal_to
+        set val
+      end
+
+      alias_method :greater_than_or_equal_to, :>=
+
+      # Creates a +less than+ comparison
+      def <(val)
+        @operator = RelationalOperator.less_than
+        set val
+      end
+
+      alias_method :less_than, :<
+
+      # Creates a +less than or equal to+ comparison
+      def <=(val)
+        @operator = RelationalOperator.less_than_or_equal_to
+        set val
+      end
+
+      alias_method :less_than_or_equal_to, :<=
+
+      # Creates a +not equal to+ comparison
+      def not_eql(val)
+        @operator = RelationalOperator.not_equal_to
+        set val
+      end
+
+      alias_method :not_equal_to, :not_eql
+      alias_method :not=, :not_eql
+      alias_method :inequal_to, :not_eql
+
+      # Builds a +SQL LOWER+ expression
+      def lower
+        @attr_expression.lower
+      end
+
+      # Builds a +SQL UPPER+ expression
+      def upper
+        @attr_expression.upper
+      end
+
+      # Builds a +SQL EXISTS+ expression
+      def exists
+        @attr_expression.exists
+      end
+
+      # Creates an +OR+ expression
+      def |(val)
+        LogicalExpression.create @attr_expression, LogicalOperator.or, val
+      end
+
+      # Creates an +AND+ expression
+      def &(val)
+        LogicalExpression.create @attr_expression, LogicalOperator.and, val
+      end
+
       # Constructs the CLR version of the expression
-      def to_expr(&b)
-        PathExpression.build_expression @attr_expression, operator, value
+      def to_expr
+        @attr_expression = PathExpression.build_expression @attr_expression, operator, value
       end
 
       private
 
-        def set(*val)
-          @value = LiteralExpression.new(val)
-        end
+      def set(*val)
+        @value = val.collect { |v| LiteralExpression.new(v) }
+        to_expr
+      end
     end
   end
 
@@ -137,7 +216,7 @@ module System::Web::Mvc::IronRuby::Helpers
 <select id="#{ddl_id}" name="#{name}\" #{attrs}>
   #{options.join("\n")}
 </select>
-HTML
+      HTML
     end
 
   end

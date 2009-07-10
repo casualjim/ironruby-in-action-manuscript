@@ -21,10 +21,11 @@ describe Lightspeed::Finder::RubyQueryExpression do
 
     before(:each) do
       @expr = Lightspeed::Finder::RubyQueryExpression.new
+      @expr.a(:name)
     end
 
     it "should set the attribute name" do
-      @expr.a(:name)
+
       @expr.attribute.should eql_clr_string(:name)
     end
 
@@ -35,7 +36,7 @@ describe Lightspeed::Finder::RubyQueryExpression do
 
     it "should set the value to an array" do
       @expr == "something"
-      @expr.value.value.should == ["something"]
+      @expr.value.should == [LiteralExpression.new("something")]
     end
 
     #it "should set the operator to between when the == is called with a Range parameter" do
@@ -68,34 +69,34 @@ describe Lightspeed::Finder::RubyQueryExpression do
 
     it "should should have a literal value expression for the between operator" do
       @expr.between(1,4)
-      @expr.value.should be_a_kind_of(LiteralExpression)
+      @expr.value.first.should be_a_kind_of(LiteralExpression)
     end
 
     it "should should have a literal value expression for the equal_to operator" do
       @expr == "something"
-      @expr.value.should be_a_kind_of(LiteralExpression)
+      @expr.value.first.should be_a_kind_of(LiteralExpression)
     end
 
     it "should should have a literal value expression for the like operator" do
       @expr.like "something"
-      @expr.value.should be_a_kind_of(LiteralExpression)
+      @expr.value.first.should be_a_kind_of(LiteralExpression)
     end
 
     it "should should have a literal value expression for the in operator" do
       @expr.in [1, 3, 5]
-      @expr.value.should be_a_kind_of(LiteralExpression)
+      @expr.value.first.should be_a_kind_of(LiteralExpression)
     end
 
     it "should set the value to a 2 element array when the between operator is called" do
       @expr.between(1, 4)
-      @expr.value.value.size.should == 2
+      @expr.value.size.should == 2
     end
 
     it "should set the correct values in the 2 element array when the between operator is called" do
       @expr.between(1, 4)
-      v = @expr.value.value
-      v.first.should == 1
-      v.last.should == 4
+      v = @expr.value
+      v.first.value.should == 1
+      v.last.value.should == 4
     end
 
     it "should set the operator to IN" do
@@ -105,7 +106,7 @@ describe Lightspeed::Finder::RubyQueryExpression do
 
     it "should set the value to the provided array for the IN operator" do
       @expr.in [1,4,5]
-      @expr.value.value.should == [1,4,5]
+      @expr.value.should == [1,4,5].collect { |c| LiteralExpression.new(c) }
     end
 
   end
