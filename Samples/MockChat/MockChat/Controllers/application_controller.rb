@@ -9,10 +9,10 @@ class ApplicationController < Controller
 
   include Lightspeed::ControllerHelpers
 
-  attr_reader :user_service
+  attr_accessor :user_service
 
-  def initialize(user_svc=nil)
-    @user_service = user_svc||UserService.new(uow_scope)
+  def user_service
+    @user_service ||= UserService.new(uow_scope)
   end
 
   def current_user
