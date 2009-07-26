@@ -14,7 +14,7 @@ module MockChat
       end
 
       def messages
-        query = Query.new(ChatMessage.to_clr_type)
+        query = Query.new #(ChatMessage.to_clr_type)
         query.order = Order.by(LSEntity.attribute("CreatedOn")).descending
         uow.method(:find).overload(Query).call(query)
       end
