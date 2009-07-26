@@ -20,6 +20,7 @@ class ChatService
   end
 
   def save(message)
+    message.chat_session ||= current_subject
     repo.save message
   end
 

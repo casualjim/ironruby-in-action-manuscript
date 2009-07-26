@@ -4,7 +4,7 @@ include Mindscape::LightSpeed::Querying
 
 unless defined? $context
 
-  ph_path = System::Web::HttpContext.current.request.physical_application_path
+  ph_path = defined?(System::Web::HttpContext) ? System::Web::HttpContext.current.request.physical_application_path : Dir.pwd
 
   #setup context
   $context = LightSpeedContext.of(MockChatUnitOfWork).new
@@ -16,6 +16,8 @@ unless defined? $context
 end
 
 module Lightspeed
+
+  LSEntity = Mindscape::LightSpeed::Entity.to_a.first
 
   module ControllerHelpers
 
@@ -32,7 +34,7 @@ module Lightspeed
 
   end
   
-  LSEntity = Mindscape::LightSpeed::Entity.to_a.first
+
 
   module Finder
 
@@ -88,7 +90,6 @@ module Lightspeed
             set val
         end
       end
-
       alias_method :equals, :==
       alias_method :eql, :==
       alias_method :equal_to, :==
@@ -116,7 +117,6 @@ module Lightspeed
         @operator = RelationalOperator.greater_than
         set val
       end
-
       alias_method :greater_than, :>
 
       # Creates a +greater than or equal to+ comparison
@@ -124,7 +124,6 @@ module Lightspeed
         @operator = RelationalOperator.greater_than_or_equal_to
         set val
       end
-
       alias_method :greater_than_or_equal_to, :>=
 
       # Creates a +less than+ comparison
@@ -132,7 +131,6 @@ module Lightspeed
         @operator = RelationalOperator.less_than
         set val
       end
-
       alias_method :less_than, :<
 
       # Creates a +less than or equal to+ comparison
@@ -140,7 +138,6 @@ module Lightspeed
         @operator = RelationalOperator.less_than_or_equal_to
         set val
       end
-
       alias_method :less_than_or_equal_to, :<=
 
       # Creates a +not equal to+ comparison
@@ -148,7 +145,6 @@ module Lightspeed
         @operator = RelationalOperator.not_equal_to
         set val
       end
-
       alias_method :not_equal_to, :not_eql
       alias_method :not=, :not_eql
       alias_method :inequal_to, :not_eql
