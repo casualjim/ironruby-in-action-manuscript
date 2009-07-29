@@ -17,6 +17,10 @@ module System::Web::Mvc::IronRuby::Helpers
       menu_link text, "/#{controller}/#{act}", controller
     end
 
+    def format_chat_body(chat_body)
+      encode(chat_body).gsub("\n", "<br />")
+    end
+
   end
 
 end

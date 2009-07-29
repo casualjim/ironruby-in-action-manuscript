@@ -17,11 +17,12 @@ class ChatController  < AuthenticatedControllerBase
   alias_method :last_30_messages, :index
 
   def add_message
-    message = ChatMessage.create_from_hash :body => params[:message], :created_by => current_user
+    message = ChatMessage.create_from_hash :body => params[:message].gsub(/<\/?[^>]*>/,  ""), :created_by => current_user
     chat_service.save message
-    @messages = chat_service.get_last_30_messages
-    @session = chat_service.current_subject 
-    view 'index', 'layout'    
+    #redirect_to_action :index
+    @session = chat_service.current_subject || ChatSession.new
+    @messages = chat_service.get_last_30_messages #get_all_messages
+    view 'index', 'layout'
   end
 
   def change_session

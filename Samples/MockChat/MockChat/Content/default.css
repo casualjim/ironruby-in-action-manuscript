@@ -367,3 +367,8 @@ button,
 #footer .legal a {
 	padding: 0;
 }
+
+.right-aligned{
+    display: block;
+    text-align:right;
+}
