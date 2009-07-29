@@ -1,6 +1,6 @@
 <div class="post">
   <div class="title">
-    <h2>Topic: <%= view_data.session.name %></h2>
+    <h2>Topic: <div class="subject" style="display:inline-block;"><%= view_data.session.name %></div></h2>
   </div>
   <div id='chat-list' class="entry">
     <% html.render_partial 'chat_list' %>

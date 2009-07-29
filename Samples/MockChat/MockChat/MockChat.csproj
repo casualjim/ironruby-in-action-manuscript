@@ -143,6 +143,8 @@
     <None Include="Views\Account\log_on.html.erb" />
     <None Include="Views\Account\change_password_success.html.erb" />
     <None Include="Views\Account\change_password.html.erb" />
+    <None Include="Views\chat\index.html.erb" />
+    <None Include="Views\chat\_chat_list.html.erb" />
     <None Include="Views\Home\about.html.erb" />
     <None Include="Views\Home\index.html.erb" />
     <None Include="Views\Home\_common.html.erb" />

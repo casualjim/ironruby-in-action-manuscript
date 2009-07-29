@@ -25,8 +25,9 @@ class ChatController  < AuthenticatedControllerBase
     index
   end
 
-  def change_session
-    chat_service.change_subject params[:subject]
+  def change_subject
+    chat_service.change_subject params[:update_value], current_user
+    content(chat_service.current_subject.name)
   end
 
 end

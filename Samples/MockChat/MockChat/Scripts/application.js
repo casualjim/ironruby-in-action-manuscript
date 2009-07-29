@@ -1,11 +1,17 @@
 $(document).ready(function(){
-    $.messagePoller.set({}, function(){});
-    $("button[type=submit]").click(function(){
-        console.log("in button click");
-        var data = $("form").serialize();
-        $.post("/chat/add_message", data);
-        return false;
-    });
+    if($("#chat-list").length > 0){
+        $.messagePoller.set({}, function(){});
+
+        $("button[type=submit]").click(function(){
+            var data = $("form").serialize();
+            $.post("/chat/add_message", data, function(respo){ $('#chat-list').html(respo); });
+            return false;
+        });
+
+        $(".subject").editInPlace({
+            url: '/chat/change_subject'
+        });
+    }
 });
 
 $.messagePoller = {

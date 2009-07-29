@@ -24,9 +24,10 @@ class ChatService
     repo.save message
   end
 
-  def change_subject(subject)
-    subj = ChatSession.create_from_hash :name => subject
-    save subject
+  def change_subject(subject, created_by)
+    subj = ChatSession.create_from_hash :name => subject, :created_by => created_by
+    subj.room = repo.find_current_room
+    repo.save subj
     @current_subject = subj
   end
 

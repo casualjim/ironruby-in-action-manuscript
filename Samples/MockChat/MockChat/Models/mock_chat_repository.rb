@@ -36,7 +36,11 @@ module MockChat
       def find_current_subject
         query = Query.new(ChatSession.to_clr_type)
         query.populate_from_hash :order => Order.by(LSEntity.attribute("CreatedOn")).descending
-        uow.method(:find_one).call query
+        uow.method(:find).call(query).first
+      end
+
+      def find_current_room
+        uow.method(:find_one).of(Room).call(1)
       end
 
       def save(entity)
