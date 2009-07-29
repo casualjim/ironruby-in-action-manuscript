@@ -1,0 +1,6 @@
+<% view_data.messages.each do |message| %>
+    <div class="message-in-list" style="clear:right" >
+       <div style="float:right"><strong>(<%=message.created_by.username %>) </strong><em><%= message.created_on.strftime("%c") %></em></div>
+       <div style=""><%= html.format_chat_body(message.body) %></div>
+    </div>
+<% end %>
