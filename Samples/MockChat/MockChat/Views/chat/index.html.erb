@@ -2,19 +2,21 @@
   <div class="title">
     <h2>Topic: <div class="subject" style="display:inline-block;"><%= view_data.session.name %></div></h2>
   </div>
+  <p class="links">&nbsp; </p>
+</div>
+<div class="post">
+  <div class="entry">
+    <% html.begin_form("add_message", "chat", FormMethod.post, { :class => "ajax-form" }) %>
+        <label for="message">Message:</label><br/>
+        <textarea name="message" id="message" rows="4" ></textarea><br/>
+    <% html.end_form %>
+  </div>
+  <p class="right-aligned">
+    <button type="submit">Send</button>
+  </p>
+<hr />
   <div id='chat-list' class="entry">
     <% html.render_partial 'chat_list' %>
   </div>
   <p class="links">&nbsp; </p>
 </div>
-<% html.begin_form("add_message", "chat") %>
-<div class="post">
-  <div class="entry">
-    <label for="message">Message:</label><br/>
-    <textarea name="message" id="message" rows="4" ></textarea><br/>
-  </div>
-  <p class="links right-aligned">
-    <button type="submit">Send</button>
-  </p>
-</div>
-<% html.end_form %>

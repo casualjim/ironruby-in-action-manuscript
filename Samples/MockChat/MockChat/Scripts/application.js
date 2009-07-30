@@ -2,14 +2,16 @@ $(document).ready(function(){
     if($("#chat-list").length > 0){
         $.messagePoller.set({}, function(){});
 
-        $("button[type=submit]").click(function(){
-            var data = $("form").serialize();
-            $.post("/chat/add_message", data, function(respo){ $('#chat-list').html(respo); });
-            return false;
-        });
+        $('form.ajax-form').ajaxForm();
 
         $(".subject").editInPlace({
             url: '/chat/change_subject'
+        });
+
+        $("body").keypress(function(e) {
+          if (e.which == 13 && !$(e.target).is("textarea")) {
+            return false;
+          }
         });
     }
 });
