@@ -7,12 +7,6 @@ $(document).ready(function(){
         $(".subject").editInPlace({
             url: '/chat/change_subject'
         });
-
-        $("body").keypress(function(e) {
-          if (e.which == 13 && !$(e.target).is("textarea")) {
-            return false;
-          }
-        });
     }
 });
 
