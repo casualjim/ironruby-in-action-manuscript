@@ -1,25 +1,33 @@
-def hello
-	"Hello, World!!!" 
+text = "This is the sample text for the ironruby in action book"
+re_literal1 = /ironruby in action/
+re_literal2 = %r{the sample text}
+re = Regexp.new "book$"
+
+if text =~ re_literal1
+	title = re_literal1.match(text)[0]
+else
+	title = "No match for re literal 1"
 end
 
-array = ["first element", [1, 2, 3], 3, hello, "one to last element", "last element"]
+if text =~ re_literal2
+	sample = re_literal2.match(text)[0]
+else
+	sample = "No match for re literal 2"
+end
 
-# get the 4the element in the list.
-# it's an expression which we're going to execute
-puts array[3]
+if text =~ re
+	ends = "the sample text ends with book"
+else
+	ends = "the sample text doesn't end with book"
+end
+	
 
-# get the 2 last elements (start counting at the second to last object)
-puts array[-2,2].join(", ")
+puts "title match: #{title}"
+puts "sample match: #{sample}"
+puts ends
 
-# display the child array
-puts array[1].join(', ')
-
-# get the elements from the hello world until the end of the array
-puts array[2...array.length].join(', ')
-
-# Outputs the following:
+# Outputs the following
 #
-# Hello, World!!!
-# one to last element, last element
-# 1, 2, 3
-# 3, Hello, World!!!, one to last element, last element
+# title match: ironruby in action
+# sample match: the sample text
+# the sample text ends with book

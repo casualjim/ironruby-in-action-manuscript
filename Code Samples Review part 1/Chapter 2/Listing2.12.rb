@@ -1,49 +1,23 @@
-state = "hungry" 
+require 'Listing2.5' 
 
-if state == "hungry" 
-	puts "You are hungry, maybe I can help." 
-else
-	puts "No needs at the moment, maybe later?"
-end
-
-def snack?(state)
-	puts "What would you like to eat (apple, sandwich, salad)?" if state == "hungry"        
+class AlbumList
 	
-	food = gets.chomp
-	was_unknown = false
-	
-	if food == "apple" 
-		puts "There are apples in the fruit basket in the lounge." 
-	elsif food == "sandwich"
-		puts "You can raid the fridge for your sandwich. There is bread in the pantry." 
-	elsif food == "salad"
-		puts "There are plenty of ingredients for a salad in the fridge." 
-	else
-		was_unknown = true
-		puts "I'm sorry but I don't understand your request."
+	def each_in_range(range, &block)
+		@internal_list[range].each do |album|
+			yield album
+		end
 	end
-	
-	was_unknown
 end
 
-if snack?(state) : puts "Do you want to try again?"; else puts "Do you want more food?";  end; 
+list = AlbumList.new
 
-want_more = gets.chomp
+list.append("Ruby tuesday").append("Ruby is a diamond").append("Ruby rocks")
 
-snack?(state) unless want_more == "no" 						      	     
+puts "\nCustom iterator:"
+list.each_in_range(0..1){|album| puts album}
 
-puts "Thank you for using my services."
-
-
-# One path could output the following:
+# Produces the following output:
 #
-# You are hungry, maybe I can help.
-# What would you like to eat (apple, sandwich, salad)?
-# ap
-# I'm sorry but I don't understand your request
-# Do you want to try again?
-# yes
-# What would you like to eat (apple, sandwich, salad)?
-# sandwich
-# You can raid the fridge for your sandwich. There is bread in the pantry.
-# thank you for using my services
+# Custom iterator:
+# Ruby tuesday
+# Ruby is a diamond

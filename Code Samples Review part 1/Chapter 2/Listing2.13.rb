@@ -1,48 +1,48 @@
-state = "hungry" 
-
-case
-when state == "hungry" 
-	puts "You are hungry, maybe I can help." 
-when state == "thirsty" 
-	puts "I would have to refer you to the nearest bar."
-else
-	puts "No needs at the moment, maybe later?"
-end
-
-def snack?(state)
-	puts "What would you like to eat (apple, sandwich, salad)?" if state == "hungry"        
+class MusicLibrary < Array
 	
-	food = gets.chomp
-	was_unknown = false
-	
-	case food
-	when "apple": puts "There are apples in the fruit basket in the lounge." 
-	when "sandwich"
-		puts "You can raid the fridge. There is bread in the pantry." 
-	when "salad" then puts "There are plenty of ingredients for a salad in the fridge."
-	else
-		was_unknown = true
-		puts "I'm sorry but I don't understand your request."
+	def add_album(artist, title)
+		self << [artist, title]
+		self
 	end
 	
-	was_unknown
+	def search_by_artist(key)
+		reject { |b| !match_item(b, 0, key) }
+	end
+	
+	def search_by_artist_or_title(key)
+		reject { |b| !match_item(b, 0, key) && !match_item(b, 1, key) }
+	end  
+	
+	private	
+	def match_item(b, index, key)
+		b[index].index(key) != nil
+	end
+	
+	def method_missing(method, *args)
+		method_match = /find_(.+)/.match(method.to_s)
+		search_by_artist_or_title(method_match.captures[0]) if method_match
+	end
 end
 
-if snack?(state) : puts "Do you want to try again?"; else puts "Do you want more food?";  end; 
-want_more = gets.chomp
+l = MusicLibrary.new
+l.add_album("Lenny Kravitz", "Mama said").add_album("Kruder & Dorfmeister", "Sofa surfers")
+l.add_album("Massive Attack", "Safe from harm").add_album("Paul Oakenfold", "Bunkha")
 
-snack?(state) unless want_more == "no"
-puts "Thank you for using my services."
+p "Find Kravitz:"
+l.find_Kravitz.each do |item|; p item; end
 
-# One path could output the following:
+p "Find Ma:"
+l.find_Ma.each do |item|; p item; end
+
+p "Find Bu:"
+l.find_Bu.each do |item|; p item; end
+
+# Outputs the following:
 #
-# You are hungry, maybe I can help.
-# What would you like to eat (apple, sandwich, salad)?
-# sandwich
-# You can raid the fridge. There is bread in the pantry.
-# Do you want more food?
-# yes
-# What would you like to eat (apple, sandwich, salad)?
-# apple
-# There are apples in the fruit basket in the lounge.
-# Thank you for using my services.
+# "Find Kravitz:"
+# ["Lenny Kravitz", "Mama said"]
+# "Find Ma:"
+# ["Lenny Kravitz", "Mama said"]
+# ["Massive Attack", "Safe from harm"]
+# "Find Bu:"
+# ["Paul Oakenfold", "Bunkha"]

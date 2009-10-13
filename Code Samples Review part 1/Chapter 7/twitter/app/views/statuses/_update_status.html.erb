@@ -1,0 +1,10 @@
+<div class="status-update" style="display:block;margin:5px;padding:3px;">
+  <% form_for(@status) do |f| %>
+    <%= f.label :text, 'Update: ' %><br />
+	<%= f.text_area :text, :cols => 70, :rows => 5, :style => "width:100%"  %><br/>
+
+    <div style="display:block;text-align:right">
+      <%= submit_tag "Update" %>
+    </div>
+  <% end %>
+</div>

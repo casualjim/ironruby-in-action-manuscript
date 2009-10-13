@@ -41,8 +41,8 @@
 		<string>../../Samples/prepare_for_review.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
-	<true/>
+	<false/>
 	<key>windowFrame</key>
-	<string>{{219, 53}, {1185, 821}}</string>
+	<string>{{219, 58}, {1185, 820}}</string>
 </dict>
 </plist>

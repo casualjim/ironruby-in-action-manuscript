@@ -1,0 +1,11 @@
+<div class="timeline-item" >
+	<%= link_with_login(
+			status, 
+			image_tag('http://static.twitter.com/images/default_profile_normal.png', :alt => "profile image"),
+			:class => "profile-link") %>
+    <p>
+		<%= link_with_login status %>
+        <%= status.text %><br />
+        <%= status.created_at %> from <a href="<%= status.source_url %>"><%= status.source %></a>
+    </p>
+</div>

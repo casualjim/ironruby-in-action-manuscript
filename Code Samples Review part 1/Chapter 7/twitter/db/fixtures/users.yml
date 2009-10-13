@@ -1,0 +1,34 @@
+
+ivan:
+  id:                        1
+  login:                     ivan
+  name:                      Ivan Porto Carrero
+  email:                     ivan@example.com
+  salt:                      <%= Digest::SHA1.hexdigest('ironruby')   %> 
+  crypted_password:          <%= User.password_digest('ironruby in action', Digest::SHA1.hexdigest('ironruby')) %>
+  created_at:                <%= 5.days.ago.to_s :db  %>
+  remember_token_expires_at: <%= 1.days.from_now.to_s %>
+  remember_token:            <%= User.make_token %>
+
+andrew:
+  id:                        2
+  login:                     andrew
+  name:                      Andrew Peters
+  email:                     andrew@example.com
+  salt:                      <%= Digest::SHA1.hexdigest('ironruby')   %> 
+  crypted_password:          <%= User.password_digest('ironruby in action', Digest::SHA1.hexdigest('ironruby')) %> 
+  created_at:                <%= 5.days.ago.to_s :db  %>
+  remember_token_expires_at: <%= 1.days.from_now.to_s %>
+  remember_token:            <%= User.make_token %>
+
+michael:
+    id:                        3
+    login:                     michael
+    name:                      Michael Letterle
+    email:                     michael@example.com
+    salt:                      <%= Digest::SHA1.hexdigest('ironruby')   %> 
+    crypted_password:          <%= User.password_digest('ironruby in action', Digest::SHA1.hexdigest('ironruby')) %> 
+    created_at:                <%= 5.days.ago.to_s :db  %>
+    remember_token_expires_at: <%= 1.days.from_now.to_s %>
+    remember_token:            <%= User.make_token %>
+

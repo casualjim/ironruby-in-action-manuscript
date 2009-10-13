@@ -1,0 +1,3 @@
+[submodule "public-samples"]
+	path = public-samples
+	url = git@github.com:casualjim/ironrubyinaction.git

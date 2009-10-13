@@ -1,0 +1,38 @@
+==Project Description
+For the IronRuby In Action book I wrote a limited implementation of Twitter.
+This might be useful for other people so I decided to put it up here on Codeplex.
+It should have the same urls for API calls as twitter does except for the domain of course ;)
+It is written in Rails
+
+
+It is by no means finished at this point and only implements the API I needed but it's pretty easy to add new stuff.
+
+The idea is that it should run on IronRuby but at this moment it doesn't yet. So you need to get
+Ruby 1.8.6 or 1.8.7 (MRI): http://www.ruby-lang.org/en/downloads/
+
+And as gems you need:
+
+    * Rails 2.2.2 gem
+
+(sudo) gem install rails
+
+    * RSpec gem
+
+(sudo) gem install rspec
+
+    * RSpec-Rails gem
+
+(sudo) gem install rspec-rails
+
+    * Sqlite3-ruby gem
+
+(sudo) gem install sqlite3-ruby
+
+To run the project you need to migrate and populate the database first.
+To do this navigate into the twitter folder of the repository and execute the following commands:
+
+rake db:migrate
+rake db:fixtures:load
+script/server
+
+You can specify your own data that is to be loaded in the database by editing twitter/db/fixtures/*.yml

@@ -1,0 +1,50 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value
+first:
+    id: 1
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: the first status description
+    user_id: 1
+    
+second:
+    id: 2
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: the second status description
+    user_id: 2
+
+third:
+    id: 3
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: @aaron the third status description
+    user_id: 2
+    in_reply_to_status_id: 2
+    
+fourth:
+    id: 4
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: @aaron the fourth status description
+    user_id: 1
+    in_reply_to_user_id: 2
+
+fifth:
+    id: 5
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: the fifth status description
+    user_id: 1
+
+sixth:
+    id: 6
+    source: ironruby in action
+    source_url: http://manning.com/carrero
+    text: the sixth status description
+    user_id: 3

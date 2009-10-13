@@ -1,58 +1,47 @@
-def which_snack?
-	puts "What would you like to eat (apple, sandwich, salad)?"        
-	
-	food = gets.chomp
-	was_unknown = false
-	
-	case food
-	when "apple": puts "There are apples in the fruit basket in the lounge." 
-	when "sandwich"
-		puts "You can raid the fridge. There is bread in the pantry." 
-	when "salad" then puts "There are plenty of ingredients for a salad in the fridge."
-	else
-		was_unknown = true
-		puts "I'm sorry but I don't understand your request."
-	end
-	
-	was_unknown
-end
+class CsvRecord
+    
+	def self.build_from(file)
+		data = File.new(file)
+		header = data.gets.chomp
+		data.close
+		class_name = File.basename(file,".txt").capitalize  
 
-def service_need(state)
-	case
-	when state == "hungry" 
-		want_more = "yes"
-		while want_more == "yes"
-			puts which_snack? ? "Do you want to try again?" : "Do you want more food?"
-			want_more = gets.chomp
+		klass = Object.const_set(class_name, Class.new)
+		names = header.split(",")
+
+		klass.class_eval do
+
+			attr_accessor *names
+			
+			define_method(:initialize) do |*values| 
+				names.each_with_index do |name,i| 
+					instance_variable_set("@"+name, values[i])
+				end
+			end
+			
+			define_method(:to_s) do
+				str = "<#{self.class}:"
+				names.each {|name| str << " #{name}=#{self.send(name)}" }
+				str + ">"
+			end
+			
+			alias_method :inspect, :to_s
 		end
-		state = "" if want_more == "no"
-	when state == "thirsty" 
-		puts "I would have to refer you to the nearest bar."
-		state = "done"
-	else
-		puts "May I can be of assistance (hungry/thirsty/done)?"
-		state = gets.chomp
+
+		def klass.populate
+			array = []
+			data = File.new(self.to_s.downcase+".txt")
+			data.gets  # throw away header
+			data.each do |line| 
+				line.chomp!   
+				values = eval("[#{line}]")
+				array << self.new(*values)
+			end
+			data.close
+			array
+		end
+
+		klass
 	end
-	state
+    
 end
-
-state = "" 
-until state == "done" 
-	state = service_need(state)	
-end
-puts "Thank you for using my services."
-
-
-# One path could output the following:
-#
-# May I can be of assistance (hungry/thirsty/done)?
-# hungry
-# What would you like to eat (apple, sandwich, salad)?
-# apple
-# There are apples in the fruit basket in the lounge.
-# Do you want more food?
-# no
-# May I can be of assistance (hungry/thirsty/done)?
-# thirsty
-# I would have to refer you to the nearest bar.
-# Thank you for using my services.
