@@ -35,6 +35,7 @@ class CsvRecord
 			data.each do |line| 
 				line.chomp!   
 				values = eval("[#{line}]")
+				puts values.join(", ")
 				array << self.new(*values)
 			end
 			data.close

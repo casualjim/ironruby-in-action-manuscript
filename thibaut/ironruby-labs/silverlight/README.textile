@@ -1,0 +1,10 @@
+h1. Running an application using agdlr
+
+  agdlr-0.4.0/script/server /d:001_hello_world /b:index.html
+
+h1. Useful links
+
+* "Silverlight 2 documentation":http://www.microsoft.com/Downloads/thankyou.aspx?familyId=bce7684a-507b-4fc6-bc99-6933cd690cab&displayLang=en
+* "An IronPython Silverlight application":http://www.voidspace.org.uk/ironpython/silverlight/silverlight_application.shtml
+* "Learn Silverlight 2":http://silverlight.net/Learn/
+* "Introduction à Silverlight 2":http://broux.developpez.com/articles/csharp/introduction-silverlight-2/

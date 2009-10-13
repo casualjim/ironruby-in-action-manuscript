@@ -1,0 +1,1 @@
+agdlr-0.4.0/script/server /d:$1 /b:index.html

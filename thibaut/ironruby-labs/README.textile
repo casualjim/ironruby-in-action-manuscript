@@ -1,0 +1,36 @@
+h1. Labs with IronRuby and Mono on Mac OS X
+
+h2. Prerequisites
+
+* you'll need Ruby (not IronRuby) as a starter, as I'm using a Rakefile to script these things.
+* install a recent build of Mono "http://mono.ximian.com/monobuild/preview/download-preview/":http://mono.ximian.com/monobuild/preview/download-preview/
+
+h2. Checking the installation
+
+Run the following command:
+
+  bash-3.2$ rake happy
+  (in /Users/thbar/Work/git/ironruby-labs)
+  Checking mono >= 2.2 installed - OK (2.4)
+
+h2. Download latest IronRuby bits
+
+  rake download
+
+Everything should be downloaded and unpacked under the Release folder.
+
+h2. Revert to a previously downloaded version of the IronRuby bits
+
+In case you meet some kind of regression, you can revert to a previously downloaded file with:
+
+  rake revert version=10606
+
+(Look for files named DLR.xxxxx.release.zip on your disk)
+
+h2. Running an IronRuby file
+
+  rake run ui/test_form_with_button.rb
+
+(should run a simple form with a button)
+
+Feedback => thibaut.barrere@gmail.com
