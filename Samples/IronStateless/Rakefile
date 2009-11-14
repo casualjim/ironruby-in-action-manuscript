@@ -1,0 +1,60 @@
+$:.unshift 'lib'
+require 'stateless'
+
+require_all 'tasks'
+
+desc "The default task is to run all the specs"
+task :default => [:build_extension, :spec]
+
+desc "Runs all the specs"
+task :spec do
+  system "ibacon #{Dir.glob('spec/**/*_spec.rb').join(' ')}"
+end
+
+namespace :spec do
+
+  desc "runs the specifications for the different classes"
+  task :unit do
+    specs = Dir.glob('spec/unit/**/*_spec.rb')
+    system "ibacon #{specs.join(' ')}"
+  end
+
+  desc "runs the integration tests"
+  task :integration do
+    specs = Dir.glob('spec/integration/**/*_spec.rb')
+    system "ibacon #{specs.join(' ')}"
+  end
+end
+#
+#def self.mono?
+#  return true if ENV['mono']
+#  ENV['OS'] != "Windows_NT"
+#end
+#
+#def silverlight?
+#  return true if ENV['silverlight']
+#  false
+#end
+#
+#def debug_flags
+#  if ENV['configuration'] == 'release'
+#    "/debug- /o+"
+#  else
+#    "/debug+ /o- /debug:full"
+#  end
+#end
+#
+#def csc
+#  if silverlight?
+#    mono? ? "smcs" : "csc /nostdlib /r:\"%sl%\\agclr.dll\" /r:\"%sl%\\mscorlib.dll\" /r:\"%sl%\\system.dll\" /r:\"%sl%\\System.Core.dll\" /r:\"%sl%\\System.Silverlight.dll\" /r:\"%sl%\\System.Xml.Core.dll\""
+#  else
+#    mono? ? "gmcs" : "csc"
+#  end
+#end
+
+desc "Builds the extension"
+task :build_extension do
+  Dir.chdir(File.dirname(__FILE__))
+  files = Dir.glob("csharp/**/*.cs").join(' ').collect { |f| f.gsub(/\//, "\\")  }.join(" ")
+  system "#{csc} /noconfig /target:library #{debug_flags} /out:spec/bin/IronStateless.dll #{files}"
+end
