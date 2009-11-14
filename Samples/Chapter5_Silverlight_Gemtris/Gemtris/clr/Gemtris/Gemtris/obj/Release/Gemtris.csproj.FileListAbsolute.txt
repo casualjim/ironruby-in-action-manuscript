@@ -5,3 +5,10 @@ C:\Users\Adam\Documents\My Dropbox\Books\Book Ref\source_wip\Gemtris\clr\Gemtris
 C:\Users\Adam\Documents\My Dropbox\Books\Book Ref\source_wip\Gemtris\clr\Gemtris\Gemtris\obj\Release\Gemtris.g.resources
 C:\Users\Adam\Documents\My Dropbox\Books\Book Ref\source_wip\Gemtris\clr\Gemtris\Gemtris\obj\Release\Gemtris.dll
 C:\Users\Adam\Documents\My Dropbox\Books\Book Ref\source_wip\Gemtris\clr\Gemtris\Gemtris\obj\Release\Gemtris.pdb
+C:\Users\Adam\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter5_Silverlight_Gemtris\Gemtris\clr\Gemtris\Gemtris\Bin\Release\Gemtris.dll
+C:\Users\Adam\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter5_Silverlight_Gemtris\Gemtris\clr\Gemtris\Gemtris\Bin\Release\Gemtris.pdb
+C:\Users\Adam\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter5_Silverlight_Gemtris\Gemtris\clr\Gemtris\Gemtris\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Adam\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter5_Silverlight_Gemtris\Gemtris\clr\Gemtris\Gemtris\obj\Release\Gem.g.cs
+C:\Users\Adam\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter5_Silverlight_Gemtris\Gemtris\clr\Gemtris\Gemtris\obj\Release\Gemtris.g.resources
+C:\Users\Adam\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter5_Silverlight_Gemtris\Gemtris\clr\Gemtris\Gemtris\obj\Release\Gemtris.dll
+C:\Users\Adam\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter5_Silverlight_Gemtris\Gemtris\clr\Gemtris\Gemtris\obj\Release\Gemtris.pdb

@@ -4,25 +4,37 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:gemtris="clr-namespace:Gemtris;assembly=Gemtris">
 
-  <StackPanel Orientation="Vertical">
-    <TextBlock x:Name="message" FontSize="30" />
-	<gemtris:Gem x:Name="myGem" />
-	<gemtris:Gem x:Name="myGem1" />
-	<gemtris:Gem x:Name="myGem2" />
-	<gemtris:Gem x:Name="myGem3" />
-	<gemtris:Gem x:Name="myGem4" />
-	<gemtris:Gem x:Name="myGem5" />
-	<gemtris:Gem x:Name="myGem6" />
-	<gemtris:Gem x:Name="myGem7" />
-	<gemtris:Gem x:Name="myGem8" />
-	<gemtris:Gem x:Name="myGem9" />
-	<gemtris:Gem x:Name="myGem10" />
-	<gemtris:Gem x:Name="myGem11" />
-	<gemtris:Gem x:Name="myGem12" />
-	<gemtris:Gem x:Name="myGem13" />
-	<gemtris:Gem x:Name="myGem14" />
-	<gemtris:Gem x:Name="myGem15" />
-	
-  </StackPanel>
+	<Grid x:Name="boardGrid" Width="200" Height="320">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+	</Grid>
 
 </UserControl>

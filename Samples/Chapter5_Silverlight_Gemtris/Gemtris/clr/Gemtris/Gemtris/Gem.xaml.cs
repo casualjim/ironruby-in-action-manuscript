@@ -18,10 +18,5 @@ namespace Gemtris
         {
             InitializeComponent();
         }
-
-        private void GemClicked(object sender, MouseButtonEventArgs e)
-        {
-            this.GemBackground.Fill = new SolidColorBrush(Colors.Yellow);
-        }
     }
 }

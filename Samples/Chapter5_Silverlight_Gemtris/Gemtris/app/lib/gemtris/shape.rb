@@ -4,7 +4,7 @@ class Gemtris::Shape
   
   SHAPES = {
     :I => {
-      :colour => Colors.Red,
+      :colour => Colors.red,
       :data => [
         [0,1,0],
         [0,1,0],
@@ -13,7 +13,7 @@ class Gemtris::Shape
       ]
     },
     :J => {
-      :colour => Colors.Orange,
+      :colour => Colors.orange,
       :data => [
         [1,1,1],
         [0,0,1],
@@ -21,7 +21,7 @@ class Gemtris::Shape
       ],
     },
     :L => {
-      :colour => Colors.Purple,
+      :colour => Colors.purple,
       :data => [
         [1,1,1],
         [1,0,0],
@@ -29,21 +29,21 @@ class Gemtris::Shape
       ],
     },
     :O => {
-      :colour => Colors.Blue,
+      :colour => Colors.blue,
       :data => [
         [1,1],
         [1,1],
       ],
     },
     :S => {
-      :colour => Colors.Green,
+      :colour => Colors.green,
       :data => [
         [0,1,1],
         [1,1,0],
       ],
     },
     :T => {
-      :colour => Colors.Silver,
+      :colour => Colors.silver,
       :data => [
         [1,1,1],
         [0,1,0],
@@ -51,7 +51,7 @@ class Gemtris::Shape
       ],
     },
     :Z => {
-      :colour => Colors.Cyan,
+      :colour => Colors.cyan,
       :data => [
         [1,1,0],
         [0,1,1],
