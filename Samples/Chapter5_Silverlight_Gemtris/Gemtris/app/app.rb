@@ -8,7 +8,7 @@ class App < SilverlightApplication
     @root = Application.current.load_root_visual(UserControl.new, "app.xaml")
     @root.find_name('message').text = "Retris"
     myGem = @root.myGem
-    myGem.fill=(Colors.Purple)
+    myGem.color=(Colors.Purple)
     
     
     #@board = @root.find_name('board')
