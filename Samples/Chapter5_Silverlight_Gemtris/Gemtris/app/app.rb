@@ -14,7 +14,7 @@ class App < SilverlightApplication
         g = Gemtris::Gem.new
         Grid.set_row(g, r)
         Grid.set_column(g, c)
-        g.margin = System::Windows::Thickness.new 1
+        g.color = Colors.black
         @boardGrid.children.add g
       end
     end
