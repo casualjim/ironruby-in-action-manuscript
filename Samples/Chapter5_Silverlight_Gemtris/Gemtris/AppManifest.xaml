@@ -1,0 +1,20 @@
+<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" 
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+			RuntimeVersion="2.0.31005.0" 
+			EntryPointAssembly="Microsoft.Scripting.Silverlight" 	
+			EntryPointType="Microsoft.Scripting.Silverlight.DynamicApplication">
+  <!-- Add assembly references here -->
+  <Deployment.Parts>
+	<!-- Reference the Gemtris assembly we created from our Blend project -->
+	<AssemblyPart Source="app/bin/Gemtris.dll" />
+	
+	<!-- Required assemblies -->
+    <AssemblyPart Source="Microsoft.Scripting.Silverlight.dll" />
+    <AssemblyPart Source="Microsoft.Scripting.ExtensionAttribute.dll" />
+    <AssemblyPart Source="Microsoft.Scripting.Core.dll" />
+    <AssemblyPart Source="Microsoft.Scripting.dll" />
+    <AssemblyPart Source="Microsoft.Dynamic.dll" />
+    <AssemblyPart Source="IronRuby.dll" />
+    <AssemblyPart Source="IronRuby.Libraries.dll" />
+  </Deployment.Parts>
+</Deployment>

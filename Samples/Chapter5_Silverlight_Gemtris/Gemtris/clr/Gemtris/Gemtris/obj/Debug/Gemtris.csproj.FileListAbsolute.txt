@@ -1,0 +1,7 @@
+C:\Users\Adam\Documents\My Dropbox\Books\Book Ref\source_wip\Gemtris\clr\Gemtris\Gemtris\Bin\Debug\Gemtris.dll
+C:\Users\Adam\Documents\My Dropbox\Books\Book Ref\source_wip\Gemtris\clr\Gemtris\Gemtris\Bin\Debug\Gemtris.pdb
+C:\Users\Adam\Documents\My Dropbox\Books\Book Ref\source_wip\Gemtris\clr\Gemtris\Gemtris\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Adam\Documents\My Dropbox\Books\Book Ref\source_wip\Gemtris\clr\Gemtris\Gemtris\obj\Debug\Gem.g.cs
+C:\Users\Adam\Documents\My Dropbox\Books\Book Ref\source_wip\Gemtris\clr\Gemtris\Gemtris\obj\Debug\Gemtris.g.resources
+C:\Users\Adam\Documents\My Dropbox\Books\Book Ref\source_wip\Gemtris\clr\Gemtris\Gemtris\obj\Debug\Gemtris.dll
+C:\Users\Adam\Documents\My Dropbox\Books\Book Ref\source_wip\Gemtris\clr\Gemtris\Gemtris\obj\Debug\Gemtris.pdb

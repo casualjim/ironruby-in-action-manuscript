@@ -1,0 +1,92 @@
+= Setting up a Silverlight app
+
+First we need to create a new Silverlight application. There's a script included in the SDK called "sl" to allow us
+to do this easily:
+	
+	sl ruby retris
+	Ruby Silverlight application created in 'retris/' directory.
+
+Lets look at what this has made for us. A new folder of the name "retris" has been created in the current directory, with some default files. 
+
+	index.html
+	
+	./app:
+	app.rb
+	app.xaml
+
+	./css:
+	screen.css
+
+	./js:
+	error.js
+	
+
+== Running your new Silverlight app
+
+Browsing to index.html will only give you an error message at this point. Why?
+
+The next step to a running Silverlight application is packaging your project into a XAP file.
+A XAP file (which is itself a ZIP) is a single, distributable archive of a Silverlight application. 
+
+If, like me when creating my first Silverlight application, you were a hasty little programmer and double clicked the index.html file expecting to see your fabulous work in action, you were somewhat confused by the result. 
+But it does makes perfect sense as Silverlight applications are distributed in packages, much like Java's JAR or Flash's SWF files.
+
+To package our app into a XAP file, as well as starting up a web server instance on a local port so we can test things, we'll be using an open source project included in the Dynamic Languages SDK, Chiron.
+
+Chiron is written specifically for packaging DLR powered Silverlight applications. It runs from the command line and as well
+as acting as a web server it also dynamically generates a XAP file for your DLR, as well as including the DLR and language assemblies required for to run code.
+
+To package and start your Silverlight application run:
+
+	chr /b:index.html 
+	
+The /b here will tell Chiron to open up a new browser window pointing at the local server it's just started for you.
+
+
+== Creating our game board
+
+The Retris board consists of an array of 10x16 blocks. Lets prepresent that on screen using the Grid control, setting up 16 rows and 10 columns.
+
+XAML
+
+Code board.rb
+
+class Board
+  
+  BOARD_ROWS = 16
+  BOARD_COLS = 10
+  
+  def initialize(grid)
+    @board_grid = grid
+    setup_board_grid
+  end
+  
+  def setup_board_grid
+    BOARD_ROWS.times { @board_grid.row_definitions << RowDefinition.new }
+    BOARD_COLS.times { @board_grid.column_definitions << ColumnDefinition.new } 
+    
+    BOARD_ROWS.times do |r|
+      BOARD_COLS.times do |c|
+        # Create a Gem instance to live in the cell
+      end
+    end
+  end #setup_board_grid
+  
+end
+
+
+
+Make assembly in Blend
+
+Import assembly
+
+Extend with Ruby
+
+Include on page
+
+
+Anything you want to access in XAML must be on the C# CLR assembly instance.
+
+
+Make a bacon gem
+Publish to gemcutter

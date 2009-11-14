@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="Gemtris.Gem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Canvas x:Name="GemCanvas" MouseLeftButtonDown="GemClicked" Width="20" Height="20" Canvas.Left="0" Canvas.Top="0">
+        <Path x:Name="GemBackground" Width="20" Height="20" Canvas.Left="0" Stretch="Fill" Fill="Red" Data="F1 M 103.718,145.031L 102.061,145.031L 46.9421,145.031L 45.2858,145.031L 44.1139,143.859L 5.14063,104.886L 3.96875,103.715L 3.96875,102.058L 3.96875,46.9408L 3.96875,45.2832L 5.14063,44.1126L 44.1139,5.14063L 45.2858,3.97005L 46.9421,3.97005L 102.061,3.97005L 103.718,3.97005L 104.889,5.14063L 143.859,44.1126L 145.03,45.2832L 145.03,46.9408L 145.03,102.058L 145.03,103.715L 143.859,104.886L 104.889,143.859L 103.718,145.031 Z " UseLayoutRounding="False"/>
+        <Path x:Name="GemOutsideBorder" Width="20" Height="20" Canvas.Left="0" Stretch="Fill" Fill="Black" Data="F1 M 105.373,-0.03125L 102.06,-0.03125L 46.9414,-0.03125L 43.6276,-0.03125L 41.2852,2.3112L 2.31185,41.2845L -0.030599,43.6276L -0.030599,46.9408L -0.030599,102.058L -0.030599,105.372L 2.31185,107.715L 41.2852,146.688L 43.6276,149.031L 46.9414,149.031L 102.06,149.031L 105.373,149.031L 107.717,146.688L 146.686,107.715L 149.031,105.372L 149.031,102.058L 149.031,46.9408L 149.031,43.6276L 146.686,41.2845L 107.717,2.3112M 102.06,7.96875L 141.031,46.9408L 141.031,102.058L 102.06,141.031L 46.9414,141.031L 7.9694,102.058L 7.9694,46.9408L 46.9414,7.96875L 102.06,7.96875 Z " Opacity="0.6" UseLayoutRounding="False"/>
+        <Path x:Name="TopFacetHighlight" Width="7.115" Height="3.356" Canvas.Left="6.465" Canvas.Top="1.135" Stretch="Fill" Fill="#9AFFFFFF" Data="F1 M 90.8431,33.3008L 58.1563,33.3008L 47.9388,8.63542L 101.061,8.63542L 90.8431,33.3008 Z " UseLayoutRounding="False"/>
+        <Path x:Name="TopLeftFacetHighlight" Width="6.443" Height="6.442" Canvas.Left="1.203" Canvas.Top="1.204" Stretch="Fill" Fill="#CDFFFFFF" Data="F1 M 33.8118,56.9258L 9.14518,46.7057L 46.7064,9.14453L 56.9264,33.8112L 33.8118,56.9258 Z " UseLayoutRounding="False"/>
+        <Path x:Name="LeftFacetHighlight" Width="3.356" Height="7.114" Canvas.Left="1.134" Canvas.Top="6.466" Stretch="Fill" Fill="#9AFFFFFF" Data="F1 M 8.63607,101.06L 8.63607,47.9388L 33.3014,58.1576L 33.3014,90.8438L 8.63607,101.06 Z " UseLayoutRounding="False"/>
+        <Path x:Name="BottomLeftFacetHighlight" Width="6.443" Height="6.443" Canvas.Left="1.203" Canvas.Top="12.336" Stretch="Fill" Fill="#4DFFFFFF" Data="F1 M 46.7064,139.854L 9.14518,102.289L 33.8118,92.0755L 56.9264,115.19L 46.7064,139.854 Z " UseLayoutRounding="False"/>
+        <Path x:Name="GemInsideSurfaceBorder" Width="10.739" Height="10.739" Canvas.Left="4.759" Canvas.Top="4.76" Stretch="Fill" StrokeMiterLimit="2.75" Stroke="Black" Data="F1 M 57.7116,115.031L 33.9688,91.2884L 33.9688,57.7109L 57.7116,33.9688L 91.2891,33.9688L 115.031,57.7109L 115.031,91.2884L 91.2891,115.031L 57.7116,115.031 Z " Opacity="0.4" UseLayoutRounding="False"/>
+    </Canvas>
+    
+</UserControl>

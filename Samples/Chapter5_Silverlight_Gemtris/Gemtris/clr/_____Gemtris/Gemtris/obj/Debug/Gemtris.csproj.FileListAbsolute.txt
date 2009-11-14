@@ -1,0 +1,22 @@
+C:\Documents and Settings\Administrator\My Documents\Expression\Blend 3\Projects\Gemtris\Gemtris\bin\Debug\Gemtris.dll
+C:\Documents and Settings\Administrator\My Documents\Expression\Blend 3\Projects\Gemtris\Gemtris\bin\Debug\Gemtris.pdb
+C:\Documents and Settings\Administrator\My Documents\Expression\Blend 3\Projects\Gemtris\Gemtris\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Expression\Blend 3\Projects\Gemtris\Gemtris\obj\Debug\Gemtris_MarkupCompile.cache
+C:\Documents and Settings\Administrator\My Documents\Expression\Blend 3\Projects\Gemtris\Gemtris\obj\Debug\Gemtris.g.resources
+C:\Documents and Settings\Administrator\My Documents\Expression\Blend 3\Projects\Gemtris\Gemtris\obj\Debug\Gemtris.dll
+C:\Documents and Settings\Administrator\My Documents\Expression\Blend 3\Projects\Gemtris\Gemtris\obj\Debug\Gemtris.pdb
+C:\Documents and Settings\Administrator\My Documents\Expression\Blend 3\Projects\Gemtris\Gemtris\obj\Debug\Gem.baml
+C:\Documents and Settings\Administrator\My Documents\Expression\Blend 3\Projects\Gemtris\Gemtris\obj\Debug\Gem.g.cs
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\bin\Debug\Gemtris.dll
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\bin\Debug\Gemtris.pdb
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\obj\Debug\Board.baml
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\obj\Debug\Gem.baml
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\obj\Debug\Board.g.cs
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\obj\Debug\Gem.g.cs
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\obj\Debug\Gemtris_MarkupCompile.cache
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\obj\Debug\Gemtris.g.resources
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\obj\Debug\Gemtris.dll
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\obj\Debug\Gemtris.pdb
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Documents and Settings\Administrator\My Documents\Gemtris\Gemtris\obj\Debug\Gemtris_MarkupCompile.lref
