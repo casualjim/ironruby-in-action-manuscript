@@ -12,38 +12,7 @@
 		
 		<TextBlock Text="Gemtris" Grid.Row="0" Foreground="White" FontSize="30" HorizontalAlignment="Center" />
 		
-		<Grid x:Name="boardGrid" Grid.Row="1" Width="200" Height="320" VerticalAlignment="Top">
-			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
-		</Grid>
+		<Grid x:Name="boardGrid" Grid.Row="1" Width="200" Height="320" VerticalAlignment="Top" />
 		
 	</Grid>
 

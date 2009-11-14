@@ -6,20 +6,9 @@ class App < SilverlightApplication
   
   def initialize
     @root = Application.current.load_root_visual(UserControl.new, "app.xaml")
-    #@root.find_name('message').text = "Retris"
     
     @boardGrid = @root.boardGrid
-    16.times do |r|
-      10.times do |c|
-        g = Gemtris::Gem.new
-        Grid.set_row(g, r)
-        Grid.set_column(g, c)
-        g.color = Colors.black
-        @boardGrid.children.add g
-      end
-    end
-    
-    #@board = @root.find_name('board')
+    Gemtris::Board.new :board => @root.boardGrid, :rows => 16, :columns => 10
   end
     
 end
