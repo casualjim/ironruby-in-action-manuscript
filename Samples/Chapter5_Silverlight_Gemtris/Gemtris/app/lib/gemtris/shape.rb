@@ -61,7 +61,7 @@ class Gemtris::Shape
   
   attr_accessor :colour, :x, :y
   
-  def initialize(shape = self.random, x=0, y=0)
+  def initialize(shape=self.random, x=0, y=0)
     @x, @y = x, y
     @colour = shape.colour
     @orientations = generate_orientations(shape.data)
