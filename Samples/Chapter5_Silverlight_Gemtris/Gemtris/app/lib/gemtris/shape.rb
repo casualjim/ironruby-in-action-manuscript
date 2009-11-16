@@ -6,10 +6,10 @@ class Gemtris::Shape
     :I => {
       :color => Colors.red,
       :data => [
-        [1],
-        [1],
-        [1],
-        [1],
+        [1,0],
+        [1,0],
+        [1,0],
+        [1,0],
       ]
     },
     :J => {

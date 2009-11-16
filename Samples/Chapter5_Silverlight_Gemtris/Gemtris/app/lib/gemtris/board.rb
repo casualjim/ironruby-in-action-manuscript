@@ -15,7 +15,7 @@ class Gemtris::Board
   def initialize(options)
     @board_grid = options[:grid]
     @height, @width = options[:rows] || DEFAULT_HEIGHT, options[:columns] || DEFAULT_WIDTH
-    
+
     reset
   end
 
@@ -57,6 +57,8 @@ class Gemtris::Board
     init_state_array
     init_grid
     
+    @completed_row_count = 0
+    
     # pre-initialise the board with a new shape, ready to drop in
     add_new_shape
   end
@@ -92,7 +94,7 @@ class Gemtris::Board
         else
           shape_defn = Gemtris::Shape::SHAPES[pos_state]
           if(shape_defn.nil?)
-            raise "A shape was expected, but found nil instead for symbol #{pos_state.to_s} at coordinates #{x.to_s}, #{y.to_s}"
+            raise "A shape was expected, but found nil"
           end
           g.visibility = Visibility.visible
           g.color = shape_defn[:color]
@@ -103,23 +105,24 @@ class Gemtris::Board
     @current_shape.draw
   end
   
-  def add_new_shape
-    @current_shape = Gemtris::Shape.new(self)
+  def add_new_shape(shape=nil)
+    @current_shape = shape || Gemtris::Shape.new(self)
   end
   
   def remove_completed_rows
-    # Go from the bottom up to make the math easier
-    (@height - 1).downto(0) do |y|
-      row_full = true
-      @width.times do |x|
-        pos_state = state_at(x, y)
-        row_full &= (pos_state != 0)
+    # Go from bottom up
+    row = @height - 1
+    while row > 0
+      completed = true
+      @width.times do |col|
+        completed &= state_at(col, row) != 0
       end
-      
-      if row_full
+      if completed
         @completed_row_count += 1
-        @state.slice!((SHAPE_BUFFER_HEIGHT+y) * @width, @width) + @state
-        @width.times { @state.unshift(0) }
+        @state.slice!(SHAPE_BUFFER_HEIGHT + row)
+        @state.unshift Array.new(@width)
+      else
+        row -= 1 # next row up
       end
     end
   end
