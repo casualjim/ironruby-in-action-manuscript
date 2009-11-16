@@ -3,47 +3,57 @@
 class Gemtris::Board
 
   # Constants for board width & height
-  ROWS = 16
-  COLUMNS = 10
+  DEFAULT_HEIGHT = 16
+  DEFAULT_WIDTH = 10
   
-  attr_accessor :state
+  # A buffer for a new shape to be positioned in the state array
+  SHAPE_BUFFER_HEIGHT = 4
+  
+  attr_accessor :current_shape, :width, :height
 
   def initialize(options)
     @board_grid = options[:grid]
-    @rows, @cols = options[:rows] || ROWS, options[:columns] || COLUMNS
-    @state = []
+    @height, @width = options[:rows] || DEFAULT_HEIGHT, options[:columns] || DEFAULT_WIDTH
     
-    init_grid
-    init_state_array
     reset
   end
 
   # Set up the grid to have the right number of rows and columns
   #
   def init_grid
-    @rows.times { @board_grid.row_definitions << RowDefinition.new }
-    @cols.times { @board_grid.column_definitions << ColumnDefinition.new }
+    # remove any existing children from the XAML Grid element
+    @board_grid.children.clear
+    
+    # add column definitions
+    @width.times { @board_grid.column_definitions << ColumnDefinition.new }
+    
+    # add row definitions and blank rows of gems
+    @height.times do |r| 
+      @board_grid.row_definitions << RowDefinition.new 
+      add_blank_row(r)
+    end
   end
 
+  # Create a 2D array to store the game state. This array is inspected for values 
+  # when rendering the game board in the draw method.
+  #
   def init_state_array
-    @rows.times do |row|
-      @state[row] = []
-      @cols.times do |col|
-        @state[row][col] = 0
-      end
-    end
+    # Create a new array of @height x @width, with each element set to 0
+    @state = Array.new(@height + SHAPE_BUFFER_HEIGHT) { Array.new(@width) { 0 } }
   end
   
   # Set up our game board to a blank state, ready for a new game of Gemtris
   #
   def reset
-    # Remove any previously added Gems from the board
-    @board_grid.children.clear
-    @rows.times { |i| add_blank_row(i) }
+    init_state_array
+    init_grid
+    
+    # pre-initialise the board with a new shape, ready to drop in
+    add_new_shape
   end
   
   def add_blank_row(row_index)
-    @cols.times do |col_index|
+    @width.times do |col_index|
       # Create a new Gem control and configure it as blank
       gem_block = Gemtris::Gem.new
       gem_block.color = Colors.black
@@ -56,42 +66,58 @@ class Gemtris::Board
     end
   end
   
-  # Return a Gem at a cell
-  #
-  def cell(x,y)
-    @state[x][y]
+  def set_state_at(x, y, state)
+    @state[SHAPE_BUFFER_HEIGHT+y][x] = state
+  end
+  
+  def state_at(x,y)
+    @state[SHAPE_BUFFER_HEIGHT+y][x]
   end
   
   # Return a Gem object at a cell
   #
   def gem_at(x,y)
-    x = x % @cols
-    y = y % @rows
-    @board_grid.children[(y * @cols) + x]
+    x = x % @width
+    y = y % @height
+    @board_grid.children[(y * @width) + x]
   end
   
+  # Render the state array to the board, as well as the boards current shape
+  #
   def draw
-    @rows.times do |y|
-      @cols.times do |x|
-        g, s = gem_at(x,y), cell(x,y)
+    @height.times do |row|
+      @width.times do |col|
+        pos_state = state_at(col, row)
+        g = gem_at(col, row)
         
-        case s
+        case pos_state
         when 0:
           g.visibility = Visibility.collapsed
           g.color = Colors.black
-        when 1:
+        else
+          shape_defn = Gemtris::Shape::SHAPES[pos_state]
+          if(shape_defn.nil?)
+            raise "A shape was expected, but found nil instead for symbol #{pos_state.to_s} at coordinates #{x.to_s}, #{y.to_s}"
+          end
           g.visibility = Visibility.visible
-          g.color = Colors.red
-        when 2:
-          g.visibility = Visibility.visible
-          g.color = Colors.blue
-        when 3:
-        when 4:
-        when 5:
-        when 6:
+          g.color = shape_defn[:color]
         end
       end
     end
+    
+    @current_shape.draw
+  end
+  
+  def add_new_shape
+    @current_shape = Gemtris::Shape.new(self)
+  end
+  
+  def place_current_shape
+    
+  end
+  
+  def remove_completed_rows
+    
   end
   
 end

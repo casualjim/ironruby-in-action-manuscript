@@ -6,4 +6,12 @@ class Gemtris::Gem
     @gem_background.fill = SolidColorBrush.new(color)
   end
   
+  def show
+    self.visibility = Visibility.visible
+  end
+  
+  def hide
+    self.visibility = Visibility.collapsed
+  end
+  
 end

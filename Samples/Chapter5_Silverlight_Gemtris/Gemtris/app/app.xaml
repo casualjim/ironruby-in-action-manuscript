@@ -12,7 +12,16 @@
 		
 		<TextBlock Text="Gemtris" Grid.Row="0" Foreground="White" FontSize="30" Margin="5" HorizontalAlignment="Center" />
 		
-		<Border BorderThickness="5" BorderBrush="Gray" Background="Black" Grid.Row="1" Padding="2" Width="214" Height="334" VerticalAlignment="Top">
+		<Border Grid.Row="1" Padding="5" VerticalAlignment="Top" 
+				BorderThickness="5" BorderBrush="#422" CornerRadius="4" 
+				Width="220" Height="334">
+			<Border.Background>
+				<LinearGradientBrush StartPoint="0,0" EndPoint="0,0.7">
+					<GradientStop Color="#311" Offset="0.0" />
+					<GradientStop Color="#211" Offset="1.0" />
+				</LinearGradientBrush>
+			</Border.Background>
+			
 			<Grid x:Name="boardGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 		</Border>
 	</Grid>

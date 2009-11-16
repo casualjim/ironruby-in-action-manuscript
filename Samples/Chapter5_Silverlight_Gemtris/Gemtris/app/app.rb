@@ -6,19 +6,10 @@ class App < SilverlightApplication
   
   def initialize
     @root = Application.current.load_root_visual(UserControl.new, "app.xaml")
-    board = Gemtris::Board.new :grid => @root.boardGrid, :rows => 16, :columns => 10
-
-    board.state[0][15] = 1
-    board.state[1][15] = 1
-    board.state[2][15] = 1
-    board.state[2][14] = 1
-
-    board.state[5][15] = 2
-    board.state[6][15] = 2
-    board.state[5][14] = 2
-    board.state[6][14] = 2
-    
-    board.draw
+    game = Gemtris::GameManager.new @root.boardGrid
+    # Redirect key presses to the game key_handler method
+    @root.key_down { |sender, args| game.send :key_handler, sender, args }
+    game.start
   end
     
 end
