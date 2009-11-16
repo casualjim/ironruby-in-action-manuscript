@@ -31,6 +31,16 @@ class Gemtris::GameManager
     raise "Game over"
   end
   
+  def handle_key_press(key)
+    case key
+    when :up
+      board.current_shape.rotate
+    else
+      board.current_shape.move key
+    end
+    draw
+  end
+  
   protected
   
   def update
@@ -40,30 +50,14 @@ class Gemtris::GameManager
       if board.current_shape.y <= 0
         game_over
       end
-      
       board.current_shape.place_on_board
-      board.remove_completed_rows
+      #board.remove_completed_rows
       board.add_new_shape
     end
   end
   
   def draw
     board.draw
-  end
-  
-  def key_handler(sender, args)
-    #raise args.key.GetType.to_s
-    case args.key
-    when System::Windows::Input::Key.left
-      board.current_shape.move :left
-    when System::Windows::Input::Key.right
-      board.current_shape.move :right
-    when System::Windows::Input::Key.down
-      board.current_shape.move :down
-    when System::Windows::Input::Key.up
-      board.current_shape.rotate_counter_clockwise
-    end
-    draw
   end
 
 end

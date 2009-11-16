@@ -9,7 +9,8 @@ class Gemtris::Board
   # A buffer for a new shape to be positioned in the state array
   SHAPE_BUFFER_HEIGHT = 4
   
-  attr_accessor :current_shape, :width, :height
+  attr_reader :completed_row_count, :current_shape
+  attr_accessor :width, :height
 
   def initialize(options)
     @board_grid = options[:grid]
@@ -28,9 +29,18 @@ class Gemtris::Board
     @width.times { @board_grid.column_definitions << ColumnDefinition.new }
     
     # add row definitions and blank rows of gems
-    @height.times do |r| 
+    @height.times do |row_index| 
       @board_grid.row_definitions << RowDefinition.new 
-      add_blank_row(r)
+      @width.times do |col_index|
+        # Create a new Gem control and configure it as blank
+        gem_block = Gemtris::Gem.new
+        gem_block.visibility = Visibility.collapsed
+        # Position the gem in the Grid control
+        Grid.set_row(gem_block, row_index)
+        Grid.set_column(gem_block, col_index)
+        # Add the Gem to the Grid
+        @board_grid.children << gem_block
+      end
     end
   end
 
@@ -38,7 +48,6 @@ class Gemtris::Board
   # when rendering the game board in the draw method.
   #
   def init_state_array
-    # Create a new array of @height x @width, with each element set to 0
     @state = Array.new(@height + SHAPE_BUFFER_HEIGHT) { Array.new(@width) { 0 } }
   end
   
@@ -50,20 +59,6 @@ class Gemtris::Board
     
     # pre-initialise the board with a new shape, ready to drop in
     add_new_shape
-  end
-  
-  def add_blank_row(row_index)
-    @width.times do |col_index|
-      # Create a new Gem control and configure it as blank
-      gem_block = Gemtris::Gem.new
-      gem_block.color = Colors.black
-      gem_block.visibility = Visibility.collapsed
-      # Position the gem in the Grid control
-      Grid.set_row(gem_block, row_index)
-      Grid.set_column(gem_block, col_index)
-      # Add the Gem to the Grid
-      @board_grid.children << gem_block
-    end
   end
   
   def set_state_at(x, y, state)
@@ -112,12 +107,21 @@ class Gemtris::Board
     @current_shape = Gemtris::Shape.new(self)
   end
   
-  def place_current_shape
-    
-  end
-  
   def remove_completed_rows
-    
+    # Go from the bottom up to make the math easier
+    (@height - 1).downto(0) do |y|
+      row_full = true
+      @width.times do |x|
+        pos_state = state_at(x, y)
+        row_full &= (pos_state != 0)
+      end
+      
+      if row_full
+        @completed_row_count += 1
+        @state.slice!((SHAPE_BUFFER_HEIGHT+y) * @width, @width) + @state
+        @width.times { @state.unshift(0) }
+      end
+    end
   end
   
 end

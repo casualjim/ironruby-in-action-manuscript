@@ -1,3 +1,6 @@
+# require our core extensions first
+require 'lib/core_ext/array'
+
 # load the Gemtris.dll containing our CLR object shells
 require 'bin/Gemtris.dll'
 

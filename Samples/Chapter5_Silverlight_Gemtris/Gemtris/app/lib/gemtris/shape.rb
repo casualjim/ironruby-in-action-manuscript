@@ -56,27 +56,39 @@ class Gemtris::Shape
     }
   }
   
-  attr_reader :board, :data, :color, :height, :width
+  attr_reader :board
   attr_accessor :x, :y
 
-  def initialize(board, shape_key=random_key)
+  def initialize(board, key=random_key)
     # Track the board we belong to
     @board = board
 
     # Assign our shape data based on the key passed in, or randomly generated
-    shape = SHAPES[ shape_key ]
-    @shape_key = shape_key
+    shape = SHAPES[ key ]
+    @key = key
+    
+    # Rotate the data array
+    @orientations = generate_orientations shape[:data]
+    @orientation_index = 0
+    
     @color = shape[:color]
-    @data = shape[:data]
-    @height = data.length
-    @width = data[0].length
-    
+        
     # Position the shape to start in the shape buffer by giving it a relative negative value
-    @y = -@height
+    @y = -height
     # Position the shape in the middle of the board
-    @x = (board.width / 2) - (@width / 2) - 1
-    
-    #@orientations = generate_orientations shape[:data]
+    @x = (board.width / 2) - (width / 2) - 1
+  end
+  
+  def data
+    return @orientations[@orientation_index]
+  end
+  
+  def width
+    data[0].length
+  end
+  
+  def height
+    data.length
   end
   
   # Pick a random game element shape
@@ -85,8 +97,24 @@ class Gemtris::Shape
     SHAPES.keys[ rand SHAPES.length ]
   end
   
-  def rotate_counter_clockwise
+  def rotate
+    old_index = @orientation_index
+    @orientation_index = (@orientation_index + 1) % 4
     
+    # new orientation collides or out of bounds
+    if will_collide?
+      out_of_bounds_right = (x + width > board.width)
+      if out_of_bounds_right
+        proposed_x = (board.width - width)
+        # proposal is good, move shape to fix on screen
+        if will_collide?(proposed_x) == false
+          @x = proposed_x
+          return
+        end
+      end
+      
+      @orientation_index = old_index
+    end
   end
   
   def move(direction)
@@ -109,7 +137,6 @@ class Gemtris::Shape
       @y += dy
     end
     
-    # Return the collision state for the new position
     collided
   end
   
@@ -117,38 +144,38 @@ class Gemtris::Shape
   # If not coordinates are passed then the shape's current coordinates are used.
   #
   def will_collide?(x=@x, y=@y)
-    @height.times do |row|
-      @width.times do |col|
+    height.times do |row|
+      width.times do |col|
         if (row+y == board.height) || # reached end of board
-           (col+x < 0) || (col+x > board.width) || # out of bounds
+           (col+x < 0) || # out of bounds left
+           (col+x > board.width) || # out of bounds right
            (data[row][col] != 0 && board.state_at(col+x, row+y) != 0) # collides with a shape next to it
           return true 
         end
       end
     end
-    
-    false
+    return false
   end
   
   def place_on_board(x=@x, y=@y)
-    @height.times do |row|
-      @width.times do |col|
+    height.times do |row|
+      width.times do |col|
         if data[row][col] != 0
-          board.set_state_at(col+x, row+y, @shape_key)
+          board.set_state_at(col+x, row+y, @key)
         end
       end
     end
   end
   
   def draw
-    @height.times do |row|
-      @width.times do |col|
+    height.times do |row|
+      width.times do |col|
         # Only render the gem if it's moved out of the buffer (relative coordinate is not negative)
         if row+@y >= 0
           g = board.gem_at(col+@x, row+@y)
           if data[row][col] != 0
             g.show
-            g.color = color
+            g.color = @color
           end
         end
       end
@@ -161,33 +188,14 @@ class Gemtris::Shape
   #
   def generate_orientations(shape_array)
     # Add the initial shape into the array
-    result = [shape_array]
+    orientations = [ shape_array ]
 
     # Now rotate the previously rotated array around 90, 180, 270 degrees
     3.times do
-      result << rotate_array_90deg(result[-1])
+      orientations << orientations[-1].dup.rotate
     end
-
-    result
+    
+    orientations
   end # generate_orientations
-
-  def rotate_array_90deg(array)
-    rows, cols = array.length, array[0].length
-    
-    # Create the rotated array (cols width x rows high)
-    rotated = Array.new(cols) { Array.new(rows) }
-    
-    # Copy values from the source array into the rotated array
-    rows.times do |i|
-      cols.times do |j|
-        ti = ( rows > cols ? cols-i-1 : 0 )
-        tj = ( rows < cols ? rows-j-1 : 0 )
-
-        rotated[j-tj][cols-ti] = array[i][j]
-      end
-    end
-    
-    rotated
-  end # rotate_90deg
   
 end
