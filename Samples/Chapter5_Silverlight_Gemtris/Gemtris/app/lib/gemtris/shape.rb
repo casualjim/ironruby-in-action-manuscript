@@ -6,10 +6,10 @@ class Gemtris::Shape
     :I => {
       :color => Colors.red,
       :data => [
-        [1,0],
-        [1,0],
-        [1,0],
-        [1,0],
+        [1],
+        [1],
+        [1],
+        [1],
       ]
     },
     :J => {
@@ -97,6 +97,10 @@ class Gemtris::Shape
     SHAPES.keys[ rand SHAPES.length ]
   end
   
+  def self.random_key
+    SHAPES.keys[ rand SHAPES.length ]
+  end
+  
   def rotate
     old_index = @orientation_index
     @orientation_index = (@orientation_index + 1) % 4
@@ -140,6 +144,11 @@ class Gemtris::Shape
     collided
   end
   
+  def drop
+    while move(:down) == false
+    end
+  end
+  
   # Does this shape collide at the given x,y coordinates?
   # If not coordinates are passed then the shape's current coordinates are used.
   #
@@ -157,7 +166,11 @@ class Gemtris::Shape
     return false
   end
   
-  def place_on_board(x=@x, y=@y)
+  def in_shape_buffer?
+    y >= -height && y < 0
+  end
+  
+  def place_on_board(x=@x, y=@y)    
     height.times do |row|
       width.times do |col|
         if data[row][col] != 0
@@ -166,7 +179,7 @@ class Gemtris::Shape
       end
     end
   end
-  
+
   def draw
     height.times do |row|
       width.times do |col|
@@ -177,6 +190,16 @@ class Gemtris::Shape
             g.show
             g.color = @color
           end
+        end
+      end
+    end
+  end
+  
+  def glimmer
+    height.times do |row|
+      width.times do |col|
+        if data[row][col] != 0
+          board.gem_at(col+x, row+y).glimmer
         end
       end
     end

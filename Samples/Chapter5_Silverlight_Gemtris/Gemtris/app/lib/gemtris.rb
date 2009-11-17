@@ -5,6 +5,7 @@ require 'lib/core_ext/array'
 require 'bin/Gemtris.dll'
 
 require 'lib/gemtris/game_manager'
+require 'lib/gemtris/display'
 require 'lib/gemtris/board'
 require 'lib/gemtris/gem'
 require 'lib/gemtris/shape'

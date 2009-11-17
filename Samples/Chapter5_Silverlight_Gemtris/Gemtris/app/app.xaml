@@ -3,27 +3,40 @@
 	xmlns="http://schemas.microsoft.com/client/2007"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:gemtris="clr-namespace:Gemtris;assembly=Gemtris">
-
-	<Grid>
+	
+	<UserControl.Resources>
+		<MediaElement x:Name="sndGem" Source="media/gem.mp3" AutoPlay="False" />
+		<MediaElement x:Name="sndLine" Source="media/line.mp3" AutoPlay="False" />
+	</UserControl.Resources>
+	
+	<Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="440" Height="334">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="220" />
+			<ColumnDefinition Width="150" />
+		</Grid.ColumnDefinitions>
 		
-		<TextBlock Text="Gemtris" Grid.Row="0" Foreground="White" FontSize="30" Margin="5" HorizontalAlignment="Center" />
-		
-		<Border Grid.Row="1" Padding="5" VerticalAlignment="Top" 
-				BorderThickness="5" BorderBrush="#422" CornerRadius="4" 
-				Width="220" Height="334">
-			<Border.Background>
-				<LinearGradientBrush StartPoint="0,0" EndPoint="0,0.7">
-					<GradientStop Color="#311" Offset="0.0" />
-					<GradientStop Color="#211" Offset="1.0" />
-				</LinearGradientBrush>
-			</Border.Background>
-			
-			<Grid x:Name="boardGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+		<Border Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Width="220" Height="334" BorderBrush="White" BorderThickness="1">
+			<Border Padding="5" BorderThickness="5" BorderBrush="#422">
+				<Border.Background>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="0,0.7">
+						<GradientStop Color="#311" Offset="0.0" />
+						<GradientStop Color="#211" Offset="1.0" />
+					</LinearGradientBrush>
+				</Border.Background>			
+				
+				<Grid x:Name="boardGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+			</Border>
 		</Border>
+		
+		<StackPanel Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
+			<Grid x:Name="nextShape" Width="80" Height="80" />
+			
+			<TextBlock x:Name="completedLinesCount" Text="Lines: 0" Foreground="White" FontSize="20" Margin="5" />
+			<TextBlock Text="Gemtris" Foreground="White" FontSize="30" Margin="5"  />
+		</StackPanel>
 	</Grid>
 
 </UserControl>

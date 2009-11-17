@@ -14,4 +14,12 @@ class Gemtris::Gem
     self.visibility = Visibility.collapsed
   end
   
+  def glimmer 
+    if @glimmer_anim.nil?
+      @glimmer_anim = find_name("Glimmer")
+      @glimmer_anim.auto_reverse = false
+    end
+    @glimmer_anim.begin
+  end
+  
 end
