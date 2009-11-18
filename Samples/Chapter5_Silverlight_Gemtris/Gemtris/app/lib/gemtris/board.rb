@@ -14,7 +14,7 @@ class Gemtris::Board < Gemtris::Display
     super
     set_current_shape # pre-initialise the board with a new shape, ready to drop in
   end
-  
+    
   # Render the state array to the board, as well as the boards current shape
   #
   def draw

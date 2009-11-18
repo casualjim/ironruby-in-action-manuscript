@@ -16,5 +16,8 @@
     <AssemblyPart Source="Microsoft.Dynamic.dll" />
     <AssemblyPart Source="IronRuby.dll" />
     <AssemblyPart Source="IronRuby.Libraries.dll" />
+	<!-- Include IronPython DLL's so we can use IronPython classes as well -->
+	<AssemblyPart Source="IronPython.dll" />
+    <AssemblyPart Source="IronPython.Libraries.dll" />
   </Deployment.Parts>
 </Deployment>

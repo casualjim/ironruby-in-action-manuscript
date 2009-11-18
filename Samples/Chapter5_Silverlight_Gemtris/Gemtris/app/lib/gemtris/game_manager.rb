@@ -1,4 +1,4 @@
-include System::Windows::Threading
+#include System::Windows::Threading
 
 class Gemtris::GameManager
   
@@ -12,13 +12,13 @@ class Gemtris::GameManager
     }.merge(options)
     
     @board = Gemtris::Board.new :grid => grid, :height => 16, :width => 10, :buffer_height => 4
-    @next_shape_board = Gemtris::Display.new :grid => next_shape_grid, :height => 4, :width => 4
+    @next_shape_board = Gemtris::Display.new :grid => next_shape_grid, :height => 2, :width => 4
     @row_count_textblock = row_count_textblock
     @speed = System::TimeSpan.from_milliseconds options[:speed]
     @speed_up = options[:speed_up]
+    @sounds = options[:sounds]
     
     @completed_lines_count = 0
-    
     update_next_shape
     
     # The game loop timer
@@ -78,12 +78,19 @@ class Gemtris::GameManager
   
   protected
   
+  def play_sound key
+    snd = @sounds[key]
+    if snd
+      snd.stop # reset the sound
+      snd.play
+    end
+  end
+  
   def update_next_shape
     @next_shape_key = Gemtris::Shape.random_key
     
     next_shape = Gemtris::Shape.new(@next_shape_board, @next_shape_key)
-    next_shape.x = 0
-    next_shape.y = 1
+    next_shape.y = 0
     if next_shape.height > next_shape.width
       next_shape.rotate
     end
@@ -98,14 +105,17 @@ class Gemtris::GameManager
     # If the shape won't move down then it's collided
     has_collided = board.current_shape.move(:down)
     if has_collided
+      play_sound :gem_placed
+      board.current_shape.place_on_board
+
       if board.current_shape.in_shape_buffer?
+        play_sound :game_over
         game_over and return
       end
       
-      board.current_shape.place_on_board
-      
       num_of_lines_removed = board.remove_completed_rows
       if num_of_lines_removed > 0
+        play_sound :line_completed
         @completed_lines_count += num_of_lines_removed
         @game_loop.duration = @game_loop.duration.subtract System::TimeSpan.from_milliseconds(num_of_lines_removed * @speed_up) #speed the game up
         @row_count_textblock.text = "Lines: #{@completed_lines_count}"
