@@ -198,9 +198,9 @@ class Gemtris::Shape
   def glimmer
     height.times do |row|
       width.times do |col|
-        if data[row][col] != 0
-          board.gem_at(col+x, row+y).glimmer
-        end
+       if data[row][col] != 0
+         board.gem_at(col+x, row+y).glimmer
+       end
       end
     end
   end

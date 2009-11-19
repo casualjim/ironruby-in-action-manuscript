@@ -22,11 +22,18 @@ class App < SilverlightApplication
     # Redirect key presses to the game key_handler method
     @root.key_down { |sender, args| game.handle_key_press args.key.to_s.downcase.to_sym }
     
+    # See lib/core_ext/symbol.rb#to_proc
+    #@root.start_button.click(&:on_start_button_click)
     @root.start_button.click do |sender, args| 
-      game.start 
-      sender.visibility = Visibility.collapsed
+     game.start 
+     sender.visibility = Visibility.collapsed
     end
   end
+  
+  # def on_start_button_click(sender, args)
+  #   game.start
+  #   sender.visibility = Visibility.collapsed
+  # end
 
 end
 
