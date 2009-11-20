@@ -1,21 +1,30 @@
-# The game board
-#
+# Means we don't have to prefix classes with Gemtris:: namespace
+include Gemtris
+
+# Display a Grid of Gems in various states
+# 
 class Gemtris::Display
   
   # A buffer for a new shape to be positioned in the state array
   SHAPE_BUFFER_HEIGHT = 4
   
-  # Constants for board width & height
+  # Defaults for board width & height
   DEFAULT_HEIGHT = 16
   DEFAULT_WIDTH = 10
   
-  attr_reader :current_shape, :state, :buffer_height
-  attr_accessor :width, :height
+  attr_reader :current_shape, :state, :buffer_height, :width, :height
 
-  def initialize(options)
-    @board_grid = options[:grid]
-    @height, @width = options[:height] || DEFAULT_HEIGHT, options[:width] || DEFAULT_WIDTH
-    @buffer_height = options[:buffer_height] || SHAPE_BUFFER_HEIGHT
+  # Pass in the Grid element to use as the display, and options for it
+  def initialize(grid, options = {})
+    options = {
+      :height => DEFAULT_HEIGHT,
+      :width => DEFAULT_WIDTH,
+      :buffer_height => SHAPE_BUFFER_HEIGHT
+    }.merge(options)
+    
+    @board_grid = grid
+    @height, @width, @buffer_height = options[:height], options[:width], options[:buffer_height]
+    
     reset
   end
 
@@ -39,8 +48,8 @@ class Gemtris::Display
       @board_grid.row_definitions << RowDefinition.new 
       @width.times do |col_index|
         # Create a new Gem control and configure it as blank
-        gem_block = Gemtris::Gem.new
-        gem_block.visibility = Visibility.collapsed
+        gem_block = Gem.new
+        gem_block.hide
         # Position the gem in the Grid control
         Grid.set_row(gem_block, row_index)
         Grid.set_column(gem_block, col_index)
@@ -50,8 +59,8 @@ class Gemtris::Display
     end
   end
 
-  # Create a 2D array to store the game state. This array is inspected for values 
-  # when rendering the game board in the draw method.
+  # Create a 2D array to store the game state. This array is inspected for 
+  # state values when rendering the game board in the draw method.
   #
   def init_state_array
     @state = Array.new(@height + @buffer_height) { Array.new(@width) { 0 } }
@@ -74,7 +83,7 @@ class Gemtris::Display
   end
   
   def set_current_shape(shape=nil)
-    @current_shape = shape || Gemtris::Shape.new(self)
+    @current_shape = shape || Shape.new(self)
   end
 
   # Clear the display

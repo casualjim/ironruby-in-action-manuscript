@@ -1,9 +1,14 @@
 class Gemtris::Gem
   
   def color=(color=Colors.Red)
-    # Get the Path that makes up the background of the gem
-    @gem_background = self.find_name('GemBackground') if @gem_background == nil
-    @gem_background.fill = SolidColorBrush.new(color)
+    # Get the Path that makes up the background of the gem, and memoize it
+    @gem_background ||= find_name('GemBackground')
+    @gem_background.fill = SolidColorBrush.new color
+  end
+  
+  def glimmer 
+    @glimmer_anim ||= find_name("Glimmer")
+    @glimmer_anim.begin
   end
   
   def show
@@ -12,14 +17,6 @@ class Gemtris::Gem
   
   def hide
     self.visibility = Visibility.collapsed
-  end
-  
-  def glimmer 
-    if @glimmer_anim.nil?
-      @glimmer_anim = find_name("Glimmer")
-      @glimmer_anim.auto_reverse = false
-    end
-    @glimmer_anim.begin
   end
   
 end

@@ -1,4 +1,5 @@
 #include System::Windows::Threading
+include Gemtris
 
 class Gemtris::GameManager
   
@@ -11,8 +12,8 @@ class Gemtris::GameManager
       :speed_up => 5
     }.merge(options)
     
-    @board = Gemtris::Board.new :grid => grid, :height => 16, :width => 10, :buffer_height => 4
-    @next_shape_board = Gemtris::Display.new :grid => next_shape_grid, :height => 2, :width => 4
+    @board = Board.new grid, :height => 16, :width => 10, :buffer_height => 4
+    @next_shape_board = Display.new next_shape_grid, :height => 2, :width => 4
     @row_count_textblock = row_count_textblock
     @speed = System::TimeSpan.from_milliseconds options[:speed]
     @speed_up = options[:speed_up]
@@ -87,9 +88,9 @@ class Gemtris::GameManager
   end
   
   def update_next_shape
-    @next_shape_key = Gemtris::Shape.random_key
+    @next_shape_key = Shape.random_key
     
-    next_shape = Gemtris::Shape.new(@next_shape_board, @next_shape_key)
+    next_shape = Shape.new(@next_shape_board, @next_shape_key)
     next_shape.y = 0
     if next_shape.height > next_shape.width
       next_shape.rotate
@@ -103,8 +104,7 @@ class Gemtris::GameManager
     return unless @state == :playing
     
     # If the shape won't move down then it's collided
-    has_collided = board.current_shape.move(:down)
-    if has_collided
+    if not board.current_shape.move(:down)
       play_sound :gem_placed
       board.current_shape.place_on_board
 
@@ -121,7 +121,7 @@ class Gemtris::GameManager
         @row_count_textblock.text = "Lines: #{@completed_lines_count}"
       end
       
-      board.set_current_shape Gemtris::Shape.new(board, next_shape_key)
+      board.set_current_shape Shape.new(board, next_shape_key)
       update_next_shape
     end
   end

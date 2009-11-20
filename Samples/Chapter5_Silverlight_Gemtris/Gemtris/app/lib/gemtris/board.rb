@@ -1,18 +1,24 @@
+include Gemtris
+
 # The game board
 #
 class Gemtris::Board < Gemtris::Display
   
   attr_reader :current_shape
-
-  def initialize(options)
-    super options
-  end
   
   # Set up our game board to a blank state, ready for a new game of Gemtris
   #
   def reset
     super
     set_current_shape # pre-initialise the board with a new shape, ready to drop in
+  end
+  
+  def set_current_shape(shape=nil)
+    super shape
+    # Position the shape to start in the shape buffer by giving it a relative negative value
+    @current_shape.y = -@current_shape.height
+    # Position the shape in the middle of the board
+    @current_shape.x = (width / 2) - (@current_shape.width / 2)
   end
     
   # Render the state array to the board, as well as the boards current shape
@@ -28,7 +34,7 @@ class Gemtris::Board < Gemtris::Display
           g.hide
           g.color = Colors.black
         else
-          shape_defn = Gemtris::Shape::SHAPES[pos_state]
+          shape_defn = Shape::SHAPES[pos_state]
           if(shape_defn.nil?)
             raise "A shape was expected, but found nil"
           end

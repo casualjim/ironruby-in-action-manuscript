@@ -5,9 +5,6 @@
 			EntryPointType="Microsoft.Scripting.Silverlight.DynamicApplication">
   <!-- Add assembly references here -->
   <Deployment.Parts>
-	<!-- Reference the Gemtris assembly we created from our Blend project -->
-	<AssemblyPart Source="app/bin/Gemtris.dll" />
-	
 	<!-- Required assemblies -->
     <AssemblyPart Source="Microsoft.Scripting.Silverlight.dll" />
     <AssemblyPart Source="Microsoft.Scripting.ExtensionAttribute.dll" />

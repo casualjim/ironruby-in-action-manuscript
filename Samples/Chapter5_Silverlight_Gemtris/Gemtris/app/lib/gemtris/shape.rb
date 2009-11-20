@@ -59,25 +59,38 @@ class Gemtris::Shape
   attr_reader :board
   attr_accessor :x, :y
 
-  def initialize(board, key=random_key)
+  def initialize(board, key=Shape.random_key)
     # Track the board we belong to
     @board = board
-
-    # Assign our shape data based on the key passed in, or randomly generated
-    shape = SHAPES[ key ]
     @key = key
     
-    # Rotate the data array
-    @orientations = generate_orientations shape[:data]
-    @orientation_index = 0
+    # Assign our shape data based on the key passed in, or randomly generated
+    shape = SHAPES[ key ]
     
+    @x = @y = @orientation_index = 0
     @color = shape[:color]
-        
-    # Position the shape to start in the shape buffer by giving it a relative negative value
-    @y = -height
-    # Position the shape in the middle of the board
-    @x = (board.width / 2) - (width / 2) - 1
+    
+    # Rotate the data array
+    @orientations = Shape.generate_orientations shape[:data]
   end
+  
+  def Shape.random_key
+    SHAPES.keys[ rand SHAPES.length ]
+  end
+  
+  # Pre-compute the possible orientations for a shape array by rotating it 3 times
+  #
+  def self.generate_orientations(shape_array)
+    # Add the initial shape into the array
+    orientations = [ shape_array ]
+
+    # Now rotate the previously rotated array around 90, 180, 270 degrees
+    3.times do
+      orientations << orientations[-1].dup.rotate!
+    end
+    
+    orientations
+  end # generate_orientations
   
   def data
     return @orientations[@orientation_index]
@@ -91,20 +104,10 @@ class Gemtris::Shape
     data.length
   end
   
-  # Pick a random game element shape
-  #
-  def random_key
-    SHAPES.keys[ rand SHAPES.length ]
-  end
-  
-  def self.random_key
-    SHAPES.keys[ rand SHAPES.length ]
-  end
-  
   def rotate
     old_index = @orientation_index
     @orientation_index = (@orientation_index + 1) % 4
-    
+  
     # new orientation collides or out of bounds
     if will_collide?
       out_of_bounds_right = (x + width > board.width)
@@ -116,7 +119,7 @@ class Gemtris::Shape
           return
         end
       end
-      
+    
       @orientation_index = old_index
     end
   end
@@ -131,22 +134,21 @@ class Gemtris::Shape
       when :down :
         dy = +1        
     end
-    
+  
     # Ask if this new coordinate would make this shape collide with something on the board
     collided = will_collide?(@x + dx, @y + dy)
-    
+  
     # If they don't collide move the shape
     if not collided
       @x += dx
       @y += dy
     end
-    
-    collided
+  
+    collided == false
   end
   
   def drop
-    while move(:down) == false
-    end
+    drop if move(:down)
   end
   
   # Does this shape collide at the given x,y coordinates?
@@ -204,21 +206,6 @@ class Gemtris::Shape
       end
     end
   end
-  
-  private
-  
-  # Pre-compute the possible orientations for a shape array by rotating it 3 times
-  #
-  def generate_orientations(shape_array)
-    # Add the initial shape into the array
-    orientations = [ shape_array ]
 
-    # Now rotate the previously rotated array around 90, 180, 270 degrees
-    3.times do
-      orientations << orientations[-1].dup.rotate
-    end
-    
-    orientations
-  end # generate_orientations
   
 end
