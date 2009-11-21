@@ -1,0 +1,60 @@
+require 'rubygems'
+require 'statemachine'
+
+class Bug
+
+  attr_reader :assignee, :title
+  attr_accessor :statemachine
+  
+  def initialize(title)
+    @title = title
+  end
+
+  def deassigned(*args)
+    puts "in deassigned with args: #{args}"
+  end
+  
+  def deassign(*args)
+    @assignee = nil
+    puts "in deassign with args: #{args}"
+  end
+
+  def on_assigned(assignee)
+    @assignee = assignee
+    puts "assignee: #{assignee} in on_assigned"
+  end
+  
+  
+
+end
+
+ctxt = Bug.new "The super bug"
+
+bugtracker_machine = Statemachine.build do
+  trans :open,     :assign, :assigned, :on_assigned
+  trans :assigned, :close,  :closed
+  trans :assigned, :defer,  :deferred
+  
+  superstate :open do
+    state :assigned do
+      event :assign, :assigned, :on_assigned      
+      on_exit :deassigned
+    end # end assigned state
+  end # end open state
+  
+  state :deferred do
+    event :assign, :assigned, :on_assigned
+    on_entry :deassign
+  end # end deferred state
+  
+  context ctxt
+end # end builder
+
+
+bt = bugtracker_machine
+bt.assign("Jeff")
+bt.defer
+bt.assign("John")
+bt.assign("Tom")
+bt.close
+puts "machine closed"

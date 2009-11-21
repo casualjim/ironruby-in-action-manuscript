@@ -1,3 +1,6 @@
 [submodule "public-samples"]
 	path = public-samples
 	url = git@github.com:casualjim/ironrubyinaction.git
+[submodule "Samples/stateless"]
+	path = Samples/stateless
+	url = gitosis@cloudslide.net:stateless.git
