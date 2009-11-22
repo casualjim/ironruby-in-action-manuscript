@@ -1,4 +1,4 @@
-#include System::Windows::Threading
+include System::Windows::Threading # Provides DispatchTimer class
 include Gemtris
 
 class Gemtris::GameManager
@@ -18,41 +18,39 @@ class Gemtris::GameManager
     @speed = System::TimeSpan.from_milliseconds options[:speed]
     @speed_up = options[:speed_up]
     @sounds = options[:sounds]
-    
+    @state = :stopped
     @completed_lines_count = 0
     update_next_shape
     
     # The game loop timer
     
-    # METHOD 1
-    # @timer = DispatcherTimer.new
-    # timer.interval = System::TimeSpan.from_milliseconds(speed)
-    # timer.tick do |sender, e|
-    #   update
-    #   draw
-    # end
-    
-    # METHOD 2: Better!
-    @game_loop = System::Windows::Media::Animation::Storyboard.new
-    @game_loop.duration = @speed
-    @game_loop.completed do |sender, e|
+    # METHOD 1 - DispatcherTimer
+    @timer = DispatcherTimer.new
+    timer.interval = @speed
+    timer.tick do |sender, e|
       update
       draw
-      @game_loop.begin # loop
     end
     
-    @state = :stopped
+    # METHOD 2 - Storyboard Trigger
+    # @game_loop = System::Windows::Media::Animation::Storyboard.new
+    # @game_loop.duration = @speed
+    # @game_loop.completed do |sender, e|
+    #   update
+    #   draw
+    #   @game_loop.begin # loop
+    # end
   end
   
   def start
-    #timer.start
-    @game_loop.begin
+    timer.start
+    # @game_loop.begin
     @state = :playing
   end
   
   def stop
-    #timer.stop
-    @game_loop.stop
+    timer.stop
+    # @game_loop.stop
     @state = :stopped
   end
   
@@ -117,7 +115,13 @@ class Gemtris::GameManager
       if num_of_lines_removed > 0
         play_sound :line_completed
         @completed_lines_count += num_of_lines_removed
-        @game_loop.duration = @game_loop.duration.subtract System::TimeSpan.from_milliseconds(num_of_lines_removed * @speed_up) #speed the game up
+        
+        #speed the game up when using Storyboard Trigger
+        #@game_loop.duration = @game_loop.duration.subtract System::TimeSpan.from_milliseconds(num_of_lines_removed * @speed_up) 
+        
+        #speed the game up when using DispatchTimer
+        @timer.interval = @timer.interval.subtract System::TimeSpan.from_milliseconds(num_of_lines_removed * @speed_up) 
+        
         @row_count_textblock.text = "Lines: #{@completed_lines_count}"
       end
       

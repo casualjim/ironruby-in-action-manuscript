@@ -21,10 +21,14 @@ class App
     # Redirect key presses to the game key_handler method
     @root.key_down { |sender, args| game.handle_key_press args.key.to_s.downcase.to_sym }
     
-    @root.start_button.click do |sender, args| 
+    @root.start_button.click do |sender, e| 
      game.start 
      sender.visibility = Visibility.collapsed
     end
+    
+    #CompositionTarget.rendering do |sender, e|
+    #  raise "#{sender}"
+    #end
   end
 
 end
