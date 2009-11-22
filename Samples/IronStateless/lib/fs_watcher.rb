@@ -36,9 +36,33 @@ class String
   
 end
 
+
+
 # A small quick and dirty dsl for defining file system watches
 module FsWatcher
 
+  class WatcherBucket
+    
+    def initialize
+      @items = []
+    end
+
+    def <<(watcher)
+      @items << watcher
+    end
+
+    def start_watching
+      @items.each { |w| w.start } 
+    end
+
+    def stop_watching
+      @items.each { |w| w.stop }
+    end
+    
+    def collect(&b)
+      @items.inject(WatcherBucket.new) { |memo, watch| memo << b.call(watch)   }
+    end
+  end
   
   class Watcher
 
@@ -69,7 +93,7 @@ module FsWatcher
     end
     
     def passes_guard(guard, path)
-      guard = guard.class.respond_to? :last_match ? guard : regexify(guard)
+      guard = guard.class.respond_to?(:last_match) ? guard : regexify(guard)
       guard.matches(path.gsub(/\\/, "/"))
     end
     
@@ -89,7 +113,7 @@ module FsWatcher
     end
 
     def start
-      @watcher ||= init_watcher
+      @watcher ||= init_watcher  # postpone building the actual watcher until the last moment
       @watcher.enable_raising_events = true unless @watcher.enable_raising_events
     end
 
@@ -129,7 +153,7 @@ module FsWatcher
 
   end
 
-  module WatcherOps
+  module WatcherSyntax
 
     def path(val)
       @path = val
@@ -146,6 +170,7 @@ module FsWatcher
     def recurse
       @subdirs = true
     end
+    alias_method :include_subdirs, :recurse
 
     def on(action, *filters, &handler)
       @handlers ||= {}
@@ -185,17 +210,27 @@ module FsWatcher
     end
     
     def self.watch(path, *filters, &b)
-      WatcherBuilder.new(path, *filters, &b).build
+      @watchers << WatcherBuilder.new(path, *filters, &b).build
+    end
+    
+    def self.build(&b)
+      @watchers = WatcherBucket.new
+      instance_eval(&b)
+      @watchers
     end
   end
+  
+  def self.build(&b)
+    watchers = FsWatcher::WatcherBuilder.build(&b)
+    watchers.start_watching
+    watchers
+  end
+  alias_method :watch, :build
 
 end
 
 def filesystem(&b)
-  watchers ||= []
-  watchers << WatcherBuilder.instance_eval(&b).build
-  watchers.each { |w| w.start }
-  watchers
+  FsWatcher.build(&b)
 end
 
 
