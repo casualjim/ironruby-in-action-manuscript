@@ -25,7 +25,7 @@ require 'System'
 
 class String
   
-  alias :old_gsub, :gsub
+  alias :old_gsub :gsub
   def gsub(pattern, replacement=nil, &b)
     if pattern.is_a? Hash
       pattern.inject(self.dup) { |memo, k, v| memo.old_gsub k, v }
@@ -34,14 +34,30 @@ class String
     end
   end
   
+  def to_watcher_guard
+    re_str = self.gsub /(\/)/ => '\/',                # normalize \\ on windows to /
+                       /\./ => '\.',                  # replace . with an escaped \.
+                       /\?/ => '.?',                  # replace ? with an optional charachter .?
+                       /\*/ => ".*",                  # replace * with .* for wildcard matching
+                       /\.\*\.\*\\\// => "(.*\\/)?"   # replace **/ with an optional wildcard mapping for folders (.*\/)?
+    /#{re_str}/                       
+  end
+  
+end
+
+class Regexp
+  
+  def to_watcher_guard
+    self
+  end
 end
 
 module FsWatcher
   
   module WatcherSyntax
-    
+  
     attr_accessor :path, :filters, :subdirs, :handlers
-    
+  
     def path(val = nil)
       @path = val if val
       @path
@@ -62,20 +78,28 @@ module FsWatcher
 
     def on(action, *filters, &handler)
       @handlers ||= {}
-      hand = @handlers[action.to_sym]
-      hand = { :handlers => [], :filters => [] }.merge(hand||{})
-      hand[:handlers] << handler
-      hand[:filters] = register_filters hand[:filters], *filters
-      @handlers[action.to_sym] = hand
+      hand = @handlers[action.to_sym]      
+      @handlers[action.to_sym] = register_handlers(hand, *filters, &handler)
     end
-    
+  
     private 
     def register_filters(coll, *val)
-      val.inject(coll||[]) { |memo, filt| memo << filt unless memo.include?(filt); memo  }.flatten
+      val.inject(coll||[]) { |memo, filt| memo << filt unless memo.include?(filt); memo  }
     end
+  
+  def register_handlers(registration, *filters, &handler)
+    hand = { :handlers => [], :filters => [] }.merge(registration||{})
+    hand[:handlers] << handler
+    hand[:filters] = register_filters hand[:filters], *filters
+    hand
+  end
   end
 
   class WatcherBucket
+    
+    attr_reader :items
+    
+    include Enumerable
     
     def initialize
       @items = []
@@ -93,11 +117,15 @@ module FsWatcher
       @items.each { |w| w.stop }
     end
     
+    def each(&b)
+      @items.each &b
+    end
+    
     def collect(&b)
       @items.inject(WatcherBucket.new) { |memo, watch| memo << b.call(watch)   }
     end
+    alias_method :map, :collect
   end
-
   
   class WatcherBuilder
     
@@ -105,7 +133,7 @@ module FsWatcher
     
     def initialize(path, *filters, &configure)
       @path = path
-      @filters = register_filters [], filters  
+      @filters = register_filters [], *filters  
       @subdirs = false
       @handlers = {}    
       instance_eval &configure if configure
@@ -122,7 +150,6 @@ module FsWatcher
         super
       end 
     end
-
     
     def self.watch(path, *filters, &b)
       @watchers << WatcherBuilder.new(path, *filters, &b).build
@@ -131,6 +158,7 @@ module FsWatcher
     def self.build(&b)
       @watchers = WatcherBucket.new
       instance_eval(&b)
+      @watchers.start_watching
       @watchers
     end
     
@@ -158,21 +186,11 @@ module FsWatcher
     
     def guards_pass_for(action, args)
       return true if filters.empty? and handlers[action.to_sym][:filters].empty?
-      filters.all? { |g| passes_guard g, action == :rename ? args.old_path : args.path }
+      filters.all? { |g| passes_guard(g, (action == :rename ? args.old_path : args.path)) }
     end
     
     def passes_guard(guard, path)
-      guard = guard.class.respond_to?(:last_match) ? guard : regexify(guard)
-      guard.matches(path.gsub(/\\/, "/"))
-    end
-    
-    def regexify(glob_pattern)
-      re = glob_pattern.gsub /(\/)/ => '\/',                # normalize \\ on windows to /
-                             /\./ => '\.',                  # replace . with an escaped \.
-                             /\?/ => '.?',                  # replace ? with an optional charachter .?
-                             /\*/ => ".*",                  # replace * with .* for wildcard matching
-                             /\.\*\.\*\\\// => "(.*\\/)?"   # replace **/ with an optional wildcard mapping for folders (.*\/)?
-      /#{re}/
+      guard.to_watcher_guard.matches(path.gsub(/\\/, "/"))
     end
 
     def initialize(path, filters={}, include_subdirs=true, handlers={})
@@ -203,7 +221,7 @@ module FsWatcher
     end
     
     def method_missing(name, *args, &b)
-      if name =~ /^(on|handle)_(.*)/
+      if name =~ /^(on|handle|trigger)_(.*)/
         self.send $1, $2, *args, &b
       else
         super
@@ -213,28 +231,22 @@ module FsWatcher
     private 
     def setup_internal_handlers(watcher)
       ACTIONS.each do |action|
-        watcher.send "#{action}" { |_, args| trigger action, args } unless @handlers[action.to_sym].empty?
+        watcher.send("#{action}") { |_, args| trigger action, args } unless @handlers[action.to_sym].empty?
       end
       
     end
 
   end
+  
+  def self.configure(&b)
+    FsWatcher::WatcherBuilder.build(&b)
+  end
 
 end
 
-#   
-#   def self.build(&b)
-#     watchers = FsWatcher::WatcherBuilder.build(&b)
-#     watchers.start_watching
-#     watchers
-#   end
-#   alias_method :watch, :build
-# 
-# end
-# 
-# def filesystem(&b)
-#   FsWatcher.build(&b)
-# end
-# 
-# 
-# 
+def filesystem(&b)
+  FsWatcher.configure(&b)
+end
+
+
+

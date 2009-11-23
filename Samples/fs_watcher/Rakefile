@@ -1,0 +1,4 @@
+desc "runs the specs for this library"
+task :spec do
+  system "ibacon #{File.dirname(__FILE__)}/spec/**/*_spec.rb"
+end

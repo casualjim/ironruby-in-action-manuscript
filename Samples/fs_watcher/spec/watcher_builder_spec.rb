@@ -1,92 +1,85 @@
 require File.join(File.dirname(__FILE__), "bacon_helper")
 
+
+
 describe "WatcherBuilder" do
   
-  describe "initializing" do 
-    
-    it "should raise an error when no path is given" do
-      lambda { FsWatcher::WatcherBuilder.new  }.should.raise(ArgumentError)
-    end
-    
-    it "should have a path" do
-      builder = FsWatcher::WatcherBuilder.new "/path/to/file"
-      builder.path.should == "/path/to/file"
-    end
-    
-    it "should have an empty filters collection when no filter is provided" do
-      builder = FsWatcher::WatcherBuilder.new "/path/to/file"
-      builder.filters.should.be.empty
-    end
-    
-    it "should register the filters" do
-      builder = FsWatcher::WatcherBuilder.new "/path/to/file", "*.rb"
-      builder.filters.should == ["*.rb"]
-    end
-    
-    it "should by default not recurse in subdirs" do
-      builder = FsWatcher::WatcherBuilder.new "/path/to/file", "*.rb"
-      builder.subdirs.should.be.false
-    end
-    
-    it "should register and execute the block" do
-      $path = ""
-      FsWatcher::WatcherBuilder.new("/path/to/file") { $path = self.path }
-      $path.should == "/path/to/file"
-    end
-    
-  end
+  behaves_like "a class with WatcherSyntax"
   
-  describe "when initialized" do
+  
+  
+  describe "when building watches" do
     
     before do
-      @builder = FsWatcher::WatcherBuilder.new "/path/to/file" , "*.rb"
-    end
-    
-    it "should allow setting the path" do
-      @builder.path "/path/to/another/file"
-      @builder.path.should == "/path/to/another/file"
-    end
-    
-    it "should allow setting extra filters" do
-      @builder.filter "*.txt", "*.py"
-      @builder.filters.should == ["*.rb", "*.txt", "*.py"]
-    end
-    
-    it "should disable recursing into subdirs" do
-      @builder.recurse
-      @builder.top_level_only
-      @builder.subdirs.should.be.false      
-    end
-    
-    it "should enable recursing into subdirs" do
-      @builder.recurse
-      @builder.subdirs.should.be.true
-    end
-    
-    describe "registering handlers" do
-      
-      it "should register a handler without a filter" do
-        hand = lambda { |args| }
-        @builder.on :change, &hand
-        @builder.handlers[:change][:handlers].should == [hand]
+      class ::FsWatcher::WatcherBucket 
+
+        attr_accessor :started 
+
+        alias_method :old_start, :start_watching
+        def start_watching
+          @started = true
+        end
+
+        def started?
+          !!@started
+        end
+
       end
-      
-      it "should register a handler with a filter" do
-        hand = lambda { |args| }
-        @builder.on :change, "*.rb", &hand
-        @builder.handlers[:change][:handlers].should == [hand]
-        @builder.handlers[:change][:filters].should == ["*.rb"]
+    end
+
+    after do
+      class ::FsWatcher::WatcherBucket 
+        undef :start_watching
+        undef :started?
+        undef :started
+        undef :started=
+        alias_method :start_watching, :old_start
+
       end
-      
-      it "should register a handler by method name" do
-        hand = lambda { |args| }
-        @builder.on_change "*.rb", &hand
-        @builder.handlers[:change][:handlers].should == [hand]
-        @builder.handlers[:change][:filters].should == ["*.rb"]
-      end
-      
     end
     
+    it "should create a watcher" do
+      builder          = FsWatcher::WatcherBuilder.new "/path/to/file" , "*.rb"
+      h                = { :a_handler => "some handler" }
+      builder.handlers = h
+      res              = builder.build
+      exp              = FsWatcher::Watcher.new("/path/to/file", ["*.rb"], false, h)
+      res.path.should == exp.path
+      res.handlers.should == exp.handlers
+      res.filters.should == exp.filters
+      res.subdirs.should == exp.subdirs
+    end
+    
+    it "should register a new watcher in the watcher bucket" do
+      hand = lambda {}
+      h                = { :change => { :filters => ["*.py"], :handlers => hand } }
+      FsWatcher::WatcherBuilder.instance_variable_set "@watchers", FsWatcher::WatcherBucket.new
+      res = FsWatcher::WatcherBuilder.watch("/path/to/file" , "*.rb") do
+        top_level_only
+        on_change "*.py", &hand
+      end.first
+      exp = FsWatcher::Watcher.new("/path/to/file", ["*.rb"], false, h)
+      res.path.should == exp.path
+      res.handlers.should == exp.handlers
+      res.filters.should == exp.filters
+      res.subdirs.should == exp.subdirs
+    end
+    
+    it "should register a new watcher and start it" do
+      hand = lambda {}
+      h                = { :change => { :filters => ["*.py"], :handlers => hand } }
+      res = FsWatcher::WatcherBuilder.build do
+        watch("/path/to/file" , "*.rb") do
+          top_level_only
+          on_change "*.py", &hand
+        end
+      end
+      res.should.be.started
+    end
+
   end
   
 end
+
+
+
