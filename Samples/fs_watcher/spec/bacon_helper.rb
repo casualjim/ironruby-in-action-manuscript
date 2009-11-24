@@ -72,21 +72,19 @@ shared "a class with WatcherSyntax" do
       it "should register a handler without a filter" do
         hand = lambda { |args| }
         @builder.on :change, &hand
-        @builder.handlers[:change][:handlers].should == [hand]
+        @builder.handlers[:change][:default].should == [hand]
       end
       
       it "should register a handler with a filter" do
         hand = lambda { |args| }
         @builder.on :change, "*.rb", &hand
-        @builder.handlers[:change][:handlers].should == [hand]
-        @builder.handlers[:change][:filters].should == ["*.rb"]
+        @builder.handlers[:change]["*.rb"].should == [hand]
       end
       
       it "should register a handler by method name" do
         hand = lambda { |args| }
         @builder.on_change "*.rb", &hand
-        @builder.handlers[:change][:handlers].should == [hand]
-        @builder.handlers[:change][:filters].should == ["*.rb"]
+        @builder.handlers[:change]["*.rb"].should == [hand]
       end
       
     end

@@ -52,7 +52,7 @@ describe "WatcherBuilder" do
     
     it "should register a new watcher in the watcher bucket" do
       hand = lambda {}
-      h                = { :change => { :filters => ["*.py"], :handlers => hand } }
+      h                = { :change => { "*.py" => [hand] } }
       FsWatcher::WatcherBuilder.instance_variable_set "@watchers", FsWatcher::WatcherBucket.new
       res = FsWatcher::WatcherBuilder.watch("/path/to/file" , "*.rb") do
         top_level_only
@@ -67,7 +67,7 @@ describe "WatcherBuilder" do
     
     it "should register a new watcher and start it" do
       hand = lambda {}
-      h                = { :change => { :filters => ["*.py"], :handlers => hand } }
+      h                = { :change => { "*.py" => [hand] } }
       res = FsWatcher::WatcherBuilder.build do
         watch("/path/to/file" , "*.rb") do
           top_level_only

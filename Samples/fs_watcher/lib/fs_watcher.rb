@@ -28,9 +28,9 @@ class String
   alias :old_gsub :gsub
   def gsub(pattern, replacement=nil, &b)
     if pattern.is_a? Hash
-      pattern.inject(self.dup) { |memo, k, v| memo.old_gsub k, v }
+      pattern.inject(self.dup) { |memo, k| memo.old_gsub(k.first, k.last) }
     else
-      old_gsub(pattern, replacement, &b)
+      self.old_gsub(pattern, replacement, &b)
     end
   end
   
@@ -78,8 +78,14 @@ module FsWatcher
 
     def on(action, *filters, &handler)
       @handlers ||= {}
-      hand = @handlers[action.to_sym]      
-      @handlers[action.to_sym] = register_handlers(hand, *filters, &handler)
+      @handlers[action.to_sym] ||= {}   
+      hand = @handlers[action.to_sym] 
+      filters = [:default] if filters.empty?
+      filters.each do |filt|
+        filt = :default if filt.to_s.empty?
+        hand[filt] ||= []
+        hand[filt] << handler
+      end
     end
   
     private 
@@ -87,12 +93,6 @@ module FsWatcher
       val.inject(coll||[]) { |memo, filt| memo << filt unless memo.include?(filt); memo  }
     end
   
-  def register_handlers(registration, *filters, &handler)
-    hand = { :handlers => [], :filters => [] }.merge(registration||{})
-    hand[:handlers] << handler
-    hand[:filters] = register_filters hand[:filters], *filters
-    hand
-  end
   end
 
   class WatcherBucket
@@ -140,7 +140,7 @@ module FsWatcher
     end
     
     def build
-      watcher = Watcher.new @path, @filters, @subdirs, @handlers
+      watcher = Watcher.new @path, @filters, @handlers, @subdirs
     end
 
     def method_missing(name, *args, &b)
@@ -159,6 +159,7 @@ module FsWatcher
       @watchers = WatcherBucket.new
       instance_eval(&b)
       @watchers.start_watching
+      require 'pp'; pp @watchers
       @watchers
     end
     
@@ -172,28 +173,28 @@ module FsWatcher
     ACTIONS = %w(changed created deleted renamed error)
     
     def handle(action, args)
+      @handled ||= {}
+      path = args_path(action, args)
       hand = @handlers[action.to_sym] 
-      (hand[:handlers] || []).each { |handler| 
-        handler.call args if hand.filters.all? { |filt| passes }
-      }
+      hand.each_pair do |filter, handlers|
+        handlers.each do |h| 
+          if not handled?(h, path) 
+            h.call(args) 
+            @handled[path] ||= []
+            @handled[path] << h
+          end
+        end if passes_guard?(filter, path)
+      end
       nil
     end
 
     def trigger(action, args)
+      @handled = {}
       return nil unless guards_pass_for action, args
       handle action, args
     end
-    
-    def guards_pass_for(action, args)
-      return true if filters.empty? and handlers[action.to_sym][:filters].empty?
-      filters.all? { |g| passes_guard(g, (action == :rename ? args.old_path : args.path)) }
-    end
-    
-    def passes_guard(guard, path)
-      guard.to_watcher_guard.matches(path.gsub(/\\/, "/"))
-    end
 
-    def initialize(path, filters={}, include_subdirs=true, handlers={})
+    def initialize(path, filters={}, handlers={}, include_subdirs=true)
       @path, @filters, @subdirs, @handlers = path, filters, include_subdirs, handlers
     end
 
@@ -211,14 +212,6 @@ module FsWatcher
       @watcher.dispose if @watcher
       @watcher = nil
     end
-
-    def init_watcher
-      watcher = FileSystemWatcher.new @path, @filter
-      watcher.include_subdirectories = @subdirs
-      watcher.notify_filter = NotifyFilters.last_write | NotifyFilters.file_name | NotifyFilters.directory_name
-      setup_internal_handlers watcher
-      @watcher = watcher
-    end
     
     def method_missing(name, *args, &b)
       if name =~ /^(on|handle|trigger)_(.*)/
@@ -228,14 +221,47 @@ module FsWatcher
       end 
     end
     
+    def self.watcher_class
+      @@watcher_class ||= FileSystemWatcher
+    end
+    
+    def self.watcher_class=(value)
+      @@watcher_class = value
+    end
+    
     private 
+    def guards_pass_for(action, args)
+      return true if filters.empty? 
+      filters.all? { |g| passes_guard?(g, args_path(action, args)) }
+    end
+    
+    def passes_guard?(guard, path)
+      return true if guard == :default
+      guard.to_watcher_guard.match(path.gsub(/\\/, "/"))
+    end
+    
+    def handled?(handler, path)
+      (@handled[path]||[]).include?(handler)
+    end
+    
+    def args_path(action, args)
+      (action == :rename ? args.old_path : args.path)
+    end
+    
+    def init_watcher
+      watcher = self.class.watcher_class.new @path, ""
+      watcher.include_subdirectories = @subdirs
+      watcher.notify_filter = NotifyFilters.last_write | NotifyFilters.file_name | NotifyFilters.directory_name
+      setup_internal_handlers watcher
+      @watcher = watcher
+    end
+    
     def setup_internal_handlers(watcher)
       ACTIONS.each do |action|
-        watcher.send("#{action}") { |_, args| trigger action, args } unless @handlers[action.to_sym].empty?
+        watcher.send("#{action}") { |_, args| trigger action, args } unless (@handlers[action.to_sym]||{}).empty?
       end
-      
     end
-
+    
   end
   
   def self.configure(&b)
