@@ -1,0 +1,5 @@
+C:\dev\ironruby-in-action\Samples\UrlShortner\UrlShortner\bin\UrlShortner.dll
+C:\dev\ironruby-in-action\Samples\UrlShortner\UrlShortner\bin\UrlShortner.pdb
+C:\dev\ironruby-in-action\Samples\UrlShortner\UrlShortner\obj\Debug\ResolveAssemblyReference.cache
+C:\dev\ironruby-in-action\Samples\UrlShortner\UrlShortner\obj\Debug\UrlShortner.dll
+C:\dev\ironruby-in-action\Samples\UrlShortner\UrlShortner\obj\Debug\UrlShortner.pdb

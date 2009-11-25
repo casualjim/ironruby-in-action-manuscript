@@ -1,0 +1,14 @@
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\bin\Debug\definition.rb
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\bin\Debug\BugTracker_40.exe.config
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\bin\Debug\BugTracker_40.exe
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\bin\Debug\BugTracker_40.pdb
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\bin\Debug\IronRuby.dll
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\bin\Debug\IronRuby.Libraries.dll
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\bin\Debug\IronRuby.Libraries.Yaml.dll
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\bin\Debug\Microsoft.Scripting.Core.dll
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\bin\Debug\Microsoft.Scripting.dll
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\bin\Debug\Microsoft.Dynamic.dll
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\bin\Debug\Microsoft.Scripting.ExtensionAttribute.dll
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\obj\x86\Debug\BugTracker_40.exe
+C:\dev\ironruby-in-action\Samples\BugTracker_40\BugTracker_40\obj\x86\Debug\BugTracker_40.pdb

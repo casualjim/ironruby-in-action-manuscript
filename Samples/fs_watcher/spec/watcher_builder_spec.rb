@@ -43,7 +43,7 @@ describe "WatcherBuilder" do
       h                = { :a_handler => "some handler" }
       builder.handlers = h
       res              = builder.build
-      exp              = FsWatcher::Watcher.new("/path/to/file", ["*.rb"], false, h)
+      exp              = FsWatcher::Watcher.new("/path/to/file", ["*.rb"], h, false)
       res.path.should == exp.path
       res.handlers.should == exp.handlers
       res.filters.should == exp.filters
@@ -58,7 +58,7 @@ describe "WatcherBuilder" do
         top_level_only
         on_change "*.py", &hand
       end.first
-      exp = FsWatcher::Watcher.new("/path/to/file", ["*.rb"], false, h)
+      exp = FsWatcher::Watcher.new("/path/to/file", ["*.rb"], h, false)
       res.path.should == exp.path
       res.handlers.should == exp.handlers
       res.filters.should == exp.filters

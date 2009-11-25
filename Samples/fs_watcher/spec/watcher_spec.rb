@@ -11,6 +11,19 @@ class Args
   end
 end
 
+class MockWatcher
+  attr_accessor :enable_raising_events, :disposed
+
+  def initialize
+    @disposed = false
+  end
+
+  def dispose
+    @disposed = true
+  end
+
+end
+
 describe "Watcher" do
   
   behaves_like "a class with WatcherSyntax"
@@ -59,7 +72,7 @@ describe "Watcher" do
   end
   
   it "should start the watcher" do
-    iso = Caricature::Isolation.for(System::IO::FileSystemWatcher)
+    iso = MockWatcher.new
     FsWatcher::Watcher.watcher_class = iso.class
     counter = 0
     handler = lambda { |args| counter += 1  }
@@ -67,34 +80,33 @@ describe "Watcher" do
     w = FsWatcher::Watcher.new "/path/to/file", [], h
     w.instance_variable_set "@watcher", iso
     w.start
-    iso.did_receive?(:enable_raising_events=).with(true).should.be.successful
+    iso.enable_raising_events.should.be.true
   end
-  
+
   it "should stop the watcher" do
-    iso = Caricature::Isolation.for(System::IO::FileSystemWatcher)
+    iso = MockWatcher.new
+    iso.enable_raising_events=true
     FsWatcher::Watcher.watcher_class = iso.class
     counter = 0
     handler = lambda { |args| counter += 1  }
     h = { :change => { /\/file2/ => [handler] } }
     w = FsWatcher::Watcher.new "/path/to/file", [], h
-    iso.when_receiving(:enable_raising_events).return(true)
     w.instance_variable_set "@watcher", iso
     w.stop
-    iso.did_receive?(:enable_raising_events=).with(false).should.be.successful
+    iso.enable_raising_events.should.be.false
   end
-  
+
   it "should dispose the watcher" do
-    iso = Caricature::Isolation.for(System::IO::FileSystemWatcher)
+    iso = MockWatcher.new
+    iso.enable_raising_events = true
     FsWatcher::Watcher.watcher_class = iso.class
     counter = 0
     handler = lambda { |args| counter += 1  }
     h = { :change => { /\/file2/ => [handler] } }
     w = FsWatcher::Watcher.new "/path/to/file", [], h
-    iso.when_receiving(:enable_raising_events).return(true)
     w.instance_variable_set "@watcher", iso
     w.dispose
-    iso.did_receive?(:enable_raising_events=).with(false).should.be.successful
-    iso.did_receive?(:dispose).should.be.successful
+    iso.disposed.should.be.true
     w.instance_variable_get("@watcher").should.be.nil
   end
   

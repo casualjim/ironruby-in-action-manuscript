@@ -1,0 +1,2 @@
+C:\dev\ironruby-in-action\Samples\BugTrackerStatemachine\BugTrackerStatemachine\obj\Debug\ResolveAssemblyReference.cache
+C:\dev\ironruby-in-action\Samples\BugTrackerStatemachine\BugTrackerStatemachine\bin\Debug\BugTrackerStatemachine.exe.config

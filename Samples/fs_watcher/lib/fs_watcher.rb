@@ -37,7 +37,7 @@ class String
   def to_watcher_guard
     re_str = self.gsub /(\/)/ => '\/',                # normalize \\ on windows to /
                        /\./ => '\.',                  # replace . with an escaped \.
-                       /\?/ => '.?',                  # replace ? with an optional charachter .?
+                       /\?/ => '.?',                  # replace ? with an optional caracter .?
                        /\*/ => ".*",                  # replace * with .* for wildcard matching
                        /\.\*\.\*\\\// => "(.*\\/)?"   # replace **/ with an optional wildcard mapping for folders (.*\/)?
     /#{re_str}/                       
@@ -140,7 +140,7 @@ module FsWatcher
     end
     
     def build
-      watcher = Watcher.new @path, @filters, @handlers, @subdirs
+      Watcher.new @path, @filters, @handlers, @subdirs
     end
 
     def method_missing(name, *args, &b)
@@ -159,7 +159,6 @@ module FsWatcher
       @watchers = WatcherBucket.new
       instance_eval(&b)
       @watchers.start_watching
-      require 'pp'; pp @watchers
       @watchers
     end
     
@@ -171,6 +170,7 @@ module FsWatcher
     include WatcherSyntax
 
     ACTIONS = %w(changed created deleted renamed error)
+    ACTION_MAP = { :changed => :change, :created => :create, :deleted => :delete, :renamed => :rename, :error => :error }
     
     def handle(action, args)
       @handled ||= {}
@@ -245,20 +245,20 @@ module FsWatcher
     end
     
     def args_path(action, args)
-      (action == :rename ? args.old_path : args.path)
+      (action == :rename ? args.old_full_path : args.full_path)
     end
     
     def init_watcher
-      watcher = self.class.watcher_class.new @path, ""
+      watcher = self.class.watcher_class.new @path
       watcher.include_subdirectories = @subdirs
-      watcher.notify_filter = NotifyFilters.last_write | NotifyFilters.file_name | NotifyFilters.directory_name
       setup_internal_handlers watcher
       @watcher = watcher
     end
     
     def setup_internal_handlers(watcher)
       ACTIONS.each do |action|
-        watcher.send("#{action}") { |_, args| trigger action, args } unless (@handlers[action.to_sym]||{}).empty?
+        nothing_registered = (@handlers[ACTION_MAP[action.to_sym]]||{}).empty?
+        watcher.send("#{action}") { |_, args| trigger ACTION_MAP[action.to_sym], args } unless nothing_registered
       end
     end
     

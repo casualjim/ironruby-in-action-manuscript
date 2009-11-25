@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RUBY_MODULE" version="4">
+  <component name="GemRequirementsHolder" version="2">
+    <requirement>
+      <requirement>
+        <dependency name="bacon" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="caricature" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="uuidtools" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source manual="true" />
+    </requirement>
+  </component>
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="[gem] bacon (v1.1.0, C:/ironruby/lib/IronRuby/gems/1.8/gems/bacon-1.1.0)" level="application" />
+    <orderEntry type="library" name="[gem] caricature (v0.7.2, C:/ironruby/lib/IronRuby/gems/1.8/gems/caricature-0.7.2)" level="application" />
+    <orderEntry type="library" name="[gem] uuidtools (v2.0.0, C:/ironruby/lib/IronRuby/gems/1.8/gems/uuidtools-2.0.0)" level="application" />
+  </component>
+</module>
+
