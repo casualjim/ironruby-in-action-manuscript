@@ -1,0 +1,25 @@
+﻿<html>
+<head>
+	<script src="http://visitmix.com/dlr/dlr.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div id="message"></div>
+<button id="gidday">Gidday IronRuby!</button>
+
+<script type="text/ruby">
+
+def foobar(s,e)
+  window.alert("Clicked")
+end
+
+#document.gidday.attach_event('onclick',System::EventHandler[System::Windows::Browser::HtmlEventArgs].new(method(:foobar)))
+#document.gidday.onclick.add method(:foobar)
+document.gidday.click do |sender, args|
+	foobar(sender, args)
+end
+
+</script>
+
+</body>
+</html>

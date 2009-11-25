@@ -2,7 +2,7 @@ require 'silverlight'
 require 'lib/gemtris'
 
 class App
-  
+    
   def initialize
     @root = Application.current.load_root_visual(UserControl.new, "app.xaml")
     
@@ -16,19 +16,19 @@ class App
       } 
     }
     # Create a new game of Gemtris
-    game = Gemtris::GameManager.new(@root.boardGrid, @root.nextShape, @root.completedLinesCount, options) 
+    @game = Gemtris::GameManager.new(@root.boardGrid, @root.nextShape, @root.completedLinesCount, options) 
     
-    # Redirect key presses to the game key_handler method
-    @root.key_down { |sender, args| game.handle_key_press args.key.to_s.downcase.to_sym }
-    
-    @root.start_button.click do |sender, e| 
-     game.start 
-     sender.visibility = Visibility.collapsed
-    end
-    
-    #CompositionTarget.rendering do |sender, e|
-    #  raise "#{sender}"
-    #end
+    # There are a couple ways to add events to the start button
+    # @root.start_button.click do |sender, e| 
+    #  @game.start 
+    #  sender.visibility = Visibility.collapsed
+    # end
+    @root.start_button.click.add method(:start_button_clicked)
+  end
+  
+  def start_button_clicked(sender, args)
+    sender.visibility = Visibility.collapsed
+    @game.start 
   end
 
 end

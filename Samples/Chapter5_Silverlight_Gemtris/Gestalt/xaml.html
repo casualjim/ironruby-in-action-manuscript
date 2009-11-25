@@ -1,0 +1,29 @@
+﻿<html>
+<head>
+	<script src="http://visitmix.com/dlr/dlr.js" type="text/javascript"></script>
+</head>
+<body>
+
+<script type="text/ruby" class="page">
+  # me is a global var bound to the UserControl
+  me.button1.click do |sender, e|
+    # Access DOM elements
+    document.msg.innerHTML = "IronRuby’s in my HTML, fiddling my bits"
+    # ... window functions
+    window.alert("IronRuby says Hi!")
+    # ... and the UserControl 
+    me.button1.content = "Changing XAML is easy"
+  end
+</script>
+
+<div id="msg">Click the button below&hellip;</div>
+
+<script id="page" type="application/xml+xaml" width="200" height="50">
+  <UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="200" Height="50">
+    <Button x:Name="button1" Background="Red" Content="Hi JavaScript!" />
+  </UserControl>
+</script>
+
+</body>
+</html>
+

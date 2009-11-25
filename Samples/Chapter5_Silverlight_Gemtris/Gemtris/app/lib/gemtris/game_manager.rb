@@ -40,6 +40,9 @@ class Gemtris::GameManager
     #   draw
     #   @game_loop.begin # loop
     # end
+    
+    # Listen to key presses on the root control
+    Application.current.root_visual.key_down { |sender, args| handle_key_press args.key.to_s.downcase.to_sym }
   end
   
   def start
@@ -87,20 +90,22 @@ class Gemtris::GameManager
   
   def update_next_shape
     @next_shape_key = Shape.random_key
-    
+
     next_shape = Shape.new(@next_shape_board, @next_shape_key)
     next_shape.y = 0
+  
+    # Keep tall shapes rotated to be horizontal
     if next_shape.height > next_shape.width
       next_shape.rotate
     end
-    
+
     next_shape_board.set_current_shape next_shape
     next_shape.glimmer
   end
-  
+
   def update
     return unless @state == :playing
-    
+  
     # If the shape won't move down then it's collided
     if not board.current_shape.move(:down)
       play_sound :gem_placed
@@ -110,26 +115,26 @@ class Gemtris::GameManager
         play_sound :game_over
         game_over and return
       end
-      
+    
       num_of_lines_removed = board.remove_completed_rows
       if num_of_lines_removed > 0
         play_sound :line_completed
         @completed_lines_count += num_of_lines_removed
-        
+      
         #speed the game up when using Storyboard Trigger
         #@game_loop.duration = @game_loop.duration.subtract System::TimeSpan.from_milliseconds(num_of_lines_removed * @speed_up) 
-        
+      
         #speed the game up when using DispatchTimer
         @timer.interval = @timer.interval.subtract System::TimeSpan.from_milliseconds(num_of_lines_removed * @speed_up) 
-        
+      
         @row_count_textblock.text = "Lines: #{@completed_lines_count}"
       end
-      
+    
       board.set_current_shape Shape.new(board, next_shape_key)
       update_next_shape
     end
   end
-  
+
   def draw
     board.draw
     next_shape_board.draw

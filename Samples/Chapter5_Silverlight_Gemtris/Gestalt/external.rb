@@ -1,0 +1,1 @@
+document.message.innerHTML = "External IronRuby works as you'd expect"
