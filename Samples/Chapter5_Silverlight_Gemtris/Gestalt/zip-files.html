@@ -1,0 +1,10 @@
+<script type="application/x-zip-compressed" src="myarchive.zip"></script>
+<script type="application/ruby">
+require 'archivelibrary'
+</script>
+
+
+<script type="application/x-zip-compressed" src="myarchive.zip"></script>
+<script type="application/ruby">
+foo = File.open("myarchive.zip/foo.txt"){ |f| f.read }
+</script>
