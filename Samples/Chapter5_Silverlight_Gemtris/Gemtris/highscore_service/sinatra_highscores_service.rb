@@ -11,14 +11,15 @@ class SinatraHighscoresService
   end
   
   post '/highscores' do
-    file = File.new('scores.xml', 'r+')
+    file = ::File.new('scores.xml', 'r')
     scores_xml = Document.new(file)
     scores = scores_xml.root
     new_entry = scores << Element.new("score")
-    new_entry['player'] = params[:name]
+    new_entry.attributes['player'] = params[:name]
     new_entry.text = params[:score]
     open('scores.xml', 'w'){ |f| scores_xml.write f }
-    scores_xml
+    content_type :xml
+    scores.to_s
   end
   
 end

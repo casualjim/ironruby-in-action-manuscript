@@ -6,7 +6,7 @@ class Args
     @pth = value
   end
   
-  def path
+  def full_path
     @pth
   end
 end

@@ -2,20 +2,20 @@
 
 # filesystem do
 #   watch("/path/to/watch", /_spec.rb$/ui) do
-#     on_change { |args| # do stuff here with args.path or args.name }
-#     on_change /integration\/.*_spec.rb/ { |args| # do stuff here with args.path or args.name } 
-#     on_rename { |args| # do stuff here with args.path, args.name, args.old_path or args.old_name }
+#     on_change { |args| # do stuff here with args.full_path or args.name }
+#     on_change /integration\/.*_spec.rb/ { |args| # do stuff here with args.full_path or args.name } 
+#     on_rename { |args| # do stuff here with args.full_path, args.name, args.old_path or args.old_name }
 #     on_rename "*.rb" { |args| # do stuff here with args.path, args.name, args.old_path or args.old_name } 
-#     on_delete { |args| # do stuff here with args.path or args.name } 
-#     on_create { |args| # do stuff here with args.path or args.name } 
-#     on_error  { |args| # do stuff here with args.path or args.name } 
+#     on_delete { |args| # do stuff here with args.full_path or args.name } 
+#     on_create { |args| # do stuff here with args.full_path or args.name } 
+#     on_error  { |args| # do stuff here with args.full_path or args.name } 
 #   end
 #   watch("/another/path/to/watch", /app\/.*\.rb$/ui) do
-#     on_change { |args| # do stuff here with args.path or args.name } 
-#     on_rename { |args| # do stuff here with args.path, args.name, args.old_path or args.old_name } 
-#     on_delete { |args| # do stuff here with args.path or args.name } 
-#     on_create { |args| # do stuff here with args.path or args.name } 
-#     on_error  { |args| # do stuff here with args.path or args.name } 
+#     on_change { |args| # do stuff here with args.full_path or args.name } 
+#     on_rename { |args| # do stuff here with args.full_path, args.name, args.old_full_path or args.old_name } 
+#     on_delete { |args| # do stuff here with args.full_path or args.name } 
+#     on_create { |args| # do stuff here with args.full_path or args.name } 
+#     on_error  { |args| # do stuff here with args.full_path or args.name } 
 #   end
 # end
 
@@ -117,6 +117,11 @@ module FsWatcher
       @items.each { |w| w.stop }
     end
     
+    def dispose
+      @items.each { |w| w.dispose }
+      @items=nil
+    end
+    
     def each(&b)
       @items.each &b
     end
@@ -169,7 +174,6 @@ module FsWatcher
     include System::IO
     include WatcherSyntax
 
-    ACTIONS = %w(changed created deleted renamed error)
     ACTION_MAP = { :changed => :change, :created => :create, :deleted => :delete, :renamed => :rename, :error => :error }
     
     def handle(action, args)
@@ -256,9 +260,9 @@ module FsWatcher
     end
     
     def setup_internal_handlers(watcher)
-      ACTIONS.each do |action|
-        nothing_registered = (@handlers[ACTION_MAP[action.to_sym]]||{}).empty?
-        watcher.send("#{action}") { |_, args| trigger ACTION_MAP[action.to_sym], args } unless nothing_registered
+      ACTION_MAP.each_pair do |event, action|
+        nothing_registered = (@handlers[action]||{}).empty?
+        watcher.send("#{event}") { |_, args| trigger action, args } unless nothing_registered
       end
     end
     
