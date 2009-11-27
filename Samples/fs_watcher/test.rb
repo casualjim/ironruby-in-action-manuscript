@@ -3,11 +3,15 @@ require 'lib/fs_watcher'
 filesystem do
   
   watch(File.expand_path(File.join(File.dirname(__FILE__), "tmp"))) do
-    on_change { |args| puts "changed #{args.path}" }
-    on_create { |args| puts "changed #{args.path}" }
+    on_change { |args| puts "changed #{args.full_path}" }
+    on_create { |args| puts "created #{args.full_path}" }
   end
 end
 
 while cmd = gets
-  exit(0) if cmd.downcase == "exit"
+  if cmd.downcase.chomp == "exit"
+    exit 0
+  else
+    puts "==> #{eval cmd}"
+  end
 end

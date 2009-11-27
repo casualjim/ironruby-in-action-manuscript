@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BugTracker_40", "BugTracker_40\BugTracker_40.csproj", "{727C0684-1E24-4F94-BE91-928A7402BAC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{727C0684-1E24-4F94-BE91-928A7402BAC5}.Debug|x86.ActiveCfg = Debug|x86
+		{727C0684-1E24-4F94-BE91-928A7402BAC5}.Debug|x86.Build.0 = Debug|x86
+		{727C0684-1E24-4F94-BE91-928A7402BAC5}.Release|x86.ActiveCfg = Release|x86
+		{727C0684-1E24-4F94-BE91-928A7402BAC5}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
