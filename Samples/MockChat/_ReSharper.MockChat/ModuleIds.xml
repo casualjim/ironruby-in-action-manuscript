@@ -1,0 +1,4 @@
+<Modules>
+  <Module PersistentId="21F09BB6-49AD-4928-A562-25946862A1B5" ModuleId="MockChat.Models" />
+  <Module PersistentId="C8F08670-E88F-47EF-B7AC-6735AC6AE7CB" ModuleId="MockChat" />
+</Modules>

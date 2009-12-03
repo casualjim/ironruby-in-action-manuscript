@@ -1,0 +1,13 @@
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\bin\PollChat.dll
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\bin\PollChat.pdb
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\bin\IronRuby.dll
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\bin\IronRuby.Libraries.dll
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\bin\IronRuby.Libraries.Yaml.dll
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\bin\System.Web.Mvc.IronRuby.dll
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\bin\Microsoft.Scripting.ExtensionAttribute.dll
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\bin\Microsoft.Dynamic.dll
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\bin\Microsoft.Scripting.Core.dll
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\bin\Microsoft.Scripting.dll
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\obj\Debug\ResolveAssemblyReference.cache
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\obj\Debug\PollChat.dll
+c:\dev\ironruby-in-action\Samples\PollChat\PollChat\obj\Debug\PollChat.pdb

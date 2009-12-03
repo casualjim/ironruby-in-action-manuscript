@@ -1,4 +1,5 @@
 require 'mock_chat_repository'
+
 class ChatService
 
   attr_reader :repo

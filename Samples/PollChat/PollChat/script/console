@@ -1,0 +1,9 @@
+#!/usr/bin/env ir
+# File: script/console
+irb = ENV['OS'] =~ /^Windows/iu ? 'CALL iirb.bat' : 'iirb'
+
+libs =  " -r irb/completion"
+# Perhaps use a console_lib to store any extra methods I may want available in the console
+libs <<  " -r #{File.dirname(__FILE__) + '/../mvc_application'}"
+puts "Loading Poll chat"
+exec "#{irb} #{libs} --simple-prompt "

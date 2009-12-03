@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mindscape.LightSpeed.Linq</name>
+    </assembly>
+    <members>
+        <member name="T:Mindscape.LightSpeed.Linq.LightSpeedQueryOperators">
+            <summary>
+            Contains LightSpeed-specific query operators.
+            </summary>
+        </member>
+        <member name="M:Mindscape.LightSpeed.Linq.LightSpeedQueryOperators.WithAggregate``1(System.Linq.IQueryable{``0},System.String)">
+            <summary>
+            Associates a named aggregate with a query.
+            </summary>
+            <typeparam name="T">The type of the elements of <paramref name="source"/>.</typeparam>
+            <param name="source">An <see cref="T:System.Linq.IQueryable`1"/> with which to
+            associate the aggregate.</param>
+            <param name="aggregateName">The aggregate name.</param>
+            <returns>An <see cref="T:System.Linq.IQueryable`1"/> which will perform the
+            same query, but with the named aggregate.</returns>
+        </member>
+        <member name="M:Mindscape.LightSpeed.Linq.LightSpeedQueryOperators.IncludeDeleted``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Specifies that soft-deleted entities should be included in a query.
+            </summary>
+            <typeparam name="T">The type of the elements of <paramref name="source"/>.</typeparam>
+            <param name="source">An <see cref="T:System.Linq.IQueryable`1"/> in which to
+            include deleted items.</param>
+            <returns>An <see cref="T:System.Linq.IQueryable`1"/> which will perform the
+            same query, but with soft-deleted entities included.</returns>
+        </member>
+        <member name="T:Mindscape.LightSpeed.Linq.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.CannotUseUninitialisedMembers">
+            <summary>
+              Looks up a localized string similar to The member {0}.{1} has no supported translation in LightSpeed..
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.FunctionBeingAppliedToNonFunctionWrappableExpressions">
+            <summary>
+              Looks up a localized string similar to Cannot apply a function to the expressions {0} and {1}.
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.NestedSelectsNotSupported">
+            <summary>
+              Looks up a localized string similar to Nested selects not supported.
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.OperationSupportsOnlyLiterals">
+            <summary>
+              Looks up a localized string similar to Only arguments that can be evaluated on the client are supported for the &apos;{0}&apos; method..
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.SequenceContainsMoreThanOneElement">
+            <summary>
+              Looks up a localized string similar to The sequence contains more than one element.
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.SequenceContainsNoElements">
+            <summary>
+              Looks up a localized string similar to The sequence contains no elements.
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.SubexpressionsNotPermittedInSelectMany">
+            <summary>
+              Looks up a localized string similar to Subexpressions are not permitted in a SelectMany.
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.UnableToUseSpecifiedDefaultValue">
+            <summary>
+              Looks up a localized string similar to Unable to use specified default value.
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.UnexpectedExpressionInSubexpression">
+            <summary>
+              Looks up a localized string similar to Unexpected expression type while resolving subexpression..
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.UnsupportedBinaryOperator">
+            <summary>
+              Looks up a localized string similar to The binary operator &apos;{0}&apos; is not supported.
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.UnsupportedMethod">
+            <summary>
+              Looks up a localized string similar to The method &apos;{0}&apos; is not supported..
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.UnsupportedMethodOverload">
+            <summary>
+              Looks up a localized string similar to This overload of method &apos;{0}&apos; has no supported translation in LightSpeed..
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.UnsupportedProjectionInAggregationOperator">
+            <summary>
+              Looks up a localized string similar to Unsupported projection in aggregation operator &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Mindscape.LightSpeed.Linq.Properties.Resources.UnsupportedSqoOverload">
+            <summary>
+              Looks up a localized string similar to Unsupported overload used for query operator &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="T:Mindscape.LightSpeed.Linq.UnitOfWorkExtensions">
+            <summary>
+            Provides extension methods for defining LINQ queries on an <see cref="T:Mindscape.LightSpeed.IUnitOfWork"/>.
+            </summary>
+        </member>
+        <member name="M:Mindscape.LightSpeed.Linq.UnitOfWorkExtensions.Query``1(Mindscape.LightSpeed.IUnitOfWork)">
+            <summary>
+            Returns a query against the unit of work.
+            </summary>
+            <typeparam name="TEntity">The type of objects to query.</typeparam>
+            <param name="unitOfWork">The unit of work.</param>
+            <returns>A query which may be enumerated to obtain the results.</returns>
+        </member>
+        <member name="M:Mindscape.LightSpeed.Linq.UnitOfWorkExtensions.Query``1(Mindscape.LightSpeed.IUnitOfWork,System.String)">
+            <summary>
+            Returns a query against the unit of work.
+            </summary>
+            <typeparam name="TEntity">The type of objects to query.</typeparam>
+            <param name="unitOfWork">The unit of work.</param>
+            <param name="viewName">The view to query.</param>
+            <returns>A query which may be enumerated to obtain the results.</returns>
+        </member>
+    </members>
+</doc>

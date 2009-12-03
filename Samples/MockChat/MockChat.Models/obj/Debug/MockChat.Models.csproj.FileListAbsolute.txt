@@ -1,0 +1,10 @@
+C:\dev\ironruby-in-action\Samples\MockChat\MockChat.Models\bin\Debug\MockChat.Models.dll
+C:\dev\ironruby-in-action\Samples\MockChat\MockChat.Models\bin\Debug\MockChat.Models.pdb
+C:\dev\ironruby-in-action\Samples\MockChat\MockChat.Models\bin\Debug\Mindscape.LightSpeed.dll
+C:\dev\ironruby-in-action\Samples\MockChat\MockChat.Models\bin\Debug\Mindscape.LightSpeed.Linq.dll
+C:\dev\ironruby-in-action\Samples\MockChat\MockChat.Models\bin\Debug\System.Data.SQLite.DLL
+C:\dev\ironruby-in-action\Samples\MockChat\MockChat.Models\bin\Debug\Mindscape.LightSpeed.xml
+C:\dev\ironruby-in-action\Samples\MockChat\MockChat.Models\bin\Debug\Mindscape.LightSpeed.Linq.xml
+C:\dev\ironruby-in-action\Samples\MockChat\MockChat.Models\obj\Debug\ResolveAssemblyReference.cache
+C:\dev\ironruby-in-action\Samples\MockChat\MockChat.Models\obj\Debug\MockChat.Models.dll
+C:\dev\ironruby-in-action\Samples\MockChat\MockChat.Models\obj\Debug\MockChat.Models.pdb

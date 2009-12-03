@@ -1,0 +1,12 @@
+require 'rubygems'
+require 'spec/rake/spectask'
+
+def ispec
+  prf = ENV['OS'] =~ /^windows/iu ? "call " : ""
+  "#{prf}ispec"
+end
+
+desc "Run all specs"
+task :spec do
+  system "call ispec spec/**/*_spec.rb -O spec/spec.opts"
+end

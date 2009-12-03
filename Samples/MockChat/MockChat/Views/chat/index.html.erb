@@ -5,15 +5,15 @@
   <p class="links">&nbsp; </p>
 </div>
 <div class="post">
+  <% html.begin_form("add_message", "chat", FormMethod.post, { :class => "ajax-form" }) %>
   <div class="entry">
-    <% html.begin_form("add_message", "chat", FormMethod.post, { :class => "ajax-form" }) %>
         <label for="message">Message:</label><br/>
         <textarea name="message" id="message" rows="4" ></textarea><br/>
-    <% html.end_form %>
   </div>
   <p class="right-aligned">
     <button type="submit">Send</button>
   </p>
+  <% html.end_form %>
 <hr />
   <div id='chat-list' class="entry">
     <% html.render_partial 'chat_list' %>
