@@ -19,10 +19,10 @@ class App
     @game = Gemtris::GameManager.new(@root.boardGrid, @root.nextShape, @root.completedLinesCount, options) 
     
     # There are a couple ways to add events to the start button
-    # @root.start_button.click do |sender, e| 
-    #  @game.start 
-    #  sender.visibility = Visibility.collapsed
-    # end
+    @root.start_button.click do |sender, e| 
+     @game.start 
+     sender.visibility = Visibility.collapsed
+    end
     @root.start_button.click.add method(:start_button_clicked)
   end
   

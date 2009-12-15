@@ -5,6 +5,12 @@ include REXML # so we don't have to prefix everything
 
 class SinatraHighscoresService
   
+  get '/clientaccesspolicy.xml' do
+    contents = ''
+    ::File.open('clientaccesspolicy.xml', 'r').each { |line| contents += line }
+    contents
+  end
+  
   get '/highscores' do
     scores_xml = (Document.new File.new 'scores.xml').root
     scores_xml.to_s
@@ -15,7 +21,7 @@ class SinatraHighscoresService
     scores_xml = Document.new(file)
     scores = scores_xml.root
     new_entry = scores << Element.new("score")
-    new_entry.attributes['player'] = params[:name]
+    new_entry.attributes['name'] = params[:name]
     new_entry.text = params[:score]
     open('scores.xml', 'w'){ |f| scores_xml.write f }
     content_type :xml
