@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="MockChat.MvcApplication" Language="C#" %>
+﻿<%@ Application Inherits="System.Web.Mvc.IronRuby.Core.RubyMvcApplication" Language="C#" %>

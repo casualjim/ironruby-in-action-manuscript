@@ -18,7 +18,7 @@ class UsersController < AuthenticatedControllerBase
   end
 
   def edit
-	@params_id = params[:id]
+	  @params_id = params[:id]
     @user = user_service.get_one params[:id].to_i
     view 'edit', 'layout'
   end

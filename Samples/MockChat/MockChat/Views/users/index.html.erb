@@ -21,6 +21,8 @@
               <th>Username</th>
               <th>&nbsp;</th>
             </tr>
+            </thead>
+            </tbody>
             <% view_data.users.each do |user| %>
                 <tr>
                   <td><%= html.action_link(user.name, { :action => :edit, :id => user.id}) %></td>
@@ -28,7 +30,7 @@
                   <td><%= html.action_link("destroy", { :action => :destroy, :id => user.id}) %></td>
                 </tr>
             <% end %>
-            </thead>
+            </tbody>
           </table>
       <% end %>
     </div>
