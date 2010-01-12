@@ -1,0 +1,18 @@
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\obj\Debug\ResolveAssemblyReference.cache
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\bin\Debug\Chapter12.dll
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\bin\Debug\Chapter12.pdb
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\bin\Debug\IronRuby.dll
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\bin\Debug\IronRuby.Libraries.dll
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\bin\Debug\IronRuby.Libraries.YAML.dll
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\bin\Debug\Microsoft.Dynamic.dll
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\bin\Debug\Microsoft.Scripting.Core.dll
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\bin\Debug\Microsoft.Scripting.Debugging.dll
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\bin\Debug\Microsoft.Scripting.dll
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\bin\Debug\Microsoft.Scripting.ExtensionAttribute.dll
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\obj\Debug\Chapter12.dll
+c:\users\brenda\documents\visual studio 2010\Projects\Chapter12\Chapter12\obj\Debug\Chapter12.pdb
+C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\Chapter12.dll
+C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\Chapter12.pdb
+C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\Chapter12.dll
+C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\Chapter12.pdb
