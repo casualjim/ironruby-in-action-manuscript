@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using IronRuby.Builtins;
 using IronRuby.Runtime;
 
 namespace Chapter12
@@ -9,63 +6,70 @@ namespace Chapter12
     [RubyModule]
     public static class TheLandOfChocolate
     {
-        [RubySingleton]
-        public class OompaLoompa
+        #region Nested type: Chocolate
+
+        [RubyClass("Chocolate", Inherits = typeof (object))]
+        public class Chocolate : RubyObject
         {
-            [RubyMethod("make_chocolate", RubyMethodAttributes.Singleton)]
-            public static Chocolate MakeChocolate(string colour = "milk", string flavour = "plain")
+            [RubyConstant] public const string DEFAULT_CHOCOLATE_COLOUR = "milk";
+
+            public Chocolate(RubyClass cls) : base(cls)
             {
-                return new Chocolate();
+                Colour = DEFAULT_CHOCOLATE_COLOUR;
             }
 
-            private Chocolate MakePepermintChocolate(string colour = "milk")
+            public string Colour { get; set; }
+
+            [RubyConstructor]
+            public static Chocolate /*!*/ Create(RubyClass /*!*/ self)
             {
-                return new Chocolate();
-            }
-        }
-
-        [RubyClass("Chocolate")]
-        public class Chocolate
-        {
-            [RubyConstant]
-            private const string DEFAULT_CHOCOLATE_COLOUR = "milk";
-
-            private string colour = DEFAULT_CHOCOLATE_COLOUR;
-
-            public string Colour
-            {
-                get;
-                set;
+                return new Chocolate(self);
             }
 
-			public Chocolate() 
-			{
-				
-			}
-			
             [RubyMethod("white?")]
-            public bool IsWhite()
+            public static bool IsWhite(Chocolate self)
             {
-                return this.Colour == "white";
+                return self.Colour == "white";
             }
 
             [RubyMethod("milk?")]
-            public bool IsMilk()
+            public static bool IsMilk(Chocolate self)
             {
-                return this.Colour == "milk";
+                return self.Colour == "milk";
             }
 
             [RubyMethod("dark?")]
-            public bool IsDark()
+            public static bool IsDark(Chocolate self)
             {
-                return this.Colour == "dark";
+                return self.Colour == "dark";
             }
 
             [RubyMethod("eat!")]
-            public void Eat()
+            public static void Eat(Chocolate self)
             {
-
             }
         }
+
+        #endregion
+
+        #region Nested type: OompaLoompa
+
+        [RubySingleton]
+        public class OompaLoompa
+        {
+            [RubyMethod("make_chocolate")]
+            public static Chocolate MakeChocolate(RubyClass self, string colour = "milk", string flavour = "plain")
+            {
+                return new Chocolate(self);
+            }
+
+            [RubyMethod("make_peppermint_chocolate")]
+            public static Chocolate MakePepermintChocolate(RubyClass self, string colour = "milk")
+            {
+                return new Chocolate(self);
+            }
+        }
+
+        #endregion
     }
 }

@@ -32,40 +32,47 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IronRuby">
-      <HintPath>..\..\..\..\..\..\..\Program Files\IronRuby 0.9.3.0\bin\IronRuby.dll</HintPath>
+    <Reference Include="IronRuby, Version=0.9.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ironruby\bin\IronRuby.dll</HintPath>
     </Reference>
-    <Reference Include="IronRuby.Libraries">
-      <HintPath>..\..\..\..\..\..\..\Program Files\IronRuby 0.9.3.0\bin\IronRuby.Libraries.dll</HintPath>
+    <Reference Include="IronRuby.Libraries, Version=0.9.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ironruby\bin\IronRuby.Libraries.dll</HintPath>
     </Reference>
-    <Reference Include="IronRuby.Libraries.YAML">
-      <HintPath>..\..\..\..\..\..\..\Program Files\IronRuby 0.9.3.0\bin\IronRuby.Libraries.YAML.dll</HintPath>
+    <Reference Include="IronRuby.Libraries.Yaml, Version=0.9.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ironruby\bin\IronRuby.Libraries.Yaml.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Dynamic">
-      <HintPath>..\..\..\..\..\..\..\Program Files\IronRuby 0.9.3.0\bin\Microsoft.Dynamic.dll</HintPath>
+    <Reference Include="Microsoft.Dynamic, Version=0.9.6.20, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ironruby\bin\Microsoft.Dynamic.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Scripting">
-      <HintPath>..\..\..\..\..\..\..\Program Files\IronRuby 0.9.3.0\bin\Microsoft.Scripting.dll</HintPath>
+    <Reference Include="Microsoft.Scripting, Version=0.9.6.20, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ironruby\bin\Microsoft.Scripting.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Scripting.Core">
-      <HintPath>..\..\..\..\..\..\..\Program Files\IronRuby 0.9.3.0\bin\Microsoft.Scripting.Core.dll</HintPath>
+    <Reference Include="Microsoft.Scripting.Core, Version=0.9.6.20, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ironruby\bin\Microsoft.Scripting.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Scripting.Debugging">
-      <HintPath>..\..\..\..\..\..\..\Program Files\IronRuby 0.9.3.0\bin\Microsoft.Scripting.Debugging.dll</HintPath>
+    <Reference Include="Microsoft.Scripting.Debugging, Version=0.9.6.20, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ironruby\bin\Microsoft.Scripting.Debugging.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Scripting.ExtensionAttribute">
-      <HintPath>..\..\..\..\..\..\..\Program Files\IronRuby 0.9.3.0\bin\Microsoft.Scripting.ExtensionAttribute.dll</HintPath>
+    <Reference Include="Microsoft.Scripting.ExtensionAttribute, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\ironruby\bin\Microsoft.Scripting.ExtensionAttribute.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Intializer.generated.cs" />
+    <Compile Include="Initializer.generated.cs" />
     <Compile Include="TheLandOfChocolate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
