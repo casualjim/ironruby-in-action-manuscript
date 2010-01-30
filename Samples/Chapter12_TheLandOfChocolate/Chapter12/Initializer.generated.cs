@@ -17,7 +17,6 @@
 #pragma warning disable 169 // mcs: unused private method
 
 [assembly: IronRuby.Runtime.RubyLibraryAttribute(typeof(Chapter12.Chapter12LibraryInitializer))]
-
 namespace Chapter12 {
     using System;
     using Microsoft.Scripting.Utils;
