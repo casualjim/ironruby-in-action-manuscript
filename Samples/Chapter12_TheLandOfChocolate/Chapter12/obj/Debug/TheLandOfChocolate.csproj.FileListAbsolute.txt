@@ -1,0 +1,5 @@
+C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\Chapter12.dll
+C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\Chapter12.pdb
+C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\Chapter12.dll
+C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\Chapter12.pdb

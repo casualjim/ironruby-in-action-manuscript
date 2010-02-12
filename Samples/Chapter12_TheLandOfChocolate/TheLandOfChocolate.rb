@@ -1,6 +1,13 @@
 require "Chapter12/bin/Debug/Chapter12.dll"
+puts Chapter12.constants.join(", ")
 
-choc = Chapter12::TheLandOfChocolate::OompaLoompa.make_chocolate :milk, :peppermint
+load_assembly "Chapter12"
 
-p choc.methods.sort.join(", ")
-choc.eat!
+puts Chapter12.constants
+
+puts Chapter12::TheLandOfChocolate::Chocolate.new.methods
+
+#choc = Chapter12::TheLandOfChocolate::OompaLoompa.make_chocolate :milk, :peppermint
+
+#p choc.methods.sort.join(", ")
+#choc.eat!

@@ -16,3 +16,16 @@ C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_
 C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\Chapter12.dll
 C:\Users\Brenda\Documents\My Dropbox\Books\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\Chapter12.pdb
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\Chapter12.dll
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\Chapter12.pdb
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\IronRuby.dll
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\IronRuby.Libraries.dll
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\IronRuby.Libraries.Yaml.dll
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\Microsoft.Dynamic.dll
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\Microsoft.Scripting.Core.dll
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\Microsoft.Scripting.Debugging.dll
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\Microsoft.Scripting.dll
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\bin\Debug\Microsoft.Scripting.ExtensionAttribute.dll
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\ResolveAssemblyReference.cache
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\Chapter12.dll
+C:\dev\ironruby-in-action\Samples\Chapter12_TheLandOfChocolate\Chapter12\obj\Debug\Chapter12.pdb
